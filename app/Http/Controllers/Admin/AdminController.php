@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\{Hash,DB,Auth};
-use App\Models\{Users};
+use App\Models\{Buyer,Seller};
 
 class AdminController extends Controller
 {
@@ -81,9 +81,10 @@ class AdminController extends Controller
 
     public function dashboard() {
 
-        $users = Users::orderBy('id','desc')->get()->count();
+        $buyers = Buyer::orderBy('id','desc')->get()->count();
+        $sellers = Seller::orderBy('id','desc')->get()->count();
 
-        return view('admin.dashboard',compact('users'));
+        return view('admin.dashboard',compact('buyers','sellers'));
     }
 
     public function dashboardDatewise() {
@@ -91,10 +92,12 @@ class AdminController extends Controller
         $from_date = $_GET['from_date'];
         $to_date = $_GET['to_date'];
 
-        // Get Total Count of Users
-        $users = Users::whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
+        // Get Total Count of Buyers & Sellers
+        $buyers = Buyer::whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
+        $sellers = Seller::whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
 
-        $data['users'] = $users;
+        $data['buyers'] = $buyers;
+        $data['sellers'] = $sellers;
 
         return json_encode($data);
     }

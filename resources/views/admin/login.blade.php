@@ -8,7 +8,7 @@
         <meta name="keywords" content="">
         <meta name="author" content="ThemeSelect">
 
-        <title>Dynasty - Admin Login</title>
+        <title>Self Storage - Admin Login</title>
 
         <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/logo_icon.png'}}"/>
         <link rel="apple-touch-icon" href="{{asset('app-assets/images/favicon/appstore.png')}}">

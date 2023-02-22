@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Auth::routes(['login' => false]);
 
-Route::group(['middleware' => 'preventbackhistory'], function () {
+Route::group(['middleware' => 'PreventBackHistory'], function () {
 
     Route::group(['prefix'=>'admin','namespace'=>'Auth'], function () {
 

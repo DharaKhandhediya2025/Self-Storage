@@ -26,12 +26,21 @@ class isAuthenticate
                 return $next($request);
             }
         }
-        else if($role == 'driver') {
+        else if($role == 'buyer') {
             
-            if (auth()->guard('api-driver')->user() == '') {
-                return response()->json(['message' => 'unauthenticated']);
+            if (auth()->guard('buyer')->user() == '') {
+                return redirect('/login');
             }
-            else {
+            else{
+                return $next($request);
+            }
+        }
+        else if($role == 'seller') {
+            
+            if (auth()->guard('seller')->user() == '') {
+                return redirect('/seller/login');
+            }
+            else{
                 return $next($request);
             }
         }

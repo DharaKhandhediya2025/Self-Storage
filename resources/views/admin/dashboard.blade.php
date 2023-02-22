@@ -5,15 +5,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-        <meta name="description" content="Dynasty">
-        <meta name="keywords" content="Dynasty">
+        <meta name="description" content="Self Storage">
+        <meta name="keywords" content="Self Storage">
         <meta name="author" content="ThemeSelect">
 
         <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/logo_icon.png'}}"/>
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-        <title>Dynasty</title>
+        <title>Self Storage</title>
         
         <!-- BEGIN: VENDOR CSS-->
         <link rel="stylesheet" type="text/css" href="{{ asset('public/app-assets/vendors/vendors.min.css') }}">
@@ -99,8 +99,8 @@
             <div class="brand-sidebar">
                 <h1 class="logo-wrapper">
                     <a class="brand-logo darken-1 sidebar_logo" href="{{ url('/admin/dashboard') }}">
-                        <img class="hide-on-med-and-down " src="{{ config('global.front_base_url').'images/logo.png'}}" alt="Dynasty" />
-                        <img class="show-on-medium-and-down hide-on-med-and-up" src="{{ config('global.front_base_url').'images/logo.png'}}" alt="Dynasty" />
+                        <img class="hide-on-med-and-down " src="{{ config('global.front_base_url').'images/logo.png'}}" alt="Self Storage" />
+                        <img class="show-on-medium-and-down hide-on-med-and-up" src="{{ config('global.front_base_url').'images/logo.png'}}" alt="Self Storage" />
                     </a>
                 </h1>
             </div>
@@ -206,16 +206,32 @@
                                             </b></h6>
                                             <input type="hidden" name="date_range" id="date_range">
                                         </div>
-                                        <a href="#" onClick="getData('/admin/users')" title="Users">
+                                        <a href="#" onClick="getData('/admin/buyers')" title="Buyers">
                                             <div class="col s12 m6 l6 xl3">
                                                 <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text animate fadeLeft">
                                                     <div class="padding-4">
                                                         <div class="row">
                                                             <div class="col s7 m7">
-                                                                <i class="material-icons background-round mt-5">person</i><p>Users</p>
+                                                                <i class="material-icons background-round mt-5">person</i><p>Buyers</p>
                                                             </div>
                                                             <div class="col s5 m5 right-align">
-                                                                <h5 class="mb-0 white-text"><span id="sellers_count">{{ $users }}</span></h5>
+                                                                <h5 class="mb-0 white-text"><span id="buyers_count">{{ $buyers }}</span></h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" onClick="getData('/admin/sellers')" title="Sellers">
+                                            <div class="col s12 m6 l6 xl3">
+                                                <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text animate fadeLeft">
+                                                    <div class="padding-4">
+                                                        <div class="row">
+                                                            <div class="col s7 m7">
+                                                                <i class="material-icons background-round mt-5">person</i><p>Sellers</p>
+                                                            </div>
+                                                            <div class="col s5 m5 right-align">
+                                                                <h5 class="mb-0 white-text"><span id="sellers_count">{{ $sellers }}</span></h5>
                                                             </div>
                                                         </div>
                                                     </div>
