@@ -8,7 +8,7 @@
         <meta name="keywords" content="">
         <meta name="author" content="ThemeSelect">
 
-        <title>Self Storage - Admin Login</title>
+        <title>RBS - Forgot Password</title>
 
         <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/logo_icon.png'}}"/>
         <link rel="apple-touch-icon" href="{{asset('app-assets/images/favicon/appstore.png')}}">
@@ -53,51 +53,23 @@
                                 </div>
                             @endif
 
-                            <form class="login-form" action="{{url('admin/login')}}" method="POST">@csrf
+                            <form class="login-form" action="{{url('admin/send-otp')}}" method="POST"  onsubmit="disabledButton();">@csrf
                                 <div class="row">
-                                    <h5 class="ml-4">Admin Login</h5>
+                                    <h5 class="ml-4">Recover Password</h5>
                                 </div>
 
                                 <div class="row margin">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix pt-2">mail_outline</i>
-                                        <input id="email" type="email" name="email" class="@error('email') is-invalid @enderror" required="" placeholder="Email">
-                                        <label for="email">Email</label>
-
-                                        @error('email')
-                                        <span class="invalid-feedback" role='alert' style="color: red;">
-                                            <strong>{{$message}}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row margin">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix pt-2">lock_outline</i>
-                                        <input class="@error('password') is-invalid @enderror" id="password" name="password" type="password" required="" placeholder="Password">
-                                        <i class="material-icons visibility" id="visibility_password" style="position: absolute;margin-top: 10px;right: 20px;color: #123763;cursor: pointer;">visibility</i>
-
-                                        <i class="material-icons visibility_off" id="visibility_off_password" style="position: absolute;margin-top: 10px;right: 20px;color: #123763;cursor: pointer;display: none;">visibility_off</i>
-                                        <label for="password">Password</label>
-
-                                        @error('password')
-                                        <span class="invalid-feedback" role='alert' style="color: red;">
-                                            <strong>{{$message}}</strong>
-                                        </span>
-                                        @enderror
+                                        <input id="email" type="email" name="email" required="">
+                                        <label for="email" class="center-align">Email</label>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                       <button type="submit" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Login
-                                       </button>
+                                       <button type="submit" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12" id="submitbtn">Reset</button>
                                     </div>
-                                </div>
-
-                                <div class="input-field col s12">
-                                    <p class="margin right-align"><a href="{{ url('admin/forgot-password') }}">Forgot password ?</a></p>
                                 </div>
                             </form>
                         </div>
@@ -117,40 +89,10 @@
         <script src="{{ asset('public/app-assets/js/custom/custom-script.js')}}"></script>
         <!-- END THEME  JS-->
 
-         <script type="text/javascript">
-            
-            jQuery(document).ready(function() {
-
-                // For Show Password
-                const visibility_password = document.querySelector('#visibility_password');
-                const password = document.querySelector('#password');
-
-                visibility_password.addEventListener('click', function (e) {
-
-                    // toggle the type attribute
-                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    password.setAttribute('type', type);
-
-                    // toggle the eye slash icon
-                    $(".visibility").hide();
-                    $(".visibility_off").show();
-                });
-
-                // For Hide Password
-                const visibility_off_password = document.querySelector('#visibility_off_password');
-                const hide_password = document.querySelector('#password');
-
-                visibility_off_password.addEventListener('click', function (e) {
-
-                    // toggle the type attribute
-                    const type = hide_password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    hide_password.setAttribute('type', type);
-
-                    // toggle the eye slash icon
-                    $(".visibility_off").hide();
-                    $(".visibility").show();
-                });
-            });
+        <script type="text/javascript">
+            function disabledButton() {
+                document.getElementById("submitbtn").disabled = true;
+            }
         </script>
     </body>
 </html>

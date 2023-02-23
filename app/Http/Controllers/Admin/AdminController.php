@@ -6,78 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\{Hash,DB,Auth};
-use App\Models\{Buyer,Seller};
+use App\Models\{Buyer,Seller,Admin};
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     protected $guard = 'admin';
     use AuthenticatesUsers;
-
-    protected $redirectTo = '/admin/dashboard';
-
-    public function __construct() {
-        // $this->middleware('guest:web')->except('logout');
-    }
-
-    public function showLoginForm() {
-
-        if (auth()->guard('admin')->user() != '') {
-            return redirect('/admin/dashboard');
-        }
-        return view('admin.login');
-    }
-
-    public function login(Request $request) {
-
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if (auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-
-            $user = auth()->guard('admin')->user();
-            $request->session()->flash('message', 'Login Successfully');
-            $request->session()->flash('class', 'green');
-            return redirect('/admin/dashboard');
-        }
-        
-        $request->session()->flash('fail', 'Email or password are wrong.');
-        $request->session()->flash('class', 'red');
-        return back();
-    }
-
-    public function checkEmail(Request $req) {
-
-        $check_data = DB::table('admins')->where('email',$req->email)->first();
-
-        if(isset($check_data)) {
-            return redirect('reset-password');
-        }
-        else {
-            $req->session()->flash('message', 'Email ID is wrong');
-            $req->session()->flash('class', 'red');
-            return redirect('forgot-password');
-        }
-    }
-
-    public function resetPassword(Request $req) {
-
-        $update_data = DB::table('admins')->update(array('password'=>Hash::make($req->password)));
-
-        if($update_data) {
-            return redirect('admin/login');
-        }
-        else {
-            return redirect('forgot-password');
-        }
-    }
-
-    public function logout(Request $request) {
-
-        auth()->guard('admin')->logout();
-        return redirect('admin/login');
-    }
 
     public function dashboard() {
 
@@ -134,7 +69,8 @@ class AdminController extends Controller
                 
                 session()->flash('type','message');
                 session()->flash('message', 'Password Reset Successfully.');
-                return redirect()->route('admin.changepassword');
+                auth()->guard('admin')->logout();
+                return redirect('admin/login');
             }
             else {
 
