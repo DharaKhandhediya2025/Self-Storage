@@ -45,10 +45,10 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
     Route::group(['prefix'=>'admin','namespace'=>'Auth'], function () {
 
-        Route::get('/', [AdminController::class,'showLoginForm']);
-        Route::get('login', [AdminController::class,'showLoginForm']);
-        Route::post('login', [AdminController::class,'login']);
-        Route::get('logout', [AdminController::class,'logout'])->middleware('isAuthenticate:admin');
+        Route::get('/', [AdminLoginController::class,'showLoginForm']);
+        Route::get('login', [AdminLoginController::class,'showLoginForm']);
+        Route::post('login', [AdminLoginController::class,'login']);
+        Route::get('logout', [AdminLoginController::class,'logout'])->middleware('isAuthenticate:admin');
 
         Route::get('/forgot-password', function () {
             return view('admin.forgotPassword');
