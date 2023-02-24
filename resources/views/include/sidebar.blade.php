@@ -56,8 +56,8 @@
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/storage') ? 'active' : '' }}" href="{{ url('/admin/storages') }}" title="Storage List">
-                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Storage List">Storage List</span>
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/storage') ? 'active' : '' }}" href="{{ url('/admin/storages') }}" title="Storage">
+                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Storage">Storage</span>
             </a>
         </li>
 
@@ -71,6 +71,12 @@
             <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/buyers') ? 'active' : '' }}" href="{{ url('/admin/buyers') }}" title="Buyers">
                 <i class="material-icons">person</i><span class="menu-title" data-i18n="Buyers">Buyers
                 </span>
+            </a>
+        </li>
+
+        <li class="bold">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'inquiry') ? 'active' : '' }}" href="{{ url('/admin/inquiry') }}" title="Inquiry">
+                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Inquiry">Inquiry</span>
             </a>
         </li>
 

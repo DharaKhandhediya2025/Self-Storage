@@ -31,16 +31,16 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="#" onClick="getData('/admin/storages')" title="Properties">
+                            <a href="#" onClick="getData('/admin/storages')" title="Storage">
                                 <div class="col s12 m6 l6 xl3">
-                                    <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text animate fadeLeft">
+                                    <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text animate fadeLeft">
                                         <div class="padding-4">
                                             <div class="row">
                                                 <div class="col s7 m7">
-                                                    <i class="material-icons background-round mt-5">list</i><p>Storages</p>
+                                                    <i class="material-icons background-round mt-5">list</i><p>Storage</p>
                                                 </div>
                                                 <div class="col s5 m5 right-align">
-                                                    <h5 class="mb-0 white-text"><span id="posts_count">{{ $storages }}</span></h5>
+                                                    <h5 class="mb-0 white-text"><span id="storage_count">{{ $storages }}</span></h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -49,7 +49,7 @@
                             </a>
                             <a href="#" onClick="getData('/admin/buyers')" title="Buyers">
                                 <div class="col s12 m6 l6 xl3">
-                                    <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text animate fadeLeft">
+                                    <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text animate fadeLeft">
                                         <div class="padding-4">
                                             <div class="row">
                                                 <div class="col s7 m7">
@@ -57,6 +57,24 @@
                                                 </div>
                                                 <div class="col s5 m5 right-align">
                                                     <h5 class="mb-0 white-text"><span id="buyers_count">{{ $buyers }}</span></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" onClick="getData('/admin/inquiry')" title="Inquiry">
+                                <div class="col s12 m6 l6 xl3">
+                                    <div class="card gradient-45deg-purple-deep-orange gradient-shadow min-height-100 white-text animate fadeLeft">
+                                        <div class="padding-4">
+                                            <div class="row">
+                                                <div class="col s7 m7">
+                                                    <i class="material-icons background-round mt-5">list
+                                                    </i><p>Buyers Inquiry</p>
+                                                </div>
+                                                <div class="col s5 m5 right-align">
+                                                    <h5 class="mb-0 white-text"><span id="inquiry_count">
+                                                    {{ $inquiry }}</span></h5>
                                                 </div>
                                             </div>
                                         </div>

@@ -93,6 +93,9 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         // Buyers
         Route::get('/buyers',[AdminController::class,'getBuyers'])->name('get.buyers');
 
+        // Inquiry
+        Route::get('/inquiry',[AdminController::class,'getBuyerInquires'])->name('get.buyerinquiries');
+
         // Featured Plans
         Route::get('featured-plan',[FeaturedPlanController::class,'index'])->name('admin.featuredplan');
         Route::get('add-featured-plan',[FeaturedPlanController::class,'addUpdateFeaturedPlan'])->name('admin.addfeaturedplan');
