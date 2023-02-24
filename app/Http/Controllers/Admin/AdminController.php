@@ -93,4 +93,46 @@ class AdminController extends Controller
             return redirect()->route('admin.changepassword');
         }
     }
+
+    public function getSellers(Request $request) {
+
+        if(isset($request->start_date) && isset($request->end_date)) {
+            
+            $sellers = Seller::whereDate('created_at','>=',$request->start_date)->whereDate('created_at','<=',$request->end_date)->orderBy('id','desc')->get();
+        }
+        else {
+            $sellers = Seller::orderBy('id','desc')->get();
+        }
+        $count = sizeof($sellers);
+
+        return view('admin.seller-list', ['sellers' => $sellers,'count' => $count]);
+    }
+
+    public function getStorages() {
+
+        if(isset($request->start_date) && isset($request->end_date)) {
+            
+            $storages = Storage::whereDate('created_at','>=',$request->start_date)->whereDate('created_at','<=',$request->end_date)->orderBy('id','desc')->get();
+        }
+        else {
+            $storages = Storage::orderBy('id','desc')->get();
+        }
+        $count = sizeof($storages);
+
+        return view('admin.storage-list', ['storages' => $storages,'count' => $count]);
+    }
+
+    public function getBuyers() {
+
+        if(isset($request->start_date) && isset($request->end_date)) {
+            
+            $buyers = Buyer::whereDate('created_at','>=',$request->start_date)->whereDate('created_at','<=',$request->end_date)->orderBy('id','desc')->get();
+        }
+        else {
+            $buyers = Buyer::orderBy('id','desc')->get();
+        }
+        $count = sizeof($buyers);
+
+        return view('admin.buyer-list', ['buyers' => $buyers,'count' => $count]);
+    }
 }

@@ -31,9 +31,9 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="#" onClick="getData('/admin/properties')" title="Properties">
+                            <a href="#" onClick="getData('/admin/storages')" title="Properties">
                                 <div class="col s12 m6 l6 xl3">
-                                    <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text animate fadeLeft">
+                                    <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text animate fadeLeft">
                                         <div class="padding-4">
                                             <div class="row">
                                                 <div class="col s7 m7">
@@ -49,7 +49,7 @@
                             </a>
                             <a href="#" onClick="getData('/admin/buyers')" title="Buyers">
                                 <div class="col s12 m6 l6 xl3">
-                                    <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text animate fadeLeft">
+                                    <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text animate fadeLeft">
                                         <div class="padding-4">
                                             <div class="row">
                                                 <div class="col s7 m7">

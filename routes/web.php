@@ -83,5 +83,47 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         // Change Password
         Route::get('change-password',[AdminController::class,'changePassword'])->name('admin.changepassword');
         Route::post('change-password',[AdminController::class,'updatePassword'])->name('admin.updatepassword');
+
+        // Sellers
+        Route::get('/sellers',[AdminController::class,'getSellers'])->name('get.sellers');
+
+        // Storages
+        Route::get('/storages',[AdminController::class,'getStorages'])->name('get.storages');
+
+        // Buyers
+        Route::get('/buyers',[AdminController::class,'getBuyers'])->name('get.buyers');
+
+        // Featured Plans
+        Route::get('featured-plan',[FeaturedPlanController::class,'index'])->name('admin.featuredplan');
+        Route::get('add-featured-plan',[FeaturedPlanController::class,'addUpdateFeaturedPlan'])->name('admin.addfeaturedplan');
+        Route::post('add-edit-featured-plan',[FeaturedPlanController::class,'saveFeaturedPlan'])->name('admin.savefeaturedplan');
+        Route::get('edit-featured-plan/{id}',[FeaturedPlanController::class,'addUpdateFeaturedPlan'])->name('admin.updatefeaturedplan');
+        Route::get('delete-featured-plan/{id}',[FeaturedPlanController::class,'deleteFeaturedPlan'])->name('admin.deletefeaturedplan');
+
+        // CMS Pages
+
+        // FAQs
+        Route::get('faq-list',[FAQController::class,'index'])->name('admin.faq');
+        Route::get('add-faq',[FAQController::class,'addUpdateFaq'])->name('admin.addfaq');
+        Route::post('add-edit-faq',[FAQController::class,'saveFaq'])->name('admin.savefaq');
+        Route::get('edit-faq/{id}',[FAQController::class,'addUpdateFaq'])->name('admin.updatefaq');
+        Route::get('delete-faq/{id}',[FAQController::class,'deleteFaq'])->name('admin.deletefaq');
+        Route::get('view-faq/{id}',[FAQController::class,'viewFaq'])->name('admin.viewfaq');
+
+        // Terms & Condition
+        Route::get('terms-condition', [TermsConditionController::class, 'index'])->name('admin.terms');
+        Route::post('add-terms-condition', [TermsConditionController::class, 'addUpdate'])->name('admin.termsadd');
+
+        // Privacy Policy
+        Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('admin.privacy');
+        Route::post('add-privacy-policy', [PrivacyPolicyController::class, 'addUpdate'])->name('admin.privacyadd');
+
+        // About Us
+        Route::get('about-us', [AboutUsController::class, 'index'])->name('admin.aboutus');
+        Route::post('add-about-us', [AboutUsController::class, 'addUpdate'])->name('admin.aboutusadd');
+
+        // Contact Us
+        Route::get('contact-us', [ContactUsController::class, 'index'])->name('admin.contactus');
+        Route::post('add-contact-us', [ContactUsController::class, 'addUpdate'])->name('admin.contactusadd');
     });        
 });

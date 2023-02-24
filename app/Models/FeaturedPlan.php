@@ -13,7 +13,7 @@ class FeaturedPlan extends Model
 
     protected $hidden = ['created_at','updated_at'];
 
-    protected $fillable = ['type','total_storages','price','validity','duration'];
+    protected $fillable = ['type','total_storage','price','validity','duration'];
 
     public static function getStorageType() {
 
