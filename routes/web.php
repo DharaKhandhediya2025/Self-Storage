@@ -10,12 +10,13 @@ use App\Http\Controllers\Web\SellersController;
 use App\Http\Controllers\Web\WebController;
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\ContactUsController;
+use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\FeaturedPlanController;
 use App\Http\Controllers\Admin\TermsConditionController;
 use App\Http\Controllers\Admin\PrivacyPolicyController;
-use App\Http\Controllers\Admin\AboutUsController;
-use App\Http\Controllers\Admin\ContactUsController;
 
 use App\Models\FAQ;
 use App\Models\TermsCondition;
@@ -83,6 +84,11 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         // Change Password
         Route::get('change-password',[AdminController::class,'changePassword'])->name('admin.changepassword');
         Route::post('change-password',[AdminController::class,'updatePassword'])->name('admin.updatepassword');
+
+        // Countries
+        Route::get('/country',[CountryController::class,'getCountries'])->name('get.countries');
+        Route::get('edit-country/{id}',[CountryController::class,'editCountry'])->name('admin.editcountry');
+        Route::post('update-country/{id}',[CountryController::class,'updateCountry'])->name('admin.updatecountry');
 
         // Sellers
         Route::get('/sellers',[AdminController::class,'getSellers'])->name('get.sellers');
