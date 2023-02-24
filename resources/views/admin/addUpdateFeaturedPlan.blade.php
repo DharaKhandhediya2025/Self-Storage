@@ -39,7 +39,7 @@
                 							<input type="hidden" name="id" value="{{ $featured_plans->id }}">
                 							<div class="input-field col s12">
                 								<strong>Type :</strong>
-                								<select id="type" name="type" class="browser-default" onchange="showPosts();">
+                								<select id="type" name="type" class="browser-default" onchange="showNumberDiv();">
                                                     <option value="">Select</option>
                                                     @foreach ($storage_type as $key => $value)
                                                     	@if($value == $featured_plans->type)
@@ -55,9 +55,9 @@
                                                     <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
                                                 @enderror
                 							</div>
-                							<div class="input-field col s12 posts_div" style="display:none;">
+                							<div class="input-field col s12 storage_div" style="display:none;">
                 								<strong>No. of Storage :</strong>
-                								<input type="number" name="total_storage" id="total_storage" class="form-control" value="{{ $featured_plans->total_storage }}"/>
+                								<input type="text" name="total_storage" id="total_storage" class="form-control" value="{{ $featured_plans->total_storage }}" maxlength="3" />
                 								@error('total_storage')
 	                                                <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
 	                                            @enderror
@@ -72,7 +72,7 @@
 
                 							<div class="input-field col s6">
                 								<strong>Validity :</strong>
-                								<input type="number" name="validity" id="validity" class="form-control" value="{{ $featured_plans->validity }}"/>
+                								<input type="text" name="validity" id="validity" class="form-control" value="{{ $featured_plans->validity }}" maxlength="3" />
                 								@error('validity')
 	                                                <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
 	                                            @enderror
@@ -122,18 +122,54 @@
 @section('js')
 	<script type="text/javascript">
 		
-		showPosts();
+		showNumberDiv();
 
-        function showPosts() {
+        function showNumberDiv() {
 
         	var type_value = $("#type").val();
 
         	if(type_value == 'Multiple') {
-        		$(".posts_div").show();
+        		$(".storage_div").show();
         	}
         	else {
-        		$(".posts_div").hide();
+        		$(".storage_div").hide();
         	}
         }
+
+        $('#total_storage').keypress(function (e) {
+
+            var length = jQuery(this).val().length;
+
+            if(e.which != 8 && e.which != 0 && e.which != 16 && e.which != 43 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+            else if((length == 0) && (e.which == 48)) {
+                return false;
+            }
+        });
+
+        $('#price').keypress(function (e) {
+
+            var length = jQuery(this).val().length;
+
+            if(e.which != 8 && e.which != 0 && e.which != 16 && e.which != 43 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+            else if((length == 0) && (e.which == 48)) {
+                return false;
+            }
+        });
+
+        $('#validity').keypress(function (e) {
+
+            var length = jQuery(this).val().length;
+
+            if(e.which != 8 && e.which != 0 && e.which != 16 && e.which != 43 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+            else if((length == 0) && (e.which == 48)) {
+                return false;
+            }
+        });
     </script>
 @stop

@@ -77,7 +77,7 @@
                                                             <tr>
                                                                 <td style="width: 10px;text-align: center;">{{ ++$i }}</td>
                                                                 <td>{{ $row->type }}</td>
-                                                                <td>{{ $row->total_posts }}</td>
+                                                                <td>{{ $row->total_storage }}</td>
                                                                 <td>{{ $row->price }}</td>
                                                                 <td>{{ $row->validity }} {{ $row->duration }}</td>
                                                                 
