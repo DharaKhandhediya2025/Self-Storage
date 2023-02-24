@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\{Hash,DB,Auth};
-use App\Models\{Buyer,Seller,Admin};
+use App\Models\{Buyer,Seller,Admin,Storage,FeaturedPlan};
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -18,8 +18,10 @@ class AdminController extends Controller
 
         $buyers = Buyer::orderBy('id','desc')->get()->count();
         $sellers = Seller::orderBy('id','desc')->get()->count();
+        $storages = Storage::orderBy('id','desc')->get()->count();
+        $featured_plans = FeaturedPlan::orderBy('id','desc')->get()->count();
 
-        return view('admin.dashboard',compact('buyers','sellers'));
+        return view('admin.dashboard',compact('buyers','sellers','storages','featured_plans'));
     }
 
     public function dashboardDatewise() {
@@ -27,12 +29,19 @@ class AdminController extends Controller
         $from_date = $_GET['from_date'];
         $to_date = $_GET['to_date'];
 
-        // Get Total Count of Buyers & Sellers
+        // Get Total Count By Date
         $buyers = Buyer::whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
+
         $sellers = Seller::whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
+
+        $storages = Storage::whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
+
+        $featured_plans = FeaturedPlan::whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
 
         $data['buyers'] = $buyers;
         $data['sellers'] = $sellers;
+        $data['storages'] = $storages;
+        $data['featured_plans'] = $featured_plans;
 
         return json_encode($data);
     }
@@ -54,7 +63,7 @@ class AdminController extends Controller
         $validator = $this->validate($request, [
 
             'old_password' => 'required',
-            'new_password' => 'required|same:confirm_password',
+            'new_password' => 'required',
             'confirm_password' => 'required',
         ],$messages);
 

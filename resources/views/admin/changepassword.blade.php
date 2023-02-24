@@ -21,8 +21,7 @@
                         </div>
                         <div class="col s12 m6 l6 right-align-md">
                             <ol class="breadcrumbs mb-0">
-                                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
-                                </a></li>
+                                <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Change Password</li>
                             </ol>
                         </div>

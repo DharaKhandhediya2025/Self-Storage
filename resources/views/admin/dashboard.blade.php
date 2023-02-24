@@ -15,9 +15,41 @@
                                 </b></h6>
                                 <input type="hidden" name="date_range" id="date_range">
                             </div>
-                            <a href="#" onClick="getData('/admin/buyers')" title="Buyers">
+                            <a href="#" onClick="getData('/admin/sellers')" title="Sellers">
                                 <div class="col s12 m6 l6 xl3">
                                     <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text animate fadeLeft">
+                                        <div class="padding-4">
+                                            <div class="row">
+                                                <div class="col s7 m7">
+                                                    <i class="material-icons background-round mt-5">person</i><p>Sellers</p>
+                                                </div>
+                                                <div class="col s5 m5 right-align">
+                                                    <h5 class="mb-0 white-text"><span id="sellers_count">{{ $sellers }}</span></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" onClick="getData('/admin/properties')" title="Properties">
+                                <div class="col s12 m6 l6 xl3">
+                                    <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text animate fadeLeft">
+                                        <div class="padding-4">
+                                            <div class="row">
+                                                <div class="col s7 m7">
+                                                    <i class="material-icons background-round mt-5">list</i><p>Storages</p>
+                                                </div>
+                                                <div class="col s5 m5 right-align">
+                                                    <h5 class="mb-0 white-text"><span id="posts_count">{{ $storages }}</span></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" onClick="getData('/admin/buyers')" title="Buyers">
+                                <div class="col s12 m6 l6 xl3">
+                                    <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text animate fadeLeft">
                                         <div class="padding-4">
                                             <div class="row">
                                                 <div class="col s7 m7">
@@ -31,16 +63,17 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="#" onClick="getData('/admin/sellers')" title="Sellers">
+                            <a href="#" onClick="getData('/admin/featured-plan')" title="Featured Plan">
                                 <div class="col s12 m6 l6 xl3">
-                                    <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text animate fadeLeft">
+                                    <div class="card gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text animate fadeLeft">
                                         <div class="padding-4">
                                             <div class="row">
                                                 <div class="col s7 m7">
-                                                    <i class="material-icons background-round mt-5">person</i><p>Sellers</p>
+                                                    <i class="material-icons background-round mt-5">list</i><p>Featured Plan</p>
                                                 </div>
                                                 <div class="col s5 m5 right-align">
-                                                    <h5 class="mb-0 white-text"><span id="sellers_count">{{ $sellers }}</span></h5>
+                                                    <h5 class="mb-0 white-text"><span id="featured_plans_count">{{ $featured_plans }}</span>
+                                                    </h5>
                                                 </div>
                                             </div>
                                         </div>

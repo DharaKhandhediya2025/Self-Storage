@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FAQ extends Model
+class StorageImages extends Model
 {
     use HasFactory;
 
-    protected $table = 'faq_list';
+    protected $table = 'storage_images';
 
-    protected $fillable = ['question','answer'];
+    protected $fillable = ['storage_id','image'];
 
     protected $hidden = ['created_at','updated_at'];
 }
