@@ -112,7 +112,7 @@ class AdminController extends Controller
         return view('admin.seller-list', ['sellers' => $sellers,'count' => $count]);
     }
 
-    public function getStorages() {
+    public function getStorages(Request $request) {
 
         if(isset($request->start_date) && isset($request->end_date)) {
             
@@ -126,7 +126,7 @@ class AdminController extends Controller
         return view('admin.storage-list', ['storages' => $storages,'count' => $count]);
     }
 
-    public function getBuyers() {
+    public function getBuyers(Request $request) {
 
         if(isset($request->start_date) && isset($request->end_date)) {
             
@@ -140,7 +140,7 @@ class AdminController extends Controller
         return view('admin.buyer-list', ['buyers' => $buyers,'count' => $count]);
     }
 
-    public function getBuyerInquires() {
+    public function getBuyerInquires(Request $request) {
 
         if(isset($request->start_date) && isset($request->end_date)) {
             
