@@ -13,7 +13,7 @@ class Storage extends Model
 
     protected $hidden = ['updated_at'];
 
-    protected $fillable = ['seller_id','cat_id','subcat_id','title','slug','storage_type','description','country','city','latitude','longitude','zipcode','phone1','phone2','storage_no','no_of_floors','size','size_unit','video_url'];
+    protected $fillable = ['seller_id','storage_status','cat_id','subcat_id','title','slug','storage_type','description','country','city','latitude','longitude','zipcode','phone1','phone2','storage_no','no_of_floors','size','size_unit','video_url'];
 
     public function seller() {
         return $this->belongsTo(Seller::class,'seller_id','id');
