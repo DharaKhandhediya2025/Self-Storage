@@ -8,11 +8,9 @@
         <meta name="keywords" content="">
         <meta name="author" content="ThemeSelect">
 
-        <title>RBS - Reset Password</title>
+        <title>Self Storage - Reset Password</title>
 
-        <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/logo_icon.png'}}"/>
-        <link rel="apple-touch-icon" href="{{asset('app-assets/images/favicon/appstore.png')}}">
-        <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/favicon/appstore.png')}}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/favicon.png'}}"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- BEGIN: VENDOR CSS-->
@@ -73,7 +71,8 @@
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix pt-2">lock_outline</i>
                                         <input id="confirm_pwd" name="confirm_pwd" type="password" required="" placeholder="Confirm Password">
-                                        <i class="material-icons confirm_visibility" id="confirm_visibility_pwd" style="position: absolute;margin-top: 10px;right: 20px;color: #123763;cursor: pointer;">visibility</i>
+                                        <i class="material-icons confirm_visibility" id="confirm_visibility_pwd" style="position: absolute;margin-top: 10px;right: 20px;color: #123763;cursor: pointer;">visibility
+                                        </i>
 
                                         <i class="material-icons confirm_visibility_off" id="confirm_visibility_off_pwd" style="position: absolute;margin-top: 10px;right: 20px;color: #123763;cursor: pointer;display: none;">visibility_off</i>
                                         <label for="confirm_pwd">Confirm Password</label>

@@ -8,11 +8,9 @@
         <meta name="keywords" content="">
         <meta name="author" content="ThemeSelect">
 
-        <title>RBS - Forgot Password</title>
+        <title>Self Storage - Forgot Password</title>
 
-        <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/logo_icon.png'}}"/>
-        <link rel="apple-touch-icon" href="{{asset('app-assets/images/favicon/appstore.png')}}">
-        <link rel="shortcut icon" type="image/x-icon" href="{{asset('app-assets/images/favicon/appstore.png')}}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/favicon.png'}}"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- BEGIN: VENDOR CSS-->

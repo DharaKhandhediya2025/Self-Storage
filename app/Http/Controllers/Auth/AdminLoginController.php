@@ -69,9 +69,9 @@ class AdminLoginController extends Controller
             $input['email'] = $email;
 
             // Send OTP over mail
-            \Mail::send('emails.buyerSellerOTP', $input, function ($message) use ($input) {
+            \Mail::send('emails.sendOTP', $input, function ($message) use ($input) {
                 $message->from($input['from_address'], $input['from_name']);
-                $message->to($input['email'])->subject('RBS Care-Verification Code');
+                $message->to($input['email'])->subject('Self Storage-Verification Code');
             });
 
             session(['email' => $email]);
@@ -146,7 +146,7 @@ class AdminLoginController extends Controller
             else {
 
                 session(['email' => $email]);
-                $request->session()->flash('fail', 'Password are Mismatched.');
+                $request->session()->flash('fail', 'Passwords are Mismatched.');
                 $request->session()->flash('class', 'red');
                 return back();
             }
@@ -154,7 +154,7 @@ class AdminLoginController extends Controller
         else {
 
             session(['email' => $email]);
-            $request->session()->flash('fail', 'Password are Mismatched.');
+            $request->session()->flash('fail', 'Passwords are Mismatched.');
             $request->session()->flash('class', 'red');
             return back();
         }
