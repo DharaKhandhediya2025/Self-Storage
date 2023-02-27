@@ -1,4 +1,4 @@
-@extends('include.master')@section('title','FAQ')
+@extends('include.master')@section('title','FAQs')
 
 @section('content')
 	<div class="row">
@@ -7,13 +7,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>FAQ</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>FAQs</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
                             </a></li>
-                            <li class="breadcrumb-item active">FAQ</li>
+                            <li class="breadcrumb-item active">FAQ List</li>
                         </ol>
                     </div>
                 </div>
@@ -38,14 +38,14 @@
                 						<div class="row">
                 							<input type="hidden" name="id" value="{{ $faq->id }}">
                 							<div class="input-field col s12">
-                								<strong> Question : </strong>
+                								<strong>Question : </strong>
                 								<input type="text" name="question" id="question" class="form-control" value="{{ $faq->question }}"/>
                 								@error('question')
 	                                                <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
 	                                            @enderror
                 							</div>
                 							<div class="input-field col s12">
-                								<strong> Answer : </strong><br/>
+                								<strong>Answer : </strong><br/>
                 								<textarea id="answer" name="answer" class="materialize-textarea" placeholder="Description">{{ $faq->answer }}</textarea>
                 								@error('answer')
 	                                                <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>

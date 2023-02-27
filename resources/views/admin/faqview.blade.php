@@ -18,6 +18,8 @@
                         <ol class="breadcrumbs mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
                             </a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('admin/faq-list')}}">FAQs
+                            </a></li>
                             <li class="breadcrumb-item active">FAQ Details</li>
                         </ol>
                     </div>
