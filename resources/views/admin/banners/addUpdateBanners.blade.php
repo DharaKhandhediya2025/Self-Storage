@@ -61,12 +61,18 @@
                                         <div class="row">
                                             <input type="hidden" name="id" value="{{ $banners->id }}">
                                             <div class="input-field col s12">
-                                                <label for="image">Banner Image</label><br/>
-                                                <input type="file" id="image" name="image" class="@error('image') is-invalid @enderror">
 
                                                 @if(isset($banners->image) && $banners->image != '')
-                                                    <img src="{{ asset('storage/app/public/'.$banners->image) }}" alt="No Image Available" style="height:100px;width:100px;" />
+                                                    <div class="col-md-12 mb-2">
+                                                        <img id="preview-image-before-upload" src="{{ asset('storage/app/public/'.$banners->image) }}" alt="No Image Available" style="height:150px;width:150px;border-radius: 20px;"/>
+                                                    </div>
+                                                @else
+                                                    <div class="col-md-12 mb-2">
+                                                        <img id="preview-image-before-upload" style="height:150px;width:150px;border-radius: 20px;"/>
+                                                    </div>
                                                 @endif
+
+                                                <input type="file" id="image" name="image" class="@error('image') is-invalid @enderror">
 
                                                 @error('image')
                                                     <span class="invalid-feedback" role='alert' style="color: red;"><strong>{{ $message }}</strong>
@@ -95,3 +101,28 @@
         </div>
     </div>
 @endsection
+
+@section('js')
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+ 
+            $('#image').change(function() {
+                    
+                var ext = $('#image').val().split('.').pop().toLowerCase();
+
+                if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+                    
+                    alert('Please Select Image File.');
+                    this.value = null;
+                }
+                let reader = new FileReader();
+         
+                reader.onload = (e) => {
+                    $('#preview-image-before-upload').attr('src', e.target.result); 
+                }
+                reader.readAsDataURL(this.files[0]); 
+           });
+        });
+    </script>
+@stop

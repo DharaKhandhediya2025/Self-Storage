@@ -31,6 +31,14 @@ class BannersController extends Controller
         $id = $request->get('id');
         $banners = Banners::find($id);
 
+        $messages = [
+            'image.required' => 'Please Select Image.'
+        ];
+            
+        $this->Validate($request,[
+            'image' => 'required',
+        ],$messages);
+
         $banner_image = $request->file('image');
 
         if (isset($banner_image) && $banner_image->isValid()) {
@@ -39,36 +47,28 @@ class BannersController extends Controller
             $destinationPath = public_path('../storage/banners');
             $banner_image->storeAs('banners',$name,'public');
             $file_path = 'banners/'.$name;
-        }
+        
+            if(empty($banners)) {
 
-        if(empty($banners)) {
+                Banners::create([
+                    'image' => $file_path,
+                ]);
 
-            $messages = [
-                'image.required' => 'Image is Required Field.'
-            ];
+                session()->flash('type','message');
+                session()->flash('message', 'Banner Added Successfully.');
+        
+                return redirect('admin/banners');
+            }
+            else {
                 
-            $this->Validate($request,[
-                'image' => 'required',
-            ],$messages);
+                $banners->image = $file_path;
+                $banners->save();
 
-            Banners::create([
-                'image' => $file_path,
-            ]);
+                session()->flash('type','message');
+                session()->flash('message', 'Banner Updated Successfully.');
 
-            session()->flash('type','message');
-            session()->flash('message', 'Banner Added Successfully.');
-    
-            return redirect('admin/banners');
-        }
-        else {
-            
-            $banners->image = $file_path;
-            $banners->save();
-
-            session()->flash('type','message');
-            session()->flash('message', 'Banner Updated Successfully.');
-
-            return redirect('admin/banners');
+                return redirect('admin/banners');
+            }
         }
     }
 
