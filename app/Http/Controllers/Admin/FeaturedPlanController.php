@@ -31,7 +31,7 @@ class FeaturedPlanController extends Controller
 
     public function addUpdateFeaturedPlan(Request $request ,$id=false) {
 
-        $storage_type = FeaturedPlan::getStorageType();
+        $plan_type = FeaturedPlan::getPlanType();
         $duration_list = FeaturedPlan::getDurationList();
 
         $featured_plans = new FeaturedPlan();
@@ -39,7 +39,7 @@ class FeaturedPlanController extends Controller
         if($id) {
             $featured_plans = FeaturedPlan::where('id','=',$id)->firstOrFail();
         }
-        return view('admin.addUpdateFeaturedPlan',compact('featured_plans','duration_list','storage_type'));
+        return view('admin.addUpdateFeaturedPlan',compact('featured_plans','duration_list','plan_type'));
     }
 
     public function saveFeaturedPlan(Request $request) {
@@ -47,51 +47,28 @@ class FeaturedPlanController extends Controller
         $id = $request->get('id');
         $featured_plans = FeaturedPlan::find($id);
 
-        if($request->type == 'Single') {
+        $messages = [
 
-            $messages = [
+            'type.required' => 'Type is Required Field.',
+            'price.required' => 'Price is Required Field.',
+            'validity.required' => 'Validity is Required Field.',
+            'duration.required' => 'Duration is Required Field.',
+        ];
+            
+        $this->Validate($request,[
 
-                'type.required' => 'Type is required field.',
-                'price.required' => 'Price is required field.',
-                'validity.required' => 'Validity is required field.',
-                'duration.required' => 'Duration is required field.',
-            ];
-                
-            $this->Validate($request,[
-
-                'type' => 'required',
-                'price' => 'required',
-                'validity' => 'required',
-                'duration' => 'required',
-            ],$messages);
-        }
-        else {
-
-            $messages = [
-
-                'type.required' => 'Type is required field.',
-                'total_storage.required' => 'No. of Storage is required field.',
-                'price.required' => 'Price is required field.',
-                'validity.required' => 'Validity is required field.',
-                'duration.required' => 'Duration is required field.',
-            ];
-                
-            $this->Validate($request,[
-
-                'type' => 'required',
-                'total_storage' => 'required',
-                'price' => 'required',
-                'validity' => 'required',
-                'duration' => 'required',
-            ],$messages);
-        }
+            'type' => 'required',
+            'price' => 'required',
+            'validity' => 'required',
+            'duration' => 'required',
+        ],$messages);
+       
 
         if(empty($featured_plans)) {
 
             FeaturedPlan::create([
 
                 'type' => $request->type,
-                'total_storage' => $request->total_storage,
                 'price' => $request->price,
                 'validity' => $request->validity,
                 'duration' => $request->duration,
@@ -105,13 +82,6 @@ class FeaturedPlanController extends Controller
         else {
             
             $featured_plans->type = $request->type;
-
-            if($request->type == 'Multiple') {
-                $featured_plans->total_storage = $request->total_storage;
-            }
-            else {
-                $featured_plans->total_storage = NULL;
-            }
             $featured_plans->price = $request->price;
             $featured_plans->validity = $request->validity;
             $featured_plans->duration = $request->duration;

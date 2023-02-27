@@ -34,53 +34,47 @@
 											<div class="col s12 m6 l2"></div>
 										</div>	
 									</div>
-									<form class="formValidate0" id="formValidate0" method="post" enctype="multipart/form-data" action="{{ route('admin.savefeaturedplan') }}">@csrf
+                                    <form class="formValidate0" id="plan_form" enctype="multipart/form-data" action="{{ route('admin.savefeaturedplan') }}" method="POST">@csrf
                 						<div class="row">
                 							<input type="hidden" name="id" value="{{ $featured_plans->id }}">
-                							<div class="input-field col s12">
+                							<div class="input-field col s6">
                 								<strong>Type :</strong>
-                								<select id="type" name="type" class="browser-default" onchange="showNumberDiv();">
+                								<select id="type" name="type" class="browser-default" tabindex="1">
                                                     <option value="">Select</option>
-                                                    @foreach ($storage_type as $key => $value)
+                                                    @foreach ($plan_type as $key => $value)
                                                     	@if($value == $featured_plans->type)
-                                                        	<option value="{{ $value }}" selected>
+                                                        	<option value="{{ $key }}" selected>
                                                         	{{ $value }}</option>
                                                         @else
-                                                        	<option value="{{ $value }}">{{ $value }}
-                                                        	</option>
+                                                        	<option value="{{ $key }}">{{ $value }}
+                                                            </option>
                                                         @endif
                                                     @endforeach
                                                 </select>
                                                 @error('type')
-                                                    <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
+                                                    <span class="invalid-feedback" role='alert' style="color: red;"><strong>{{$message}}</strong></span>
                                                 @enderror
                 							</div>
-                							<div class="input-field col s12 storage_div" style="display:none;">
-                								<strong>No. of Storage :</strong>
-                								<input type="text" name="total_storage" id="total_storage" class="form-control" value="{{ $featured_plans->total_storage }}" maxlength="3" />
-                								@error('total_storage')
-	                                                <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
-	                                            @enderror
-                							</div>
-                							<div class="input-field col s12">
+
+                							<div class="input-field col s6">
                 								<strong>Price :</strong>
-                								<input type="text" name="price" id="price" class="form-control" value="{{ $featured_plans->price }}"/>
+                								<input type="text" name="price" id="price" class="form-control" value="{{ $featured_plans->price }}" placeholder="Price" tabindex="2" />
                 								@error('price')
-	                                                <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
+	                                                <span class="invalid-feedback" role='alert' style="color: red;"><strong>{{$message}}</strong></span>
 	                                            @enderror
                 							</div>
 
                 							<div class="input-field col s6">
                 								<strong>Validity :</strong>
-                								<input type="text" name="validity" id="validity" class="form-control" value="{{ $featured_plans->validity }}" maxlength="3" />
+                								<input type="text" name="validity" id="validity" class="form-control" value="{{ $featured_plans->validity }}" maxlength="3" placeholder="Validity" tabindex="3" />
                 								@error('validity')
-	                                                <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
+	                                                <span class="invalid-feedback" role='alert' style="color: red;"><strong>{{$message}}</strong></span>
 	                                            @enderror
                 							</div>
 
                 							<div class="input-field col s6">
                 								<strong>Duration :</strong>
-                								<select id="duration" name="duration" class="browser-default">
+                								<select id="duration" name="duration" class="browser-default" tabindex="4">
                                                     <option value="">Select</option>
                                                     @foreach ($duration_list as $key => $value)
                                                     	@if($value == $featured_plans->duration)
@@ -93,7 +87,7 @@
                                                     @endforeach
                                                 </select>
                                                 @error('duration')
-                                                    <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
+                                                    <span class="invalid-feedback" role='alert' style="color: red;"><strong>{{$message}}</strong></span>
                                                 @enderror
                 							</div>
 
@@ -120,33 +114,8 @@
 @stop
 
 @section('js')
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 	<script type="text/javascript">
-		
-		showNumberDiv();
-
-        function showNumberDiv() {
-
-        	var type_value = $("#type").val();
-
-        	if(type_value == 'Multiple') {
-        		$(".storage_div").show();
-        	}
-        	else {
-        		$(".storage_div").hide();
-        	}
-        }
-
-        $('#total_storage').keypress(function (e) {
-
-            var length = jQuery(this).val().length;
-
-            if(e.which != 8 && e.which != 0 && e.which != 16 && e.which != 43 && (e.which < 48 || e.which > 57)) {
-                return false;
-            }
-            else if((length == 0) && (e.which == 48)) {
-                return false;
-            }
-        });
 
         $('#price').keypress(function (e) {
 

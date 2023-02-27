@@ -64,7 +64,6 @@
                                                     <tr>
                                                         <th style="text-align: center;">Sr No.</th>
                                                         <th style="text-align: center;">Type</th>
-                                                        <th style="text-align: center;">Total Storage</th>
                                                         <th style="text-align: center;">Price</th>
                                                         <th style="text-align: center;">Duration</th>
                                                         <th style="text-align: center;">Action</th>
@@ -76,29 +75,28 @@
                                                         @foreach ($featured_plans as $row)
                                                             <tr>
                                                                 <td style="width: 10px;text-align: center;">{{ ++$i }}</td>
-                                                                <td>{{ $row->type }}</td>
-                                                                <td>{{ $row->total_storage }}</td>
-                                                                <td>{{ $row->price }}</td>
-                                                                <td>{{ $row->validity }} {{ $row->duration }}</td>
+                                                                <td style="text-align: center;">{{ $row->type }}</td>
+                                                                <td style="text-align: center;">{{ $row->price }}</td>
+                                                                <td style="text-align: center;">{{ $row->validity }} {{ $row->duration }}</td>
                                                                 
-                                                                <td style="width: 200px;">
+                                                                <td style="width: 200px;text-align: center;">
 
                                                                     <a href="{{ route('admin.updatefeaturedplan' ,['id'=>$row->id ])}}" title="Edit" class=""><i class="material-icons">edit</i></a>
 
-                                                                    <a data-toggle="modal" data-target="#exampleModal_{{ $row->id }}" title="Delete" class="" style="cursor:pointer;"><i class="material-icons">delete</i></a>
+                                                                    <a data-toggle="modal" data-target="#deleteModal_{{ $row->id }}" title="Delete" class="" style="cursor:pointer;"><i class="material-icons">delete</i></a>
 
-                                                                    <div class="modal fade" id="exampleModal_{{ $row->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal fade" id="deleteModal_{{ $row->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation
+                                                                                    <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation
                                                                                     </h5>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true close-btn">×</span>
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <p>Are you sure want to delete?</p>
+                                                                                    <p style="text-align:left;">Are you sure want to delete?</p>
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <a class="waves-effect waves-light btn gradient-45deg-amber-amber box-shadow-none border-round mr-1 mb-1 close-btn" data-dismiss="modal">Close</a>

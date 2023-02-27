@@ -13,15 +13,16 @@ class FeaturedPlan extends Model
 
     protected $hidden = ['created_at','updated_at'];
 
-    protected $fillable = ['type','total_storage','price','validity','duration'];
+    protected $fillable = ['type','price','validity','duration'];
 
-    public static function getStorageType() {
+    public static function getPlanType() {
 
-        $post_type = array();
-        $post_type['Single'] = 'Single';
-        $post_type['Multiple'] = 'Multiple';
+        $plan_type = array();
+        $plan_type['Trial'] = 'Trial Plan';
+        $plan_type['Standard'] = 'Standard Plan';
+        $plan_type['Premium'] = 'Premium Plan';
 
-        return $post_type;
+        return $plan_type;
     }
 
     public static function getDurationList() {
