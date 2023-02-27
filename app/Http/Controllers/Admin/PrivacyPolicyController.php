@@ -11,7 +11,7 @@ class PrivacyPolicyController extends Controller
     public function index(Request $request) {
 
         $data = PrivacyPolicy::first();
-        return view('admin.privacy-policy',compact('data'));
+        return view('admin.cms.privacy-policy',compact('data'));
     }
     
     public function addUpdate(Request $request) {

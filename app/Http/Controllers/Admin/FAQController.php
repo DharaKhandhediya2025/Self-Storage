@@ -13,7 +13,7 @@ class FAQController extends Controller
         $faq = FAQ::orderBy('id','desc')->get();
         $count = sizeof($faq);
 
-        return view('admin.faq',compact('faq','count'));
+        return view('admin.faq.faq',compact('faq','count'));
     }
 
     public function addUpdateFaq(Request $request ,$id=false) {
@@ -23,7 +23,7 @@ class FAQController extends Controller
         if($id) {
             $faq = FAQ::where('id','=',$id)->firstOrFail();
         }
-        return view('admin.addfaq',compact('faq'));
+        return view('admin.faq.addfaq',compact('faq'));
     }
 
     public function saveFaq(Request $request) {
@@ -71,7 +71,7 @@ class FAQController extends Controller
     public function viewFaq($id) {
 
         $faq = FAQ::where('id','=',$id)->first();
-        return view('admin.faqview',compact('faq'));
+        return view('admin.faq.faqview',compact('faq'));
     }
 
     public function deleteFaq($id) {

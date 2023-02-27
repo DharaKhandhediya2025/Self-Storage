@@ -11,7 +11,7 @@ class ContactUsController extends Controller
     public function index(Request $request) {
 
         $data = ContactUs::first();
-        return view('admin.contactus',compact('data'));
+        return view('admin.cms.contactus',compact('data'));
     }
     
     public function addUpdate(Request $request) {

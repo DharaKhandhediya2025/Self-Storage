@@ -11,7 +11,7 @@ class AboutUsController extends Controller
     public function index(Request $request) {
 
         $data = AboutUs::first();
-        return view('admin.aboutus',compact('data'));
+        return view('admin.cms.aboutus',compact('data'));
     }
     
     public function addUpdate(Request $request) {

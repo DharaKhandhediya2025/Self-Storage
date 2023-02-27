@@ -26,7 +26,7 @@ class FeaturedPlanController extends Controller
 
         $count = sizeof($featured_plans);
 
-        return view('admin.featured-plan',compact('featured_plans','count'));
+        return view('admin.featured-plan.featured-plan',compact('featured_plans','count'));
     }
 
     public function addUpdateFeaturedPlan(Request $request ,$id=false) {
@@ -39,7 +39,7 @@ class FeaturedPlanController extends Controller
         if($id) {
             $featured_plans = FeaturedPlan::where('id','=',$id)->firstOrFail();
         }
-        return view('admin.addUpdateFeaturedPlan',compact('featured_plans','duration_list','plan_type'));
+        return view('admin.featured-plan.addUpdateFeaturedPlan',compact('featured_plans','duration_list','plan_type'));
     }
 
     public function saveFeaturedPlan(Request $request) {

@@ -11,7 +11,7 @@ class TermsConditionController extends Controller
     public function index(Request $request) {
 
         $data = TermsCondition::first();
-        return view('admin.terms-condition',compact('data'));
+        return view('admin.cms.terms-condition',compact('data'));
     }
     
     public function addUpdate(Request $request) {
