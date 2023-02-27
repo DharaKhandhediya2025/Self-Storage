@@ -86,7 +86,6 @@
 
     <script>
         CKEDITOR.replace('description', {
-            
         })
     </script>
 @stop

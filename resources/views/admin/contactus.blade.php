@@ -117,7 +117,6 @@
 
 	<script>
 		CKEDITOR.replace('description', {
-            
         });
 
         $('#icon_telephone').keypress(function (e) {
