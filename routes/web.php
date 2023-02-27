@@ -11,18 +11,13 @@ use App\Http\Controllers\Web\WebController;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\BannersController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\FeaturedPlanController;
 use App\Http\Controllers\Admin\TermsConditionController;
 use App\Http\Controllers\Admin\PrivacyPolicyController;
-
-use App\Models\FAQ;
-use App\Models\TermsCondition;
-use App\Models\PrivacyPolicy;
-use App\Models\AboutUs;
-use App\Models\ContactUs;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +79,13 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         // Change Password
         Route::get('change-password',[AdminController::class,'changePassword'])->name('admin.changepassword');
         Route::post('change-password',[AdminController::class,'updatePassword'])->name('admin.updatepassword');
+
+        // Banners
+        Route::get('banners',[BannersController::class,'index'])->name('admin.banners');
+        Route::get('add-banners',[BannersController::class,'addUpdateBanner'])->name('admin.addbanners');
+        Route::post('add-edit-banners',[BannersController::class,'saveBanner'])->name('admin.savebanners');
+        Route::get('edit-banners/{id}',[BannersController::class,'addUpdateBanner'])->name('admin.updatebanners');
+        Route::get('delete-banners/{id}',[BannersController::class,'deleteBanner'])->name('admin.deletebanners');
 
         // Countries
         Route::get('/country',[CountryController::class,'getCountries'])->name('get.countries');

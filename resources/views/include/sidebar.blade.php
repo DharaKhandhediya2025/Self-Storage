@@ -18,7 +18,7 @@
         </li>
 
         <li class="active bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/banners') ? 'active' : '' }}" href="{{ url('/admin/banners') }}" title="Banners">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'banner') ? 'active' : '' }}" href="{{ url('/admin/banners') }}" title="Banners">
                 <i class="material-icons">image</i><span class="menu-title" data-i18n="Banners">Banners
                 </span>
             </a>
