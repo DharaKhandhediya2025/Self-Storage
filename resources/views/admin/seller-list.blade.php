@@ -55,7 +55,8 @@
 										                <th style="text-align: center;">Name</th>
 										                <th style="text-align: center;">Email</th>
 										                <th style="text-align: center;">Phone</th>
-										                <th style="text-align: center;">Profile Image</th>
+										                <th style="text-align: center;">Profile Image
+										                </th>
 										                <th style="text-align: center;">Status</th>
 		                                        	</tr>
 		                                        </thead>
@@ -67,7 +68,7 @@
 									                            <td style="width: 10px;text-align: center;">{{ ++$i }}</td>
 									                            <td>{{ $row->name }}</td>
 									                            <td>{{ $row->email }}</td>
-									                            <td>{{ $row->country_code }}  {{ $row->phone }}</td>
+									                            <td>{{ $row->country_code }} {{ $row->phone }}</td>
 
 									                            @if($row->profile_image != '')
 									                                <td>
@@ -85,7 +86,7 @@
 									                                            <div class="switch">
 									                                                <label>
 									                                                	<input type="checkbox" checked>
-									                                                    <span class="lever" wire:click="updateSellerStatus('{{ $row->id }}')" title="Change Status">
+									                                                    <span class="lever" onclick="updateSellerStatus('{{ $row->id }}');" title="Change Status">
 									                                                    </span>
 									                                                </label>
 									                                            </div>
@@ -97,9 +98,9 @@
 									                                            <span>Block</span>
 									                                            <div class="switch">
 									                                                <label>
-									                                                	<input type="checkbox">
-									                                                    <span class="lever" wire:click="updateSellerStatus('{{ $row->id }}')" title="Change Status">
-									                                                    </span>
+									                                                <input type="checkbox">
+										                                                <span class="lever" onclick="updateSellerStatus('{{ $row->id }}');" title="Change Status">
+										                                                </span>
 									                                                </label>
 									                                            </div>
 									                                        </div>
@@ -121,4 +122,26 @@
 		    </div><div class="content-overlay"></div>
 		</div>
     </div>
+@stop
+
+@section('js')
+	<script type="text/javascript">
+
+		function updateSellerStatus(seller_id) {
+
+			var app_url = "{!! env('APP_URL'); !!}";
+            var token = $('input[name="csrf_token"]').val();
+
+			$.ajax({
+
+                type : 'GET',
+                url : app_url+'/admin/update/sellerstatus',
+                data : {'seller_id' : seller_id, '_token':token},
+                dataType : 'json',
+                success: function(response) {
+                    alert(response.message);
+                }
+            });
+		}
+	</script>
 @stop

@@ -84,8 +84,8 @@
 									                                            <span>Active</span>
 									                                            <div class="switch">
 									                                                <label>
-									                                                	<input type="checkbox" checked>
-									                                                    <span class="lever" wire:click="updateBuyerStatus('{{ $row->id }}')" title="Change Status">
+									                                                <input type="checkbox" checked>
+									                                                	<span class="lever" onclick="updateBuyerStatus('{{ $row->id }}');" title="Change Status">
 									                                                    </span>
 									                                                </label>
 									                                            </div>
@@ -96,9 +96,9 @@
 									                                        <div class="display-flex justify-content-between pb-2">
 									                                            <span>Block</span>
 									                                            <div class="switch">
-									                                                <label>
-									                                                	<input type="checkbox">
-									                                                    <span class="lever" wire:click="updateBuyerStatus('{{ $row->id }}')" title="Change Status">
+									                                            	<label>
+									                                                <input type="checkbox">
+									                                                	<span class="lever" onclick="updateBuyerStatus('{{ $row->id }}');" title="Change Status">
 									                                                    </span>
 									                                                </label>
 									                                            </div>
@@ -121,4 +121,26 @@
 		    </div><div class="content-overlay"></div>
 		</div>
     </div>
+@stop
+
+@section('js')
+	<script type="text/javascript">
+
+		function updateBuyerStatus(buyer_id) {
+
+			var app_url = "{!! env('APP_URL'); !!}";
+            var token = $('input[name="csrf_token"]').val();
+
+			$.ajax({
+
+                type : 'GET',
+                url : app_url+'/admin/update/buyerstatus',
+                data : {'buyer_id' : buyer_id, '_token':token},
+                dataType : 'json',
+                success: function(response) {
+                    alert(response.message);
+                }
+            });
+		}
+	</script>
 @stop

@@ -153,4 +153,42 @@ class AdminController extends Controller
 
         return view('admin.buyer-inquiry', ['inquiry' => $inquiry,'count' => $count]);
     }
+
+    public function updateSellerStatus() {
+
+        $id = $_GET['seller_id'];
+
+        $seller = Seller::find($id);
+        $status = $seller->active_block_status;
+
+        if($status == 1) {
+            $seller->active_block_status = 0;
+        }
+        else {
+            $seller->active_block_status = 1;
+        }
+        $seller->save();
+
+        $response['message'] = 'Status Updated Successfully.';
+        return json_encode($response);
+    }
+
+    public function updateBuyerStatus() {
+
+        $id = $_GET['buyer_id'];
+
+        $buyer = Buyer::find($id);
+        $status = $buyer->active_block_status;
+
+        if($status == 1) {
+            $buyer->active_block_status = 0;
+        }
+        else {
+            $buyer->active_block_status = 1;
+        }
+        $buyer->save();
+
+        $response['message'] = 'Status Updated Successfully.';
+        return json_encode($response);
+    }
 }

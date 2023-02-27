@@ -92,12 +92,14 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
         // Sellers
         Route::get('/sellers',[AdminController::class,'getSellers'])->name('get.sellers');
+        Route::get('update/sellerstatus',[AdminController::class,'updateSellerStatus'])->name('update.sellerstatus');
 
         // Storages
         Route::get('/storages',[AdminController::class,'getStorages'])->name('get.storages');
 
         // Buyers
         Route::get('/buyers',[AdminController::class,'getBuyers'])->name('get.buyers');
+        Route::get('update/buyerstatus',[AdminController::class,'updateBuyerStatus'])->name('update.buyerstatus');
 
         // Inquiry
         Route::get('/inquiry',[AdminController::class,'getBuyerInquires'])->name('get.buyerinquiries');
