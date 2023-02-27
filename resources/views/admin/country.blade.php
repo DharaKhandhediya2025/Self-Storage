@@ -142,12 +142,11 @@
                                                             @foreach ($country as $row)
                                                                 <tr>
                                                                     <td style="width: 10px;text-align: center;">{{ ++$i }}</td>
-                                                                    <td>{{ $row->code }}</td>
-                                                                    <td>{{ $row->name }}</td>
-                                                                    <td>{{ $row->dial_code }}</td>
-                                                                    <td>
-                                                                        <center><a href="{{ route('admin.editcountry' ,['id'=>$row->id ])}}" title="Edit" class=""><i class="material-icons">edit</i></a>
-                                                                        </center>
+                                                                    <td style="text-align: center;">{{ $row->code }}</td>
+                                                                    <td style="text-align: center;">{{ $row->name }}</td>
+                                                                    <td style="text-align: center;">{{ $row->dial_code }}</td>
+                                                                    <td style="text-align: center;">
+                                                                        <a href="{{ route('admin.editcountry' ,['id'=> $row->id ])}}" title="Edit" class="btn-small btn-light-blue">Edit</a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

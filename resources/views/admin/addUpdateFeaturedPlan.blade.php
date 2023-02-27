@@ -42,7 +42,7 @@
                 								<select id="type" name="type" class="browser-default" tabindex="1">
                                                     <option value="">Select</option>
                                                     @foreach ($plan_type as $key => $value)
-                                                    	@if($value == $featured_plans->type)
+                                                    	@if($key == $featured_plans->type)
                                                         	<option value="{{ $key }}" selected>
                                                         	{{ $value }}</option>
                                                         @else

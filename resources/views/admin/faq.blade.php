@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>FAQ List</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>FAQs</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
@@ -56,7 +56,7 @@
                                         <a href="{{ url('admin/add-faq') }}" class="btn waves-effect waves-light invoice-export border-round right" title="Add New FAQ">Add New FAQ</a>
                                     </div>
 
-                                    <h4 class="card-title">Seller List ({{ $count }})</h4>
+                                    <h4 class="card-title">FAQ List ({{ $count }})</h4>
 
                                     <div class="row">
                                         <div class="col s12">
@@ -76,13 +76,12 @@
                                                                 <td style="text-align: center;">{{ ++$i }}</td>
                                                                 <td style="word-wrap: break-word;text-align: center;">{{ $row->question }}</td>
 
-                                                                <td style="text-align: center;">
+                                                                <td style="width:300px;text-align: center;">
+                                                                    <a href="{{ route('admin.viewfaq' ,['id'=> $row->id ])}}" title="View" class="btn-small btn-light-blue">View</a>
 
-                                                                    <a href="{{ route('admin.viewfaq' ,['id'=>$row->id ])}}" title="View" class=""><i class="material-icons">remove_red_eye</i></a>
+                                                                    <a href="{{ route('admin.updatefaq' ,['id'=> $row->id ])}}" title="Edit" class="btn-small btn-light-blue">Edit</a>
 
-                                                                    <a href="{{ route('admin.updatefaq' ,['id'=>$row->id ])}}" title="Edit" class=""><i class="material-icons">edit</i></a>
-
-                                                                    <a data-toggle="modal" data-target="#deleteModal_{{ $row->id }}" title="Delete" class="" style="cursor:pointer;"><i class="material-icons">delete</i></a>
+                                                                    <a data-toggle="modal" data-target="#deleteModal_{{ $row->id }}" title="Delete" class="btn-small btn-light-pink modal-trigger right">Delete</a>
 
                                                                     <div class="modal fade" id="deleteModal_{{ $row->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">

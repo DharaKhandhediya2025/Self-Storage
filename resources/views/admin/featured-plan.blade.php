@@ -79,11 +79,11 @@
                                                                 <td style="text-align: center;">{{ $row->price }}</td>
                                                                 <td style="text-align: center;">{{ $row->validity }} {{ $row->duration }}</td>
                                                                 
-                                                                <td style="width: 200px;text-align: center;">
+                                                                <td style="width: 230px;text-align: center;">
 
-                                                                    <a href="{{ route('admin.updatefeaturedplan' ,['id'=>$row->id ])}}" title="Edit" class=""><i class="material-icons">edit</i></a>
+                                                                    <a href="{{ route('admin.updatefeaturedplan' ,['id'=> $row->id ])}}" title="Edit" class="btn-small btn-light-blue">Edit</a>
 
-                                                                    <a data-toggle="modal" data-target="#deleteModal_{{ $row->id }}" title="Delete" class="" style="cursor:pointer;"><i class="material-icons">delete</i></a>
+                                                                    <a data-toggle="modal" data-target="#deleteModal_{{ $row->id }}" title="Delete" class="btn-small btn-light-pink modal-trigger right">Delete</a>
 
                                                                     <div class="modal fade" id="deleteModal_{{ $row->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
