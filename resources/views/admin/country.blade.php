@@ -54,7 +54,7 @@
                                         <form class="formValidate0" id="formValidate0" method="post" enctype="multipart/form-data" action="{{ route('admin.updatecountry' ,['id'=>$country->id ])}}">@csrf
 
                                             <div class="row">
-                                                <div class="input-field col s12">
+                                                <div class="input-field col s4">
                                                     <strong>Country Name :  <span style="color: red;">*
                                                     </span></strong>
                                                     <input type="text" name="name" id="name" value="{{ $country->name }}" class=" @error('name') is-invalid @enderror">
@@ -63,7 +63,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="input-field col s6">
+                                                <div class="input-field col s4">
                                                     <strong>Country Code :  <span style="color: red;">*
                                                     </span></strong>
                                                     <input type="text" name="code" id="code" value="{{ $country->code }}" class=" @error('code') is-invalid @enderror">
@@ -72,7 +72,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="input-field col s6">
+                                                <div class="input-field col s4">
                                                     <strong>Dial Code :  <span style="color: red;">*
                                                     </span></strong>
                                                     <input type="text" name="dial_code" id="dial_code" value="{{ $country->dial_code }}" class=" @error('dial_code') is-invalid @enderror">

@@ -25,7 +25,7 @@
         </li>
 
         <li class="active bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/country') ? 'active' : '' }}" href="{{ url('/admin/country') }}" title="Country">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'country') ? 'active' : '' }}" href="{{ url('/admin/country') }}" title="Country">
                 <i class="material-icons">my_location</i><span class="menu-title" data-i18n="Country">Country</span>
             </a>
         </li>
