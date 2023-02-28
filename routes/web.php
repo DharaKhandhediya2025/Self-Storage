@@ -12,6 +12,7 @@ use App\Http\Controllers\Web\WebController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\BannersController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\FAQController;
@@ -86,6 +87,13 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         Route::post('add-edit-banners',[BannersController::class,'saveBanner'])->name('admin.savebanners');
         Route::get('edit-banners/{id}',[BannersController::class,'addUpdateBanner'])->name('admin.updatebanners');
         Route::get('delete-banners/{id}',[BannersController::class,'deleteBanner'])->name('admin.deletebanners');
+
+        // Category
+        Route::get('category',[CategoryController::class,'index'])->name('admin.category');
+        Route::get('add-category',[CategoryController::class,'addUpdateCategory'])->name('admin.addcategory');
+        Route::post('add-edit-category',[CategoryController::class,'saveCategory'])->name('admin.savecategory');
+        Route::get('edit-category/{id}',[CategoryController::class,'addUpdateCategory'])->name('admin.updatecategory');
+        Route::get('delete-category/{id}',[CategoryController::class,'deleteCategory'])->name('admin.deletecategory');
 
         // Countries
         Route::get('/country',[CountryController::class,'getCountries'])->name('get.countries');
