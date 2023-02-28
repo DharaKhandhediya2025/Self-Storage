@@ -38,9 +38,12 @@
 									<div class="card-title">
 										<div class="row">
 											<div class="col s12 m6 l10">
-												<h4 class="card-title">Amenities</h4>
+                                                @if(isset($amenities->id) && $amenities->id > 0)
+                                                    <h4 class="card-title">Edit Amenities</h4>
+                                                @else
+                                                    <h4 class="card-title">Add Amenities</h4>
+                                                @endif
 											</div>
-											<div class="col s12 m6 l2"></div>
 										</div>	
 									</div>
                                     <form class="formValidate0" id="amenities_form" enctype="multipart/form-data" action="{{ route('admin.saveamenities') }}" method="POST">@csrf

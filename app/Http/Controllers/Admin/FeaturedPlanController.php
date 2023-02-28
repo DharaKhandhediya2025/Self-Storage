@@ -39,7 +39,7 @@ class FeaturedPlanController extends Controller
         if($id) {
             $featured_plans = FeaturedPlan::where('id','=',$id)->firstOrFail();
         }
-        return view('admin.featured-plan.addUpdateFeaturedPlan',compact('featured_plans','duration_list','plan_type'));
+        return view('admin.featured-plan.add-update-featured-plan',compact('featured_plans','duration_list','plan_type'));
     }
 
     public function saveFeaturedPlan(Request $request) {

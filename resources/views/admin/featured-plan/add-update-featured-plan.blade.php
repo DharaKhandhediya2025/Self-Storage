@@ -38,7 +38,11 @@
 									<div class="card-title">
 										<div class="row">
 											<div class="col s12 m6 l10">
-												<h4 class="card-title">Featured Plan</h4>
+                                                @if(isset($featured_plans->id) && $featured_plans->id > 0)
+                                                    <h4 class="card-title">Edit Featured Plan</h4>
+                                                @else
+                                                    <h4 class="card-title">Add Featured Plan</h4>
+                                                @endif
 											</div>
 											<div class="col s12 m6 l2"></div>
 										</div>	
