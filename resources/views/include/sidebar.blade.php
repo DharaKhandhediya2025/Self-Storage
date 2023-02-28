@@ -31,7 +31,7 @@
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/category') ? 'active' : '' }}" href="{{ url('/admin/category') }}" title="Category">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'category') ? 'active' : '' }}" href="{{ url('/admin/category') }}" title="Category">
                 <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Category">Category</span>
             </a>
         </li>
@@ -43,7 +43,7 @@
         </li> -->
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/amenities') ? 'active' : '' }}" href="{{ url('/admin/amenities') }}" title="Amenities">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'amenities') ? 'active' : '' }}" href="{{ url('/admin/amenities') }}" title="Amenities">
                 <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Amenities">Amenities</span>
             </a>
         </li>
@@ -75,7 +75,7 @@
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'inquiry') ? 'active' : '' }}" href="{{ url('/admin/inquiry') }}" title="Inquiry">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/inquiry') ? 'active' : '' }}" href="{{ url('/admin/inquiry') }}" title="Inquiry">
                 <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Inquiry">Inquiry</span>
             </a>
         </li>
