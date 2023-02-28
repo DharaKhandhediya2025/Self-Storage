@@ -37,11 +37,6 @@
                             @if(isset($storages->video_url) && $storages->video_url != '')
                                 <div class="col s12 m5 quick-action-btns display-flex justify-content-end align-items-center">
                                     <a href="{{ $storages->video_url }}" class="waves-effect waves-light btn border-round mr-1 z-depth-4" target="_blank" style="background-color: #f48fb1;">View Video</a>
-                                    <a href="{{ url('/admin/storages') }}" class="waves-effect waves-light btn border-round mr-1 z-depth-4">Back</a>
-                                </div>
-                            @else
-                                <div class="col s12 m5 quick-action-btns display-flex justify-content-end align-items-center">
-                                    <a href="{{ url('/admin/storages') }}" class="waves-effect waves-light btn border-round mr-1 z-depth-4">Back</a>
                                 </div>
                             @endif
                         </div>
@@ -100,6 +95,24 @@
                                                     {!! $name_string !!}</p></td>
                                                 </tr>
                                             @endif
+                                            {{-- @if(isset($storages->storage_variants) && $storages->storage_variants != '')
+                                                <tr>
+                                                    <td>Variants :</td>
+                                                    <td>Dimension :</td>
+                                                    <td>Inventory :</td>
+                                                    <td>Price :</td>
+                                                    <td>Surface :</td>
+
+                                                    @foreach($storages->storage_variants as $key => $value)
+                                                        <td></td>
+                                                        <td>{{ $value->dimension }}</td>
+                                                        <td>{{ $value->inventory }}</td>
+                                                        <td>{{ $value->price }}</td>
+                                                        <td>{{ $value->surface }}</td>
+                                                    @endforeach
+                                                    
+                                                </tr>
+                                            @endif --}}
                                             <tr>
                                                 <td>Description :</td>
                                                 <td colspan="3"><p style="text-align:justify;">

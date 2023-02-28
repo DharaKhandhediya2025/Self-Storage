@@ -134,7 +134,7 @@ class AdminController extends Controller
                 $query->select('id','name');
             }]);
 
-        }])->with(['seller','country_details','category','sub_category','storage_image'])->where('slug',$slug)->first();
+        }])->with(['seller','country_details','storage_variants','category','sub_category','storage_image'])->where('slug',$slug)->first();
 
         return view('admin.storage.details',compact('storages'));
     }
