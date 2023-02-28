@@ -22,7 +22,7 @@
                         <ol class="breadcrumbs mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
                             </a></li>
-                            <li class="breadcrumb-item active">Featured Plan</li>
+                            <li class="breadcrumb-item active">Featured Plan List</li>
                         </ol>
                     </div>
                 </div>
@@ -48,9 +48,9 @@
                 						<div class="row">
                 							<input type="hidden" name="id" value="{{ $featured_plans->id }}">
                 							<div class="input-field col s6">
-                								<strong>Type :</strong>
+                								<strong>Plan Type :</strong>
                 								<select id="type" name="type" class="browser-default" tabindex="1">
-                                                    <option value="">Select</option>
+                                                    <option value="">Select Plan Type</option>
                                                     @foreach ($plan_type as $key => $value)
                                                     	@if($key == $featured_plans->type)
                                                         	<option value="{{ $key }}" selected>
