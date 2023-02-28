@@ -36,11 +36,11 @@
             </a>
         </li>
 
-        <li class="bold">
+        <!-- <li class="bold">
             <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/subcategory') ? 'active' : '' }}" href="{{ url('/admin/subcategory') }}" title="Sub Category">
                 <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Sub Category">Sub Category</span>
             </a>
-        </li>
+        </li> -->
 
         <li class="bold">
             <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/amenities') ? 'active' : '' }}" href="{{ url('/admin/amenities') }}" title="Amenities">

@@ -77,7 +77,7 @@
                                                                 <td style="word-wrap: break-word;text-align: center;">{{ $row->question }}</td>
 
                                                                 <td style="width:300px;text-align: center;">
-                                                                    <a href="{{ route('admin.viewfaq' ,['id'=> $row->id ])}}" title="View" class="btn-small btn-light-blue">View</a>
+                                                                    <a href="{{ route('admin.viewfaq' ,['id'=> $row->id ])}}" title="View" class="btn-small btn-light-green">View</a>
 
                                                                     <a href="{{ route('admin.updatefaq' ,['id'=> $row->id ])}}" title="Edit" class="btn-small btn-light-blue">Edit</a>
 
