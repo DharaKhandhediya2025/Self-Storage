@@ -114,6 +114,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
         // Storages
         Route::get('/storages',[AdminController::class,'getStorages'])->name('get.storages');
+        Route::get('storages-detail/{slug}',[AdminController::class,'getStorageDetailsByID'])->name('get.storagedetails');
 
         // Buyers
         Route::get('/buyers',[AdminController::class,'getBuyers'])->name('get.buyers');
