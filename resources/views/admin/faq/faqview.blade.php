@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/app-assets/css/pages/page-faq.css') }}">
 @stop
 
-@extends('include.master')@section('title','FAQ')
+@extends('include.master')@section('title','FAQs')
 
 @section('content')
 
@@ -18,8 +18,7 @@
                         <ol class="breadcrumbs mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
                             </a></li>
-                            <li class="breadcrumb-item"><a href="{{ url('admin/faq-list')}}">FAQs
-                            </a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('admin/faq-list')}}">FAQs</a></li>
                             <li class="breadcrumb-item active">FAQ Details</li>
                         </ol>
                     </div>
@@ -34,7 +33,7 @@
                             <ul class="collapsible categories-collapsible">
                                 <li>
                                     <div class="collapsible-header">
-                                        Q: {!! $faq->question !!}<i class="material-icons">keyboard_arrow_right </i>
+                                        Q : {!! $faq->question !!}<i class="material-icons">keyboard_arrow_right </i>
                                     </div>
                                     <div class="collapsible-body"><p>{!! $faq->answer !!}</p></div>
                                 </li>

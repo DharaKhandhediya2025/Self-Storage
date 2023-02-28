@@ -1,5 +1,14 @@
 @extends('include.master')@section('title','Featured Plan')
 
+@section('css')
+    <style>
+        .error{
+            color:#f56954 !important;
+            border-color:#f56954 !important;
+        }
+    </style>
+@endsection
+
 @section('content')
 	<div class="row">
         <div id="breadcrumbs-wrapper" data-image="{{ asset('public/app-assets/images/gallery/breadcrumb-bg.jpg') }}" class="breadcrumbs-bg-image" style="background-image: url('{{ asset('public/app-assets/images/gallery/breadcrumb-bg.jpg') }}')">
@@ -35,6 +44,7 @@
 										</div>	
 									</div>
                                     <form class="formValidate0" id="plan_form" enctype="multipart/form-data" action="{{ route('admin.savefeaturedplan') }}" method="POST">@csrf
+
                 						<div class="row">
                 							<input type="hidden" name="id" value="{{ $featured_plans->id }}">
                 							<div class="input-field col s6">
@@ -116,6 +126,40 @@
 @section('js')
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 	<script type="text/javascript">
+
+        jQuery(document).ready(function() {
+
+            $("#plan_form").validate({
+                rules: {
+                    "type": {
+                        required: true
+                    },
+                    "price": {
+                        required: true
+                    },
+                    "validity": {
+                        required: true
+                    },
+                    "duration": {
+                        required: true
+                    },
+                },
+                messages: {
+                    "type": {
+                        required: "Please Select Plan Type."
+                    },
+                    "price": {
+                        required: "Price is Required."
+                    },
+                    "validity": {
+                        required: "Validity is Required."
+                    },
+                    "duration": {
+                        required: "Duration is Required."
+                    },
+                }
+            });
+        });
 
         $('#price').keypress(function (e) {
 

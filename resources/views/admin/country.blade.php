@@ -1,5 +1,14 @@
 @extends('include.master')@section('title','Country')
 
+@section('css')
+    <style>
+        .error{
+            color:#f56954 !important;
+            border-color:#f56954 !important;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div id="breadcrumbs-wrapper" data-image="{{ asset('public/app-assets/images/gallery/breadcrumb-bg.jpg') }}" class="breadcrumbs-bg-image" style="background-image: url('{{ asset('public/app-assets/images/gallery/breadcrumb-bg.jpg') }}')">
@@ -51,7 +60,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <form class="formValidate0" id="formValidate0" method="post" enctype="multipart/form-data" action="{{ route('admin.updatecountry' ,['id'=>$country->id ])}}">@csrf
+                                        <form class="formValidate0" id="country_form" enctype="multipart/form-data" action="{{ route('admin.updatecountry' ,['id'=>$country->id ])}}" method="POST">@csrf
 
                                             <div class="row">
                                                 <div class="input-field col s4">
@@ -165,3 +174,36 @@
         @endif
     </div>
 @endsection
+
+@section('js')
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            $("#country_form").validate({
+                rules: {
+                    "name": {
+                        required: true
+                    },
+                    "code": {
+                        required: true
+                    },
+                    "dial_code": {
+                        required: true
+                    },
+                },
+                messages: {
+                    "name": {
+                        required: "Country Name is Required."
+                    },
+                    "code": {
+                        required: "Country Code is Required."
+                    },
+                    "dial_code": {
+                        required: "Dial Code is Required."
+                    },
+                }
+            });
+        });
+    </script>
+@stop

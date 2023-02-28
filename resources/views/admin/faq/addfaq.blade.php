@@ -34,7 +34,8 @@
 											<div class="col s12 m6 l2"></div>
 										</div>	
 									</div>
-									<form class="formValidate0" id="formValidate0" method="post" enctype="multipart/form-data" action="{{ route('admin.savefaq') }}">@csrf
+									<form class="formValidate0" id="faq_form" enctype="multipart/form-data" action="{{ route('admin.savefaq') }}" method="POST">@csrf
+
                 						<div class="row">
                 							<input type="hidden" name="id" value="{{ $faq->id }}">
                 							<div class="input-field col s12">
@@ -81,9 +82,8 @@
 
 @section('js')
 	<script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
-
 	<script>
 		CKEDITOR.replace('answer', {
-        })
+        });
 	</script>
 @stop
