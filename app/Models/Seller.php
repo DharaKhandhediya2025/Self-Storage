@@ -13,5 +13,5 @@ class Seller extends Model
 
     protected $hidden = ['updated_at'];
 
-    protected $fillable = ['active_block_status','firebase_uid','google_id','facebook_id','apple_id','name','email','password','profile_image','latitude','longitude','country_code','phone','otp','otp_verify','fcm_token','custom_token'];
+    protected $fillable = ['active_block_status','firebase_uid','google_id','facebook_id','apple_id','name','email','password','profile_image','latitude','longitude','country_code','phone','city','zipcode','address','otp','otp_verify','fcm_token','custom_token'];
 }
