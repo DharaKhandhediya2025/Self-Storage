@@ -126,7 +126,7 @@ class AdminController extends Controller
         return view('admin.storage.list', ['storages' => $storages,'count' => $count]);
     }
 
-    public function getPropertyDetailsByID($slug) {
+    public function getStorageDetailsByID($slug) {
 
         $storages = Storage::with(['storage_amenities' => function($sql) {
             
@@ -134,7 +134,7 @@ class AdminController extends Controller
                 $query->select('id','name');
             }]);
 
-        }])->with(['seller','category','sub_category','storage_image'])->where('slug',$slug)->first();
+        }])->with(['seller','country_details','category','sub_category','storage_image'])->where('slug',$slug)->first();
 
         return view('admin.storage.details',compact('storages'));
     }

@@ -19,6 +19,10 @@ class Storage extends Model
         return $this->belongsTo(Seller::class,'seller_id','id');
     }
 
+    public function country_details() {
+        return $this->belongsTo(Country::class,'country','id');
+    }
+
     public function category() {
         return $this->belongsTo(Category::class,'cat_id','id');
     }
