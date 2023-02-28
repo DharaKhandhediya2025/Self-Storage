@@ -58,4 +58,8 @@ class Storage extends Model
     public function featured_storages() {
         return $this->hasMany(FeaturedStorage::class,'storage_id','id');
     }
+
+    public function storage_variants() {
+        return $this->hasMany(StorageVariant::class,'storage_id','id');
+    }
 }
