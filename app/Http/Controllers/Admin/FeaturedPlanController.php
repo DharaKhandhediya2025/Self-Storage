@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\FeaturedPlan;
+use App\Models\FeaturedPlanFunctionality;
 
 class FeaturedPlanController extends Controller
 {
@@ -62,17 +63,30 @@ class FeaturedPlanController extends Controller
             'validity' => 'required',
             'duration' => 'required',
         ],$messages);
-       
 
         if(empty($featured_plans)) {
 
-            FeaturedPlan::create([
+            $featured_plans = new FeaturedPlan();
+            $featured_plans->type = $request->type;
+            $featured_plans->price = $request->price;
+            $featured_plans->validity = $request->validity;
+            $featured_plans->duration = $request->duration;
+            $featured_plans->save();
 
-                'type' => $request->type,
-                'price' => $request->price,
-                'validity' => $request->validity,
-                'duration' => $request->duration,
-            ]);
+            $functionality = $request->functionality;
+
+            if(isset($functionality) && $functionality != '') {
+
+                $fp_id = $featured_plans->id;
+
+                for($j = 0; $j < count($functionality); $j++) {
+
+                    $fp_functionality = new FeaturedPlanFunctionality();
+                    $fp_functionality->featured_plan_id = $fp_id;
+                    $fp_functionality->functionality = $functionality[$j];
+                    $fp_functionality->save();
+                }
+            }
 
             session()->flash('type','message');
             session()->flash('message', 'Featured Plan Added Successfully.');
