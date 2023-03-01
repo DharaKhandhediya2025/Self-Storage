@@ -121,9 +121,16 @@ class FeaturedPlanController extends Controller
         }
     }
 
+    public function viewFeaturedPlan($id) {
+
+        $featured_plan = FeaturedPlan::with('plan_functionality')->where('id','=',$id)->first();
+
+        return view('admin.featured-plan.featured-plan-view',compact('featured_plan'));
+    }
+
     public function deleteFeaturedPlan($id) {
 
-        $featured_plans = FeaturedPlan::destroy($id);
+        FeaturedPlan::destroy($id);
 
         session()->flash('type','message');
         session()->flash('message', 'Featured Plan Deleted Successfully.');

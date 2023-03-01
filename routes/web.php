@@ -129,6 +129,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         Route::post('add-edit-featured-plan',[FeaturedPlanController::class,'saveFeaturedPlan'])->name('admin.savefeaturedplan');
         Route::get('edit-featured-plan/{id}',[FeaturedPlanController::class,'addUpdateFeaturedPlan'])->name('admin.updatefeaturedplan');
         Route::get('delete-featured-plan/{id}',[FeaturedPlanController::class,'deleteFeaturedPlan'])->name('admin.deletefeaturedplan');
+        Route::get('view-featured-plan/{id}',[FeaturedPlanController::class,'viewFeaturedPlan'])->name('admin.viewfeaturedplan');
 
         // CMS Pages
 

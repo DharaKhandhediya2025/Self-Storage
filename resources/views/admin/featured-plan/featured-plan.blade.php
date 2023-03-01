@@ -79,7 +79,9 @@
                                                                 <td style="text-align: center;">{{ $row->price }}</td>
                                                                 <td style="text-align: center;">{{ $row->validity }} {{ $row->duration }}</td>
                                                                 
-                                                                <td style="width: 230px;text-align: center;">
+                                                                <td style="width: 300px;text-align: center;">
+
+                                                                    <a href="{{ route('admin.viewfeaturedplan' ,['id'=> $row->id ])}}" title="View" class="btn-small btn-light-green">View</a>
 
                                                                     <a href="{{ route('admin.updatefeaturedplan' ,['id'=> $row->id ])}}" title="Edit" class="btn-small btn-light-blue">Edit</a>
 
