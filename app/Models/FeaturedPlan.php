@@ -15,6 +15,10 @@ class FeaturedPlan extends Model
 
     protected $fillable = ['type','price','validity','duration'];
 
+    public function plan_functionality() {
+        return $this->hasMany(FeaturedPlanFunctionality::class,'featured_plan_id','id');
+    }
+
     public static function getPlanType() {
 
         $plan_type = array();

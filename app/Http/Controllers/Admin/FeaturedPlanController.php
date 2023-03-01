@@ -19,10 +19,10 @@ class FeaturedPlanController extends Controller
 
         if(isset($start_date) && isset($end_date)) {
             
-            $featured_plans = FeaturedPlan::where('created_at','>=',$start_date)->where('created_at','<=',$end_date)->orderBy('id','desc')->get();
+            $featured_plans = FeaturedPlan::with('plan_functionality')->where('created_at','>=',$start_date)->where('created_at','<=',$end_date)->orderBy('id','desc')->get();
         }
         else {
-            $featured_plans = FeaturedPlan::orderBy('id','desc')->get();
+            $featured_plans = FeaturedPlan::with('plan_functionality')->orderBy('id','desc')->get();
         }
 
         $count = sizeof($featured_plans);
@@ -38,7 +38,7 @@ class FeaturedPlanController extends Controller
         $featured_plans = new FeaturedPlan();
 
         if($id) {
-            $featured_plans = FeaturedPlan::where('id','=',$id)->firstOrFail();
+            $featured_plans = FeaturedPlan::with('plan_functionality')->where('id','=',$id)->firstOrFail();
         }
         return view('admin.featured-plan.add-update-featured-plan',compact('featured_plans','duration_list','plan_type'));
     }
@@ -47,6 +47,7 @@ class FeaturedPlanController extends Controller
 
         $id = $request->get('id');
         $featured_plans = FeaturedPlan::find($id);
+        $functionality = $request->functionality;
 
         $messages = [
 
@@ -73,8 +74,6 @@ class FeaturedPlanController extends Controller
             $featured_plans->duration = $request->duration;
             $featured_plans->save();
 
-            $functionality = $request->functionality;
-
             if(isset($functionality) && $functionality != '') {
 
                 $fp_id = $featured_plans->id;
@@ -94,6 +93,20 @@ class FeaturedPlanController extends Controller
             return redirect('admin/featured-plan');
         }
         else {
+
+            if(isset($functionality) && $functionality != '') {
+
+                // First Delete All Previous Entries
+                FeaturedPlanFunctionality::where('featured_plan_id','=',$id)->delete();
+
+                for($j = 0; $j < count($functionality); $j++) {
+
+                    $fp_functionality = new FeaturedPlanFunctionality();
+                    $fp_functionality->featured_plan_id = $id;
+                    $fp_functionality->functionality = $functionality[$j];
+                    $fp_functionality->save();
+                }
+            }
             
             $featured_plans->type = $request->type;
             $featured_plans->price = $request->price;

@@ -186,7 +186,7 @@
                                             </div>
 
                                             <div class="input-field col s12">
-                                                @if(isset($featured_plans->id) && $featured_plans->id > 0)
+                                                @if(isset($featured_plans->plan_functionality) && sizeof($featured_plans->plan_functionality) > 0)
                                                     <input type="hidden" id="row_cnt" name="row_cnt" value="1">
                                                     <table class="responsive-table functionality_table" id="featured_plans_table">
                                                         <thead>
@@ -195,7 +195,24 @@
                                                                 <th class="table_first_th">Functionality</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody></tbody>
+                                                        <tbody>
+                                                            <?php $i = 0; ?>
+                                                            @foreach($featured_plans->plan_functionality as $$key => $value)
+                                                                <tr class="row_{{ $i }}">
+                                                                    @if($i == 0)
+                                                                        <td></td>
+                                                                    @else
+                                                                        <td>
+                                                                            <a class="btn delete_row_btn remove-tr"><i class="material-icons">delete_forever</i></a>
+                                                                        </td>
+                                                                    @endif
+                                                                    <td>
+                                                                        <input type="text" name="functionality[]" id="functionality_{{ $i }}" placeholder="Functionality" class="form-control" value="{{ $value->functionality }}">
+                                                                    </td>
+                                                                </tr>
+                                                                <?php $i++; ?>
+                                                            @endforeach
+                                                        </tbody>
                                                     </table>
                                                 @else
 
