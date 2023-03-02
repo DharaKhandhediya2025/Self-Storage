@@ -48,7 +48,7 @@
             <header>
                 <div class="container-fluid">
                     <nav class="navbar navbar-expand-md ">
-                        <a class="navbar-brand" href="#"><img src="{{ config('global.front_base_url').'images/logo.png' }}" alt="logo"></a>
+                        <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ config('global.front_base_url').'images/logo.png' }}" alt="logo"></a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -58,13 +58,13 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="#">Home</a>
+                                    <a class="nav-link" href="{{ url('/') }}">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">About us</a>
+                                    <a class="nav-link" href="{{ url('/about-us') }}">About us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact us</a>
+                                    <a class="nav-link" href="{{ url('/contact-us') }}">Contact us</a>
                                 </li>
                                 <!-- <li class="nav-item">
                                     <a class="nav-link p-0" href="#"><img src="{{ config('global.front_base_url').'images/user-profile.png' }}" alt="user-profile" class="img-fluid"></a>
@@ -173,9 +173,9 @@
                         <a href="#"><img src="{{ config('global.front_base_url').'images/linkedin-footer.png' }}" alt="linkedin-footer" class="img-fluid"></a>
                     </div>
                     <div class="footer_menus">
-                        <a href="#">About us <span>|</span></a>
-                        <a href="#">Contact Us<span>|</span></a>
-                        <a href="#">Terms and conditions </a>
+                        <a href="{{ url('/about-us') }}">About us <span>|</span></a>
+                        <a href="{{ url('/contact-us') }}">Contact Us<span>|</span></a>
+                        <a href="{{ url('/terms-condition') }}">Terms and conditions </a>
                     </div>
                 </div>
             </div>
