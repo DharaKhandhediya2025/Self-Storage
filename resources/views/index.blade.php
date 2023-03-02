@@ -13,7 +13,7 @@
             <div class="row mb-4">
                 <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                     <div class="work_box">
-                        <img src="assets/img/clock.png" alt="Clock" class="img-fluid">
+                        <img src="{{ config('global.front_base_url').'images/clock.png' }}" alt="Clock" class="img-fluid">
                         <h4>Title here</h4>
                         <p>Lorem Ipsum is simply dummy text of the <br>printing and typesetting industry.</p>
                     </div>
@@ -21,7 +21,7 @@
 
                 <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                     <div class="work_box">
-                        <img src="assets/img/clock.png" alt="Clock" class="img-fluid">
+                        <img src="{{ config('global.front_base_url').'images/clock.png' }}" alt="Clock" class="img-fluid">
                         <h4>Title here</h4>
                         <p>Lorem Ipsum is simply dummy text of the <br>printing and typesetting industry.</p>
                     </div>
@@ -29,7 +29,7 @@
 
                 <div class="col-12 col-sm-4 col-md-4 col-lg-4">
                     <div class="work_box">
-                        <img src="assets/img/clock.png" alt="Clock" class="img-fluid">
+                        <img src="{{ config('global.front_base_url').'images/clock.png' }}" alt="Clock" class="img-fluid">
                         <h4>Title here</h4>
                         <p>Lorem Ipsum is simply dummy text of the <br>printing and typesetting industry.</p>
                     </div>
@@ -41,12 +41,12 @@
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-6">
                             <div class="work_img">
-                                <img src="assets/img/work-img-one.png" alt="work-img" class="img-fluid" width="100%">
+                                <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="work-img" class="img-fluid" width="100%">
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-6">
                             <div class="work_img">
-                                <img src="assets/img/work-img-two.png" alt="work-img" class="img-fluid" width="100%">
+                                <img src="{{ config('global.front_base_url').'images/work-img-two.png' }}" alt="work-img" class="img-fluid" width="100%">
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-one.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -91,7 +91,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-two.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-two.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -109,7 +109,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-three.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-three.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -127,7 +127,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-four.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-four.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -145,7 +145,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-five.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-five.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -163,7 +163,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-one.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -181,7 +181,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-two.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-two.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -199,7 +199,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-three.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-three.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -217,7 +217,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-four.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-four.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -236,7 +236,7 @@
                     <div class="nearby_slider_card">
                         <a href="#">
                             <div class="nearby_slider_img">
-                                <img src="assets/img/nearby-five.png" alt="nearby-one" class="img-fluid">
+                                <img src="{{ config('global.front_base_url').'images/nearby-five.png' }}" alt="nearby-one" class="img-fluid">
                                 <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
                             </div>
                         </a>
@@ -273,7 +273,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-img">
-                                                    <img src="assets/img/profile-img.png" alt="profile">
+                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
                                                     <h4>Katerina Petrova</h4>
                                                     <p>Odintsovo</p>
                                                 </div>
@@ -294,7 +294,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-img">
-                                                    <img src="assets/img/profile-img.png" alt="profile">
+                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
                                                     <h4>Katerina Petrova</h4>
                                                     <p>Odintsovo</p>
                                                 </div>
@@ -315,7 +315,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-img">
-                                                    <img src="assets/img/profile-img.png" alt="profile">
+                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
                                                     <h4>Katerina Petrova</h4>
                                                     <p>Odintsovo</p>
                                                 </div>
@@ -336,7 +336,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-img">
-                                                    <img src="assets/img/profile-img.png" alt="profile">
+                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
                                                     <h4>Katerina Petrova</h4>
                                                     <p>Odintsovo</p>
                                                 </div>
@@ -357,7 +357,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-img">
-                                                    <img src="assets/img/profile-img.png" alt="profile">
+                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
                                                     <h4>Katerina Petrova</h4>
                                                     <p>Odintsovo</p>
                                                 </div>
@@ -378,7 +378,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-img">
-                                                    <img src="assets/img/profile-img.png" alt="profile">
+                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
                                                     <h4>Katerina Petrova</h4>
                                                     <p>Odintsovo</p>
                                                 </div>
@@ -399,7 +399,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-img">
-                                                    <img src="assets/img/profile-img.png" alt="profile">
+                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
                                                     <h4>Katerina Petrova</h4>
                                                     <p>Odintsovo</p>
                                                 </div>
@@ -420,7 +420,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-img">
-                                                    <img src="assets/img/profile-img.png" alt="profile">
+                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
                                                     <h4>Katerina Petrova</h4>
                                                     <p>Odintsovo</p>
                                                 </div>

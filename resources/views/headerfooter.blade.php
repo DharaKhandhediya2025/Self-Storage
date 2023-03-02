@@ -9,7 +9,7 @@
 
         @yield('customcss')
 
-        <link rel="icon" type="image/png" href="{{config('global.front_base_url').'images/logo_icon.png' }}"/>
+        <link rel="icon" type="image/png" href="{{ config('global.front_base_url').'images/logo_icon.png' }}"/>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/bootstrap.css' }}">
@@ -186,12 +186,12 @@
         @yield('customjs')
 
         <!-- Script start -->
-        <script src="{{ config('global.front_base_url').'js/jQuery.js'}}"></script>
-        <script src="{{ config('global.front_base_url').'js/popper.min.js'}}"></script>
-        <script src="{{ config('global.front_base_url').'js/bootstrap.js'}}"></script>
-        <script src="{{ config('global.front_base_url').'js/slick.js'}}"></script>
-        <script src="{{ config('global.front_base_url').'js/ion.rangeSlider.min.js'}}"></script>
-        <script src="{{ config('global.front_base_url').'js/custom.js'}}"></script>
+        <script src="{{ config('global.front_base_url').'js/jQuery.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/popper.min.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/bootstrap.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/slick.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/ion.rangeSlider.min.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/custom.js' }}"></script>
         <!-- Script End -->
 
         <script type="text/javascript">

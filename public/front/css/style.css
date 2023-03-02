@@ -354,7 +354,7 @@ header .navbar .navbar-nav .nav-item .nav-link {
 }
 
 header .navbar .navbar-toggler-icon {
-    background-image: url("../img/hamburger.png");
+    background-image: url("../images/hamburger.png");
 }
 
 header .navbar .navbar-toggler:focus {
@@ -370,7 +370,7 @@ header .navbar .navbar-toggler:focus {
 .hero_banner__Section {
     width: 100%;
     height: 700px;
-    background-image: url("../img/hero-banner-img.jpg");
+    background-image: url("../images/hero-banner-img.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     font-family: Poppins;
@@ -829,7 +829,7 @@ header .navbar .navbar-toggler:focus {
     width: 100%;
     height: 100%;
     border-radius: 30px;
-    background: url('../img/bg-vector.png'), #2DA6EF;
+    background: url('../images/bg-vector.png'), #2DA6EF;
     background-repeat: no-repeat;
     background-position: bottom right;
     /* margin-top: 50px; */
@@ -884,7 +884,7 @@ header .navbar .navbar-toggler:focus {
 
 /* Footer Section Start */
 footer {
-    background: url('../img/footer-bg.jpg'), #193C75;
+    background: url('../images/footer-bg.jpg'), #193C75;
     height: 1000%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -3101,6 +3101,6 @@ li.repaly .time {
     text-indent: -9999px;
     box-shadow: 0 0 5px #fff;
     border-radius: 50px;
-    background: url('../img/icon_top.png') no-repeat;
+    background: url('../images/icon_top.png') no-repeat;
 }
 /* Scroll Top CSS Start */
