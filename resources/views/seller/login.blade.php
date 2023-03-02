@@ -1,4 +1,4 @@
-@extends('buyer.headerfooter') @section('title','Buyer Login')
+@extends('seller.headerfooter') @section('title','Seller Login')
 
 @section('content')
     <div class="login_wrapper">
@@ -23,15 +23,16 @@
                 </form>
 
                 <div class="text-center">
-                    <a href="{{ url('forgot-password') }}" class="forgot_password_text">Forgot Password</a>
+                    <a href="{{ url('seller/forgot-password') }}" class="forgot_password_text">Forgot Password</a>
                     <h6 class="or_sign_text">Or sign in with</h6>
                     <div class="other_login_box">
                         <a href="#"><img src="{{ config('global.front_base_url').'images/google.png' }}" alt="google-img"></a>
                         <a href="#"><img src="{{ config('global.front_base_url').'images/facebook.png' }}" alt="facebook-img"></a>
                         <a href="#"><img src="{{ config('global.front_base_url').'images/apple-app.png' }}" alt="facebook-img"></a>
                     </div>
-                    <p class="new_user_text">New user? <a href="{{ url('buyer-signup') }}">Create an account</a></p>
-                    <p class="seller_text">You are a seller? <a href="{{ url('seller/login') }}">Seller login</a></p>
+                    <p class="new_user_text">New user? <a href="{{ url('seller-signup') }}">Create an account</a></p>
+                    <p class="seller_text">You are a buyer? <a href="{{ url('login') }}">Buyer login</a>
+                    </p>
                 </div>
             </div>
         </div>

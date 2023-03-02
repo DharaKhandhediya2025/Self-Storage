@@ -78,11 +78,55 @@ Route::get('/web-logout',function() {
     auth()->guard('buyer')->logout();
     return redirect()->to('/');
 });
-
 // Buyer Register & Signup Routes End
 
-// Buyer Side After Login Routes Start
+// Seller Register & Signup Routes Start
+Route::get('/seller-signup',[SellersController::class,'sellerSignup'])->name('seller.signup');
 
+Route::post('/seller-register',[SellersController::class,'sellerRegister'])->name('seller.register');
+
+Route::get('/seller/forgot-password', function () {
+    return view('seller.forgot-password');
+});
+
+Route::post('/seller/send-otp',[SellersController::class,'sendOTP'])->name('seller.sendotp');
+
+Route::post('/seller/resend-otp',[SellersController::class,'sendOTP'])->name('seller.resendotp');
+
+Route::get('/seller/verify-otp', function () {
+    return view('seller.verify');
+});
+
+Route::post('/seller/save-verify-otp',[SellersController::class,'saveVerifyOTP'])->name('seller.verifyotp');
+
+Route::get('/seller/verification-success', function () {
+    return view('seller.verification-success');
+});
+
+Route::get('/seller/location', function () {
+    return view('seller.location');
+});
+
+Route::post('/seller-save-location',[SellersController::class,'saveSellerLocation'])->name('saveseller.location');
+
+Route::get('/seller/reset-password', function () {
+    return view('seller.reset-password');
+});
+
+Route::post('/seller/set-password',[SellersController::class,'setPassword'])->name('seller.setpassword');
+
+Route::get('/seller/reset-success', function () {
+    return view('seller.reset-success');
+});
+
+Route::get('/seller-logout',function() {
+
+    auth()->guard('seller')->logout();
+    return redirect()->to('/');
+});
+// Seller Register & Signup Routes End
+
+// Buyer Side After Login Routes Start
 Route::group(['middleware' => 'PreventBackHistory'], function () {
 
     //Home page
@@ -108,13 +152,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     // Buyer Social Login Routes
     Route::get('/buyer-google-login',[BuyersController::class,'buyerGoogleLogin']);
 
-    Route::get('/login/google', [WebController::class, 'redirectToGoogle'])->name('login.google');
-    Route::get('/login/google/callback', [WebController::class, 'handleGoogleCallback']);
-
     Route::get('/buyer-facebook-login',[BuyersController::class,'buyerFacebookLogin']);
-
-    Route::get('/login/facebook', [WebController::class, 'redirectToFacebook'])->name('login.facebook');
-    Route::get('/login/facebook/callback', [WebController::class, 'handleFacebookCallback']);
 
     Route::get('/login', function () {
 
@@ -128,14 +166,39 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         }
     });
     Route::post('/buyer-login',[BuyersController::class,'buyerLogin'])->name('buyer.login');
-});
+    // Buyer Social Login Routes End
 
+    // Seller Social Login Routes Start
+    Route::get('/seller-google-login',[SellersController::class,'sellerGoogleLogin']);
+
+    Route::get('/seller-facebook-login',[SellersController::class,'sellerFacebookLogin']);
+
+    Route::get('seller/login', function () {
+
+        if (auth()->guard('seller')->user() == '') {
+            
+            $user = 'seller';
+            return view('seller.login',compact('user'));
+        }
+        else {
+            return redirect('/');
+        }
+    });
+    Route::post('/seller-login',[SellersController::class,'sellerLogin'])->name('seller.login');
+    // Seller Social Login Routes Start
+
+    // Common Routes For Social Login
+    Route::get('/login/google', [WebController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('/login/google/callback', [WebController::class, 'handleGoogleCallback']);
+
+    Route::get('/login/facebook', [WebController::class, 'redirectToFacebook'])->name('login.facebook');
+    Route::get('/login/facebook/callback', [WebController::class, 'handleFacebookCallback']);
+});
 // Buyer Side After Login Routes End
 
 // Website Routes End
 
 // Admin Panel Routes Start
-
 Auth::routes(['login' => false]);
 
 Route::group(['middleware' => 'PreventBackHistory'], function () {

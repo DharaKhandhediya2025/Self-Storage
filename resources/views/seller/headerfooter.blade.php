@@ -30,5 +30,12 @@
         <script src="{{ config('global.front_base_url').'js/bootstrap.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/custom.js' }}"></script>
         <!-- Script End -->
+
+        <script type="text/javascript">
+
+            jQuery(document).ready(function() {
+           
+            });
+        </script>
     </body>
 </html>

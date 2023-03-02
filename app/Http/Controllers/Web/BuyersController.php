@@ -16,6 +16,8 @@ use Kreait\Firebase\ServiceAccount;
 
 class BuyersController extends Controller
 {
+    protected $guard = 'buyer';
+
     public function buyerSignup() {
 
         try {
@@ -87,7 +89,7 @@ class BuyersController extends Controller
             $input['email'] = $email;
 
             // Send OTP over mail
-            \Mail::send('emails.buyerSellerOTP', $input, function ($message) use($input) {
+            \Mail::send('emails.sendOTP', $input, function ($message) use($input) {
                 $message->to($input['email'])->subject('Verification Code');
             });
 
