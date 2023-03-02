@@ -9,7 +9,7 @@
         <meta name="keywords" content="Self Storage">
         <meta name="author" content="ThemeSelect">
 
-        <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/favicon.png'}}"/>
+        <link rel="shortcut icon" href="{{ config('global.front_base_url').'images/favicon.ico' }}" type="image/x-icon">
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 

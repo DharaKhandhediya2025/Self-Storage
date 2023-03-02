@@ -10,7 +10,7 @@
 
         <title>Self Storage - Reset Password</title>
 
-        <link rel="shortcut icon" type="image/x-icon" href="{{config('global.front_base_url').'images/favicon.png'}}"/>
+        <link rel="shortcut icon" href="{{ config('global.front_base_url').'images/favicon.ico' }}" type="image/x-icon">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- BEGIN: VENDOR CSS-->
