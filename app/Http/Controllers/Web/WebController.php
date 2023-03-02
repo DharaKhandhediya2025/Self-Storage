@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\{AboutUs,ContactUs,FAQ,PrivacyPolicy,TermsCondition,Buyer,Seller,Storage,Category,Amenities,Banners,FavoriteStorage,Country};
 
 class WebController extends Controller
 {
@@ -33,12 +34,14 @@ class WebController extends Controller
             // Get Categories
             $categories = Category::get();
 
+            return view('index');
+
             if(auth()->guard('buyer')->user() == '' && auth()->guard('seller')->user() == '') {
 
                 // Get New Launched Storages
-                $new_launched_projects = self::getNewLaunchedProjects($category_id,9);
+                //$new_launched_projects = self::getNewLaunchedProjects($category_id,9);
 
-                return view('index',compact('new_launched_projects','categories','banners','category_id'));
+                //return view('index',compact('new_launched_projects','categories','banners','category_id'));
             }
             else if(auth()->guard('seller')->user() != '') {
 

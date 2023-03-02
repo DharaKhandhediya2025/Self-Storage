@@ -83,7 +83,7 @@ Route::get('/web-logout',function() {
 
 // Buyer Side After Login Routes Start
 
-Route::group(['middleware' => 'preventbackhistory'], function () {
+Route::group(['middleware' => 'PreventBackHistory'], function () {
 
     //Home page
     Route::any('/',[WebController::class,'index'])->name('web.index');
