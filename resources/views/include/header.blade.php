@@ -5,7 +5,7 @@
             <div class="nav-wrapper">
                 <ul class="navbar-list right">
                     <li>
-                        <a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online" style="width: 35px;"><img src="{{ asset('public/app-assets/images/avatar/user_default.png') }}" alt="avatar"><i></i></span></a>
+                        <a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online" style="width: 35px;"><img src="{{config('global.front_base_url').'images/favicon.png'}}" alt="avatar"><i></i></span></a>
                     </li>
                 </ul>
 
