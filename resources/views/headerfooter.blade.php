@@ -70,7 +70,7 @@
                                     <a class="nav-link p-0" href="#"><img src="{{ config('global.front_base_url').'images/user-profile.png' }}" alt="user-profile" class="img-fluid"></a>
                                 </li> -->
                                 <li class="nav-item">
-                                    <a class="nav-link header_login_btn" href="#">Login</a>
+                                    <a class="nav-link header_login_btn" href="{{ url('/login') }}">Login</a>
                                 </li>
                             </ul>
                         </div>
