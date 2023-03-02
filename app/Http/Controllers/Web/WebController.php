@@ -105,4 +105,66 @@ class WebController extends Controller
             session()->flash('error', $e->getMessage());
         }
     }
+
+    public function aboutUs() {
+
+        try {
+
+            $about_us = AboutUs::first();
+            return view('about-us',compact('about_us'));
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function contactUs() {
+
+        try {
+
+            $contact_us = ContactUs::first();
+            return view('contact-us',compact('contact_us'));
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function faqList() {
+
+        try {
+
+            $faq_list = FAQ::get();
+            return view('faq-list',compact('faq_list'));
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function privacyPolicy() {
+
+        try {
+
+            $privacy_policy = PrivacyPolicy::first();
+            return view('privacy-policy',compact('privacy_policy'));
+          
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function termsCondition() {
+
+        try {
+
+            $terms_condition = TermsCondition::first();
+            return view('terms-condition',compact('terms_condition'));
+    
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
 }

@@ -80,67 +80,6 @@
         </div>
         <!-- Header Section End -->
 
-        <!-- Banner Section Start -->
-        <section class="hero_banner__Section">
-            <div class="container">
-                <div class="banner__box">
-                    <div class="banner_content_box text-center">
-                        <h2>Find your <span>Storage Unite</span></h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <div class="banner_tabing">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Residential</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Residential</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="banner_search_main">
-                                        <form action="">
-                                            <div class="banner_text_location">
-                                                <input type="text" placeholder="Enter City, State or Zipcode">
-                                            </div>
-                                            <div class="banner_text_price">
-                                                <input type="text" placeholder="Price">
-                                                <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                            </div>
-                                            <div class="banner_text_filter">
-                                                <input type="text" placeholder="Filter">
-                                                <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
-                                            </div>
-                                            <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="banner_search_main">
-                                        <form action="">
-                                            <div class="banner_text_location">
-                                                <input type="text" placeholder="Enter City, State or Zipcode">
-                                            </div>
-                                            <div class="banner_text_price">
-                                                <input type="text" placeholder="Price">
-                                                <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                            </div>
-                                            <div class="banner_text_filter">
-                                                <input type="text" placeholder="Filter">
-                                                <span class="filter_text"><i class="fa fa-filter" aria-hidden="true"></i></span>
-                                            </div>
-                                            <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Banner Section End -->
-
         <!-- Main Section Start -->
         @yield('content')
         <!-- Main Section End -->

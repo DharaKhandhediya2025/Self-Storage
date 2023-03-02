@@ -2445,7 +2445,7 @@ footer {
 
 /* Banner Section Start */
 .about_banner_section {
-    background-image: url('../img/about-banner-img.png');
+    background-image: url('../images/about-banner-img.png');
     height: 406px;
     background-size: cover;
     background-position: center center;
@@ -2515,7 +2515,7 @@ footer {
 
 /* Banner Section Start  */
 .contact_banner_section {
-    background-image: url('../img/contact_banner_bg.jpg');
+    background-image: url('../images/contact_banner_bg.jpg');
     height: 406px;
     background-size: cover;
     background-position: center center;
@@ -2596,7 +2596,7 @@ footer {
 
 /* Term & Condition Section Start  */
 .term_banner_section {
-    background-image: url("../img/term_bg.jpg");
+    background-image: url("../images/term_bg.jpg");
 }
 
 .term_section {
