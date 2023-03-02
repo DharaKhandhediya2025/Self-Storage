@@ -32,10 +32,109 @@ use App\Http\Controllers\Admin\PrivacyPolicyController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Website Routes Start
+
+// Buyer Register & Signup Routes Start
+Route::get('/buyer-signup',[BuyersController::class,'buyerSignup'])->name('buyer.signup');
+
+Route::post('/buyer-register',[BuyersController::class,'buyerRegister'])->name('buyer.register');
+
+Route::get('/forgot-password', function () {
+    return view('buyer.forgot-password');
 });
 
+Route::post('/send-otp',[BuyersController::class,'sendOTP'])->name('send.otp');
+
+Route::post('/resend-otp',[BuyersController::class,'sendOTP'])->name('resend.otp');
+
+Route::get('/verify-otp', function () {
+    return view('buyer.verify');
+});
+
+Route::post('/save-verify-otp',[BuyersController::class,'saveVerifyOTP'])->name('verify.otp');
+
+Route::get('/verification-success', function () {
+    return view('buyer.verification-success');
+});
+
+Route::get('/location', function () {
+    return view('buyer.location');
+});
+
+Route::post('/save-location',[BuyersController::class,'saveLocation'])->name('save.location');
+
+Route::get('/reset-password', function () {
+    return view('buyer.reset-password');
+});
+
+Route::post('/set-password',[BuyersController::class,'setPassword'])->name('set.password');
+
+Route::get('/reset-success', function () {
+    return view('buyer.reset-success');
+});
+
+Route::get('/web-logout',function() {
+
+    auth()->guard('buyer')->logout();
+    return redirect()->to('/');
+});
+
+// Buyer Register & Signup Routes End
+
+// Buyer Side After Login Routes Start
+
+Route::group(['middleware' => 'preventbackhistory'], function () {
+
+    //Home page
+    Route::any('/',[WebController::class,'index'])->name('web.index');
+
+    // CMS Pages
+    Route::get('/about-us',[WebController::class,'aboutUs'])->name('about.us');
+
+    Route::get('/contact-us',[WebController::class,'contactUs'])->name('contact.us');
+
+    Route::get('/faq-list',[WebController::class,'faqList'])->name('faq.list');
+
+    Route::get('/privacy-policy',[WebController::class,'privacyPolicy'])->name('privacy.policy');
+
+    Route::get('/terms-condition',[WebController::class,'termsCondition'])->name('terms.condition');
+
+    // Category wise Storage List
+    Route::get('/storage-list/{slug}',[WebController::class,'getStorageListByType'])->name('storagelist.bytype');
+
+    // Get Amenities by Category in filter modal
+    Route::get('/get/amenities/{category_id}',[WebController::class,'getAmenitiesByCategoryID'])->name('get.amenities');
+
+    // Buyer Social Login Routes
+    Route::get('/buyer-google-login',[BuyersController::class,'buyerGoogleLogin']);
+
+    Route::get('/login/google', [WebController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('/login/google/callback', [WebController::class, 'handleGoogleCallback']);
+
+    Route::get('/buyer-facebook-login',[BuyersController::class,'buyerFacebookLogin']);
+
+    Route::get('/login/facebook', [WebController::class, 'redirectToFacebook'])->name('login.facebook');
+    Route::get('/login/facebook/callback', [WebController::class, 'handleFacebookCallback']);
+
+    Route::get('/login', function () {
+
+        if (auth()->guard('buyer')->user() == '') {
+
+            $user = 'buyer';
+            return view('buyer.login',compact('user'));
+        }
+        else {
+            return redirect('/');
+        }
+    });
+    Route::post('/buyer-login',[BuyersController::class,'buyerLogin'])->name('buyer.login');
+});
+
+// Buyer Side After Login Routes End
+
+// Website Routes End
+
+// Admin Panel Routes Start
 
 Auth::routes(['login' => false]);
 
@@ -158,3 +257,5 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         Route::post('add-contact-us', [ContactUsController::class, 'addUpdate'])->name('admin.contactusadd');
     });        
 });
+
+// Admin Panel Routes End
