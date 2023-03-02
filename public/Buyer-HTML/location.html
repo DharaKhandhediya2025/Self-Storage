@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
-    <title>Reset Password</title>
+    <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -21,23 +21,19 @@
         <div class="login_main_box">
             <div class="login_box">
                 <!-- <a href="#" class="close_btn"><i class="fa fa-times"></i></a> -->
-                <h3 class="login_text mt-4 mb-5">Reset Password</h3>
-                <div class="forgot_password_box text-center mb-4">
-                    <img src="assets/img/success-img.png" alt="forgot-password-img" class="img-fluid">
+                <h3 class="login_text mt-4 mb-5">Select location</h3>
+                <div class="location__box">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.297337633656!2d72.6680990149575!3d23.049558221103034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87960158f889%3A0x2bda7d524f9233f4!2sApp%20Ideas%20Infotech%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1677742577017!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <form class="login_form">
                     <div class="form-group">
-                        <label>New Password</label>
-                        <input type="password" class="form-control login_input">
-                        <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                        <label>Location</label>
+                        <input type="text" class="form-control login_input" placeholder="4910 S Zarzamora StreetSan Antonio, TX 78211">
                     </div>
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" class="form-control login_input">
-                        <i class="toggle-password fa fa-fw fa-eye-slash"></i>
-                    </div>
-                    <button type="submit" class="btn btn-primary login_btn ">Submit</button>
+                   
+                    <button type="submit" class="btn btn-primary login_btn ">Confirm location</button>
                 </form>
+                
             </div>
         </div>
     </div>
