@@ -3,8 +3,8 @@
     <div class="brand-sidebar">
         <h1 class="logo-wrapper">
             <a class="brand-logo darken-1 sidebar_logo" href="{{ url('/admin/dashboard') }}">
-                <img class="hide-on-med-and-down " src="{{ config('global.front_base_url').'images/logo.png'}}" alt="Self Storage" />
-                <img class="show-on-medium-and-down hide-on-med-and-up" src="{{ config('global.front_base_url').'images/logo.png'}}" alt="Self Storage" />
+                <img class="hide-on-med-and-down " src="{{ config('global.front_base_url').'images/Logo-white.png'}}" alt="Self Storage" />
+                <img class="show-on-medium-and-down hide-on-med-and-up" src="{{ config('global.front_base_url').'images/Logo-white.png'}}" alt="Self Storage" />
             </a>
         </h1>
     </div>
