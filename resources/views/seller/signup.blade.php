@@ -2,7 +2,7 @@
 
 @section('customcss')
 	
-	<link rel="stylesheet" type="text/css" href="{{ config('global.front_base_url').'css/select2.min.css' }}">
+	<link rel="stylesheet" type="text/css" href="{{ config('global.front_base_seller_url').'css/select2.min.css' }}">
 
 	<style type="text/css">
 		.select2-container .select2-selection--single {
@@ -23,7 +23,7 @@
 @section('content')
     <div class="login_wrapper">
         <div class="logo_box">
-            <a href="{{ url('/') }}"><img src="{{ config('global.front_base_url').'images/logo.png' }}" alt="logo" class="img-fluid"></a>
+            <a href="{{ url('/') }}"><img src="{{ config('global.front_base_seller_url').'images/logo.png' }}" alt="logo" class="img-fluid"></a>
         </div>
         <div class="login_main_box">
             <div class="login_box">
@@ -53,11 +53,11 @@
                             <label for="imageUpload"></label>
 	                    </div>
 	                    <div class="img_priview">
-	                        <img src="{{ config('global.front_base_url').'images/user_default.png' }}" alt="avtar" class="img-fluid">
+	                        <img src="{{ config('global.front_base_seller_url').'images/user_default.png' }}" alt="avtar" class="img-fluid">
 	                    </div> -->
 	                    <div class="profle_img">
 	                        <div class="circle">
-	                            <img class="profile-pic" src="{{ config('global.front_base_url').'images/user_default.png' }}" alt="profile_signup">
+	                            <img class="profile-pic" src="{{ config('global.front_base_seller_url').'images/user_default.png' }}" alt="profile_signup">
 
 	                        </div>
 	                        <div class="p-image">
@@ -109,7 +109,7 @@
 @section('customjs')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="{{ config('global.front_base_url').'js/select2.min.js' }}"></script>
+<script src="{{ config('global.front_base_seller_url').'js/select2.min.js' }}"></script>
 	<script type="text/javascript">
 
 		$("#country_code").select2();
