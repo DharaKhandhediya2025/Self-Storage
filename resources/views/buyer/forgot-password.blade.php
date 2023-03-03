@@ -31,7 +31,7 @@
                 <form class="login_form" action="{{ url('/send-otp') }}" method="POST" onsubmit="disabledButton();">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
-                        <label>E-mail</label>
+                        <label>E-Mail</label>
                         <input name="email" id="email" type="email" class="form-control login_input" placeholder="Type..." required="">
                         <input name="page" id="page" type="hidden" class="form-control" value="Reset">
                     </div>
