@@ -12,6 +12,21 @@
         <div class="login_main_box">
             <div class="login_box">
                 <!-- <a href="#" class="close_btn"><i class="fa fa-times"></i></a> -->
+
+                @if (session()->has('message')) 
+                    <div class="alert alert-success"> 
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                        </button>{{ session('message') }} 
+                    </div> 
+                @endif
+
+                @if (session()->has('error')) 
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                        </button>{{ session('error') }} 
+                    </div> 
+                @endif
+                
                 <h3 class="login_text mt-4 mb-5">Select location</h3>
                 <!-- <div class="location__box">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.297337633656!2d72.6680990149575!3d23.049558221103034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87960158f889%3A0x2bda7d524f9233f4!2sApp%20Ideas%20Infotech%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1677742577017!5m2!1sen!2sin"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

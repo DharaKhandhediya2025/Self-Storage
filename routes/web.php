@@ -107,7 +107,7 @@ Route::get('/seller/location', function () {
     return view('seller.location');
 });
 
-Route::post('/seller-save-location',[SellersController::class,'saveSellerLocation'])->name('saveseller.location');
+Route::post('/seller-save-location',[SellersController::class,'saveLocation'])->name('saveseller.location');
 
 Route::get('/seller/reset-password', function () {
     return view('seller.reset-password');

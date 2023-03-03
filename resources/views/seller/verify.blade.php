@@ -86,7 +86,7 @@
 		function sendOTP() {
 
 			var app_url = "{!! env('APP_URL'); !!}";
-			var url = app_url+'/resend-otp';
+			var url = app_url+'/seller/resend-otp';
 			var email = $("#email").val();
 			var page = $("#page").val();
 
