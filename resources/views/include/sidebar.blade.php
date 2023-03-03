@@ -75,8 +75,14 @@
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/inquiry') ? 'active' : '' }}" href="{{ url('/admin/inquiry') }}" title="Inquiry">
-                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Inquiry">Inquiry</span>
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/inquiry') ? 'active' : '' }}" href="{{ url('/admin/inquiry') }}" title="Buyer Inquiry">
+                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Buyer Inquiry">Buyer Inquiry</span>
+            </a>
+        </li>
+
+        <li class="bold">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/contact-us') ? 'active' : '' }}" href="{{ url('/admin/contact-us') }}" title="Contact Inquiry">
+                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Contact Inquiry">Contact Inquiry</span>
             </a>
         </li>
 
@@ -104,11 +110,11 @@
                             <i class="material-icons">import_contacts</i><span class="menu-title" data-i18n="About Us">About Us</span>
                         </a>
                     </li>
-                    <li class="bold">
+                    <!-- <li class="bold">
                         <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/contact-us') ? 'active' : '' }}" href="{{ url('/admin/contact-us') }}">
                             <i class="material-icons">phone</i><span class="menu-title" data-i18n="Contact Us">Contact Us</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </li>
