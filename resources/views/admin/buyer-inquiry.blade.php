@@ -1,4 +1,4 @@
-@extends('include.master')@section('title','Inquiry')
+@extends('include.master')@section('title','Buyer Inquiry')
 
 @section('content')
     <div class="row">
@@ -7,13 +7,13 @@
 		    <div class="container">
 		        <div class="row">
 		            <div class="col s12 m6 l6">
-		                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Inquiry</span></h5>
+		                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Buyer Inquiry</span></h5>
 		            </div>
 		            <div class="col s12 m6 l6 right-align-md">
 		                <ol class="breadcrumbs mb-0">
 		                    <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
 		                    </a></li>
-		                    <li class="breadcrumb-item active">Inquiry List</li>
+		                    <li class="breadcrumb-item active">Buyer Inquiry</li>
 		                </ol>
 		            </div>
 		        </div>
@@ -44,7 +44,7 @@
 		                                @endif
 		                            </div>
 
-		                            <h4 class="card-title">Inquiry List ({{ $count }})</h4>
+		                            <h4 class="card-title">Buyer Inquiry ({{ $count }})</h4>
 
 		                            <div class="row">
 		                                <div class="col s12">

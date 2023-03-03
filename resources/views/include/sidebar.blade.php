@@ -81,7 +81,7 @@
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/contact-us') ? 'active' : '' }}" href="{{ url('/admin/contact-us') }}" title="Contact Inquiry">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/contact') ? 'active' : '' }}" href="{{ url('/admin/contact-inquiry') }}" title="Contact Inquiry">
                 <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Contact Inquiry">Contact Inquiry</span>
             </a>
         </li>

@@ -10,53 +10,16 @@ class ContactUsController extends Controller
 {
     public function index(Request $request) {
 
-        $data = ContactUs::first();
-        return view('admin.cms.contactus',compact('data'));
+        $contact_us = ContactUs::orderBy('id','desc')->get();
+        $count = sizeof($contact_us);
+
+        return view('admin.contact-inquiry.list',compact('contact_us','count'));
     }
-    
-    public function addUpdate(Request $request) {
 
-        $messages = [
-            
-            'email.required' => 'Email is Required.',
-            'phone.required' => 'Phone is Required.',
-            'description.required' => 'Description is Required.',
-        ];
+    public function contactInquiryDetails(Request $request ,$id) {
 
-        $request->validate([
+        $contact_us = ContactUs::where('id',$id)->first();
 
-            'email' => 'required',
-            'phone' => 'required',
-            'description' => 'required',
-        ],$messages);
-
-        $get_details = ContactUs::first();
-
-        if(isset($get_details) && $get_details != '') {
-
-            $details = ContactUs::find($get_details->id);
-            $details->email = $request->email;
-            $details->phone = $request->phone;
-            $details->description = $request->description;
-            $details->save();
-
-            session()->flash('type','message');
-            session()->flash('message', 'Contact Details Updated Successfully.');
-            
-            return redirect()->route('admin.contactus');
-        }
-        else {
-
-            $details = new ContactUs();
-            $details->email = $request->email;
-            $details->phone = $request->phone;
-            $details->description = $request->description;
-            $details->save();
-
-            session()->flash('type','message');
-            session()->flash('message', 'Contact Details Added Successfully.');
-            
-            return redirect()->route('admin.contactus');
-        }
+        return view('admin.contact-inquiry.details',compact('contact_us'));
     }
 }

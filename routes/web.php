@@ -317,9 +317,8 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         Route::post('add-about-us', [AboutUsController::class, 'addUpdate'])->name('admin.aboutusadd');
 
         // Contact Us
-        Route::get('contact-us', [ContactUsController::class, 'index'])->name('admin.contactus');
-        Route::post('add-contact-us', [ContactUsController::class, 'addUpdate'])->name('admin.contactusadd');
+        Route::get('contact-inquiry', [ContactUsController::class, 'index'])->name('admin.contactinquiry');
+        Route::get('contact-inquiry-details/{id}', [ContactUsController::class, 'contactInquiryDetails'])->name('admin.contactdetails');
     });        
 });
-
 // Admin Panel Routes End
