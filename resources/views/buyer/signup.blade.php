@@ -32,16 +32,16 @@
 
                 @if (session()->has('message')) 
                     <div class="alert alert-success"> 
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
                         </button>{{ session('message') }} 
-                    </div>
+                    </div> 
                 @endif
 
                 @if (session()->has('error')) 
                     <div class="alert alert-danger">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
                         </button>{{ session('error') }} 
-                    </div>
+                    </div> 
                 @endif
 
                 <form class="login_form" autocomplete="off" action="{{ url('/buyer-register') }}" method="POST" onsubmit="disabledButton();" enctype="multipart/form-data">

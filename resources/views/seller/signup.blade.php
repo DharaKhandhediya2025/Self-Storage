@@ -58,7 +58,6 @@
 	                    <div class="profle_img">
 	                        <div class="circle">
 	                            <img class="profile-pic" src="{{ config('global.front_base_seller_url').'images/user_default.png' }}" alt="profile_signup">
-
 	                        </div>
 	                        <div class="p-image">
 	                            <i class="fa fa-camera upload-button"></i>

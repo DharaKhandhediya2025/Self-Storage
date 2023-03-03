@@ -1,4 +1,4 @@
-@extends('seller.headerfooter') @section('title','Password Reset Success - Trouve ton entrepot')
+@extends('seller.headerfooter') @section('title','Reset Success - Trouve ton entrepot')
 
 @section('content')
     <div class="login_wrapper">

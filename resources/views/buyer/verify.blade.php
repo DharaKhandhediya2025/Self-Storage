@@ -18,16 +18,16 @@
 
             	@if (session()->has('message')) 
                     <div class="alert alert-success"> 
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
                         </button>{{ session('message') }} 
-                    </div>
+                    </div> 
                 @endif
 
                 @if (session()->has('error')) 
                     <div class="alert alert-danger">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
                         </button>{{ session('error') }} 
-                    </div>
+                    </div> 
                 @endif
 
                 <!-- <a href="#" class="close_btn"><i class="fa fa-times"></i></a> -->
@@ -37,7 +37,6 @@
                 </div>
                 <form action="{{ url('/save-verify-otp') }}" method="POST">@csrf
                     <div class="form-group verification_form_group">
-
                     	<input type="text" class="form-control verification_input" maxlength="1" id="digit1" name="digit1" required="">
 						<input type="text" class="form-control verification_input" maxlength="1" id="digit2" name="digit2" required="">
 						<input type="text" class="form-control verification_input" maxlength="1" id="digit3" name="digit3" required="">
@@ -55,7 +54,6 @@
                         <p>Didn’t recive a verification code?</p>
                         <a href="javascript:sendOTP();" class="resend_text">Resend the code</a>
                     </div>
-
                     <button type="submit" class="btn btn-primary login_btn mt-5">Continue</button>
                 </form>
             </div>
