@@ -13,6 +13,7 @@
 		.select2-container--default .select2-selection--single .select2-selection__rendered {
 			line-height: 60px;
 		}
+
 	</style>
 @stop
 
@@ -24,11 +25,11 @@
         <div class="login_main_box">
             <div class="login_box">
                 <!-- <a href="#" class="close_btn"><i class="fa fa-times"></i></a> -->
-                <h3 class="login_text mt-4 mb-4">Create An Account</h3>
+                <h3 class="login_text mt-4 mb-4 Create_Account_text">Create An Account</h3>
 
                 @if (session()->has('message')) 
                     <div class="alert alert-success"> 
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         </button>{{ session('message') }} 
                     </div>
                 @endif
@@ -44,13 +45,23 @@
                 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 	<div class="img_upload_box text-center">
-	                    <div class="img-edit">
+	                    <!-- <div class="img-edit">
                             <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg">
                             <label for="imageUpload"></label>
 	                    </div>
 	                    <div class="img_priview">
 	                        <img src="{{ config('global.front_base_url').'images/user_default.png' }}" alt="avtar" class="img-fluid">
-	                    </div>
+	                    </div> -->
+	                    <div class="profle_img">
+	                        <div class="circle">
+	                            <img class="profile-pic" src="{{ config('global.front_base_url').'images/user_default.png' }}" alt="profile_signup">
+
+	                        </div>
+	                        <div class="p-image">
+	                            <i class="fa fa-camera upload-button"></i>
+	                            <input class="file-upload" type="file" accept="image/*" />
+	                        </div>
+                    	</div>
 	                </div>
 
                     <div class="form-group">
@@ -63,7 +74,7 @@
 					</div>
 					<div class="form-group">
 						<label>Country Code</label>
-						<select name="country_code" id= "country_code" class="form-control" required="" placeholder="Select Country Code">
+						<select name="country_code" id= "country_code" class="form-control login_country_select" required="" placeholder="Select Country Code">
 							<option value="">Select Country Code</option>
 							@if(isset($countries) && sizeof($countries) > 0)
 								@foreach($countries as $key => $value)
@@ -93,12 +104,37 @@
 @endsection
 
 @section('customjs')
-	<script type="text/javascript">
 
-		$("#country_code").select2({'height' : '50px'});
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
 
 		function disabledButton() {
 			document.getElementById("submitbtn").disabled = true;
 		}
+
+		$(document).ready(function () {
+
+			
+
+		    var readURL = function (input) {
+
+		        if (input.files && input.files[0]) {
+		            var reader = new FileReader();
+
+		            reader.onload = function (e) {
+		                $('.profile-pic').attr('src', e.target.result);
+		            }
+		            reader.readAsDataURL(input.files[0]);
+		        }
+		    }
+
+		    $(".file-upload").on('change', function () {
+		        readURL(this);
+		    });
+
+		    $(".upload-button").on('click', function () {
+		        $(".file-upload").click();
+	    	});
+		});
 	</script>
 @stop
