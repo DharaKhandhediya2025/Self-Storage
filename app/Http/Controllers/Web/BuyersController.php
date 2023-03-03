@@ -112,7 +112,6 @@ class BuyersController extends Controller
                 $update_firebase_uid->save();
             }*/
 
-            session()->flash('success', 'Registered Successfully.');
             return redirect('/verify-otp');
         }
         catch(\Exception $e) {
@@ -140,7 +139,7 @@ class BuyersController extends Controller
                 $input['email'] = $email;
 
                 // Send OTP over mail
-                \Mail::send('emails.buyerSellerOTP', $input, function ($message) use($input) {
+                \Mail::send('emails.sendOTP', $input, function ($message) use($input) {
                     $message->to($input['email'])->subject('Verification Code');
                 });
 

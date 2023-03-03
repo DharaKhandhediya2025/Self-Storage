@@ -35,7 +35,7 @@
                 <div class="forgot_password_box text-center">
                     <p class="mb-3">Check your email for the OTP</p>
                 </div>
-                <form action="{{ url('/save-verify-otp') }}" method="POST">
+                <form action="{{ url('/save-verify-otp') }}" method="POST">@csrf
                     <div class="form-group verification_form_group">
 
                     	<input type="text" class="form-control verification_input" maxlength="1" id="digit1" name="digit1" required="">
