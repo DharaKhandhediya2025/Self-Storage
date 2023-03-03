@@ -54,7 +54,6 @@ class BuyersController extends Controller
             $phone = $request->phone;
             $password = $request->password;
             $country_code = $request->country_code;
-            $country_details = Country::where('dial_code','=',$country_code)->first();
 
             $checkEmail = Buyer::where('email',$email)->first();
             $checkMobile = Buyer::where('phone',$phone)->first();
@@ -82,8 +81,6 @@ class BuyersController extends Controller
             $buyer->custom_token = uniqid(base64_encode(Str::random(10)));
             $buyer->save();
 
-            session()->flash('success', 'Registered Successfully.');
-
             $input['name'] = $name;
             $input['otp'] = $buyer->otp;
             $input['email'] = $email;
@@ -97,7 +94,7 @@ class BuyersController extends Controller
             session(['page' => 'Login']);
 
             // Add Firebase User
-            $data['name'] = $name;
+            /*$data['name'] = $name;
             $data['email'] = $email;
             $userFirebase = $this->createFirebaseUser($data);
 
@@ -113,8 +110,9 @@ class BuyersController extends Controller
                 $update_firebase_uid = Buyer::find($buyer_id);
                 $update_firebase_uid->firebase_uid = $firebase_uid;
                 $update_firebase_uid->save();
-            }
+            }*/
 
+            session()->flash('success', 'Registered Successfully.');
             return redirect('/verify-otp');
         }
         catch(\Exception $e) {

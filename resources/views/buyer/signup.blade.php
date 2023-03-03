@@ -62,7 +62,7 @@
 	                        </div>
 	                        <div class="p-image">
 	                            <i class="fa fa-camera upload-button"></i>
-	                            <input class="file-upload" type="file" accept="image/*" />
+	                            <input class="file-upload" type="file" accept="image/*" id="profile_image" name="profile_image" />
 	                        </div>
                     	</div>
 	                </div>
@@ -77,7 +77,7 @@
 					</div>
 					<div class="form-group">
 						<label>Country Code</label>
-						<select name="country_code" id= "country_code" class="form-control login_country_select" required="" placeholder="Select Country Code">
+						<select name="country_code" id="country_code" class="form-control login_country_select" required="" placeholder="Select Country Code">
 							<option value="">Select Country Code</option>
 							@if(isset($countries) && sizeof($countries) > 0)
 								@foreach($countries as $key => $value)
@@ -92,8 +92,7 @@
 					</div>
 					<div class="form-group mb-4">
                         <label>Password</label>
-                        <input type="password" class="form-control login_input">
-                        <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                        <input type="password" name="password" id= "password" class="form-control login_input"><i class="toggle-password fa fa-fw fa-eye-slash"></i>
                     </div>
                     <button type="submit" class="btn btn-primary login_btn" id="submitbtn">Register
                     </button>

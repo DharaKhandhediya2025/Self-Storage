@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="x-apple-disable-message-reformatting">
-        <title>Self Storage</title>
+        <title>Trouve ton entrepot</title>
         <style>
             table,td,div,h1,p {
                 font-weight: 500;
@@ -34,7 +34,8 @@
                     <table role="presentation" style="width:600px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
                         <tr style="border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;">
                             <td align="left" style="padding:10px 25px;background:#fff; display: flex; align-items: center;">
-                                <span style="font-weight: bold; padding-top: 10px;">Self Storage</span>
+                                <span style="font-weight: bold; padding-top: 10px;">Trouve ton entrepot
+                                </span>
                             </td>
                         </tr>
                         <tr>
