@@ -119,4 +119,153 @@ class BuyersController extends Controller
             session()->flash('error', $e->getMessage());
         }
     }
+
+    public function sendOTP(Request $request) {
+
+        try {
+
+            $email = $request->email;
+            $page = $request->page;
+
+            $buyer_details = Buyer::where('email',$email)->first();
+
+            if(isset($buyer_details) && $buyer_details != '') {
+
+                $buyer_details->otp = rand(1000,9999);
+                $buyer_details->otp_verify = 'N';
+                $buyer_details->save();
+
+                $input['name'] = $buyer_details->name;
+                $input['otp'] = $buyer_details->otp;
+                $input['email'] = $email;
+
+                // Send OTP over mail
+                \Mail::send('emails.buyerSellerOTP', $input, function ($message) use($input) {
+                    $message->to($input['email'])->subject('Verification Code');
+                });
+
+                session(['email' => $email]);
+                session(['page' => $page]);
+                return redirect('/verify-otp');
+            }
+            else {
+
+                session()->flash('error', 'Email is not registered.');
+                return redirect('/forgot-password');
+            }
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function saveVerifyOTP(Request $request) {
+
+        try {
+
+            $digit1 = $request->digit1;
+            $digit2 = $request->digit2;
+            $digit3 = $request->digit3;
+            $digit4 = $request->digit4;
+            $otp = $digit1.$digit2.$digit3.$digit4;
+
+            $email = $request->email;
+            $page = $request->page;
+            $buyer_details = Buyer::where('email',$email)->first();
+
+            if(isset($buyer_details) && $buyer_details != '') {
+
+                $get_otp = $buyer_details->otp;
+
+                if($get_otp == $otp) {
+
+                    $buyer_details->otp_verify = 'Y';
+                    $buyer_details->save();
+                    
+                    session(['email' => $email]);
+
+                    if($page == 'Login') {
+                        return redirect('/verification-success');
+                    }
+                    else if($page == 'Reset') {
+                        return redirect('/reset-password');
+                    }
+                }
+                else {
+
+                    session(['email' => $email]);
+                    session()->flash('error', 'OTP Mismatched.');
+                    return redirect('/verify-otp');
+                }
+            }
+            else {
+
+                session()->flash('error', 'OTP Mismatched.');
+                return redirect('/verify-otp');
+            }
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function saveLocation(Request $request) {
+
+        try {
+
+            $email = Session()->get('email');
+
+            $latitude = $request->latitude;
+            $longitude = $request->longitude;
+            $buyer_details = Buyer::where('email',$email)->first();
+
+            if(isset($buyer_details) && $buyer_details != '') {
+
+                $buyer_details->latitude = $latitude;
+                $buyer_details->longitude = $longitude;
+                $buyer_details->save();
+
+                Session()->put('email', '');
+                return redirect('/login'); 
+            }
+            else {
+
+                session()->flash('error', 'Please Register Your Email.');
+                return redirect('/location');
+            }
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function setPassword(Request $request) {
+        
+        try {
+
+            $email = $request->email;
+            $buyer_details = Buyer::where('email',$email)->first();
+
+            $password = $request->password;
+            $confirm_password = $request->confirm_password;
+
+            if($password == $confirm_password) {
+
+                $buyer_details->password = Hash::make($request->password);
+                $buyer_details->save();
+                
+                session(['email' => $email]);
+                return redirect('/reset-success');
+            }
+            else {
+
+                session(['email' => $email]);
+                session()->flash('error', 'Password are Mismatched.');
+                return redirect('/reset-password');
+            }
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
 }
