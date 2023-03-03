@@ -1,5 +1,14 @@
 @extends('headerfooter')@section('title','Contact Us')
 
+@section('css')
+    <style>
+        .error{
+            color:#f56954 !important;
+            border-color:#f56954 !important;
+        }
+    </style>
+@endsection
+
 @section('content')
      <!-- Banner Section Start -->
     <section class="contact_banner_section">
@@ -10,24 +19,40 @@
     <section class="contact_section">
         <div class="container">
             <div class="contact_box">
-                <form>
+
+                @if (session()->has('message')) 
+                    <div class="alert alert-success"> 
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        </button>{{ session('message') }} 
+                    </div>
+                @endif
+
+                @if (session()->has('error')) 
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                        </button>{{ session('error') }} 
+                    </div>
+                @endif
+
+                <form id="contact_form" autocomplete="off" action="{{ url('/contact-inquiry') }}" method="POST" onsubmit="disabledButton();" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <input type="email" class="form-control" placeholder="Your Name *">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Your Name *" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <input type="password" class="form-control contact_input" placeholder="Email Address *">
+                            <input type="email" id="email" name="email" class="form-control contact_input" placeholder="Email Address *" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control contact_input" placeholder="Subject *">
+                        <input type="text" id="subject" name="subject" class="form-control contact_input" placeholder="Subject *" required>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control contact_input" rows="5" placeholder="Messages *"></textarea>
+                        <textarea class="form-control contact_input" id="message" name="message" rows="5" placeholder="Messages *" required></textarea>
                     </div>
                     <div class="text-right">
-                        <!-- <button type="submit" class="btn contact_submit_btn">Submit Messages</button> -->
-                        <a href="#" class="btn contact_submit_btn">Submit Messages</a>
+                        <button type="submit" class="btn contact_submit_btn">Submit Messages</button>
+                        <!-- <a href="#" class="btn contact_submit_btn">Submit Messages</a> -->
                     </div>
                 </form>
             </div>
@@ -35,3 +60,12 @@
     </section>
     <!-- Contact Section End -->
 @endsection
+
+@section('customjs')
+    <script type="text/javascript">
+
+        function disabledButton() {
+            document.getElementById("submitbtn").disabled = true;
+        }
+    </script>
+@stop

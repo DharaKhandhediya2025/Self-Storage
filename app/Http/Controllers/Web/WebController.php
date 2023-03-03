@@ -130,6 +130,26 @@ class WebController extends Controller
         }
     }
 
+    public function contactInquiry(Request $request) {
+
+        try {
+
+            $contact_us = new ContactUs();  
+            $contact_us->name = $request->name;
+            $contact_us->email = $request->email;
+            $contact_us->subject = $request->subject;
+            $contact_us->message = $request->message;
+            $contact_us->save();
+
+            session()->flash('type','message');
+            session()->flash('message', 'Contact Inquiry Submitted Successfully.');
+            return redirect('/contact-us');
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
     public function faqList() {
 
         try {

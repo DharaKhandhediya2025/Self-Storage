@@ -136,6 +136,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('/about-us',[WebController::class,'aboutUs'])->name('about.us');
 
     Route::get('/contact-us',[WebController::class,'contactUs'])->name('contact.us');
+    Route::post('/contact-inquiry',[WebController::class,'contactInquiry'])->name('contact.inquiry');
 
     Route::get('/faq-list',[WebController::class,'faqList'])->name('faq.list');
 
