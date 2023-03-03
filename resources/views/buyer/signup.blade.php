@@ -1,9 +1,13 @@
-@extends('buyer.headerfooter') @section('title','Create An Account')
+@extends('buyer.headerfooter') @section('title','Create An Account - Trouve ton entrepot')
 
 @section('customcss')
 	
-	<style type="text/css">
+	<link rel="stylesheet" type="text/css" href="{{ config('global.front_base_url').'css/select2.min.css' }}">
 
+	<style type="text/css">
+		.select2-container .select2-selection--single {
+			height: 45px;
+		}
 		.select2-container--default .select2-selection--single .select2-selection__arrow b {
 			top: 80%;
 		}
@@ -11,9 +15,8 @@
 			top: 80%;
 		}
 		.select2-container--default .select2-selection--single .select2-selection__rendered {
-			line-height: 60px;
+			line-height: 40px;
 		}
-
 	</style>
 @stop
 
@@ -106,7 +109,10 @@
 @section('customjs')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ config('global.front_base_url').'js/select2.min.js' }}"></script>
 	<script type="text/javascript">
+
+		$("#country_code").select2();
 
 		function disabledButton() {
 			document.getElementById("submitbtn").disabled = true;
