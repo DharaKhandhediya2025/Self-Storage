@@ -16,7 +16,7 @@
             <div class="row mt-5">
                 <div class="col-sm-12 col-md-6 col-lg-6 mb-5">
                     <div class="service_img_box">
-                        <img src="{{ config('global.front_base_url').'images/service-img-two.png' }}" alt="img-fluid" class="img-fluid">
+                        <img src="https://chessmafia.com/php/SelfStorage/public/front/images/service-img-two.png" alt="img-fluid" class="img-fluid">
                     </div>
                 </div>
 
@@ -38,10 +38,9 @@
 
                 <div class="col-sm-12 col-md-6 col-lg-6 mt-5 ">
                     <div class="service_img_box">
-                        <img src="{{ config('global.front_base_url').'images/service-img-two.png' }}" alt="img-fluid" class="img-fluid">
+                        <img src="https://chessmafia.com/php/SelfStorage/public/front/images/service-img-two.png" alt="img-fluid" class="img-fluid">
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
