@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{AboutUs,ContactUs,FAQ,PrivacyPolicy,TermsCondition,Buyer,Seller,Storage,Category,Amenities,Banners,FavoriteStorage,Country};
+use App\Models\{AboutUs,ContactUs,FAQ,PrivacyPolicy,TermsCondition,Buyer,Seller,Storage,Category,Amenities,Banners,FavoriteStorage,Country,Subscribers};
 
 class WebController extends Controller
 {
@@ -103,6 +103,28 @@ class WebController extends Controller
         }
         catch(\Exception $e) {
             session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function subscribeNewsletter() {
+
+        $email = $_GET['email'];
+
+        $subscriber_details = Subscribers::where('email','=',$email)->first();
+
+        if(isset($subscriber_details) && $subscriber_details != '') {
+
+            $msg = "You are already subscribed.";
+            return json_encode($msg);exit;
+        }
+        else {
+
+            $add = new Subscribers();
+            $add->email = $email;
+            $add->save();
+
+            $msg = "Subscribed.";
+            return json_encode($msg);exit;
         }
     }
 

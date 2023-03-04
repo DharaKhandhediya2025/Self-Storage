@@ -89,10 +89,9 @@
             <div class="container-fluid">
                 <div class="email_box">
                     <h2>Lorem Ipsum is simply dummy text of the printing and type setting industry.</h2>
-
                     <div class="email_search_box">
-                        <input type="text" placeholder="Enter Your Email Address">
-                        <button class="emil_submit"><span>Submit</span></button>
+                        <input type="email" id="email" placeholder="Enter Your Email Address">
+                        <button class="emil_submit" onclick="addSubscriber();"><span>Submit</span></button>
                     </div>
                 </div>
             </div>
@@ -133,5 +132,44 @@
         <script src="{{ config('global.front_base_url').'js/ion.rangeSlider.min.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/custom.js' }}"></script>
         <!-- Script End -->
+
+        <script type="text/javascript">
+
+            function addSubscriber() {
+
+                var email = $("#email").val();
+                var app_url = "{!! env('APP_URL') !!}";
+                var token = $("input[name=_token]").val();
+
+                var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+                if(email == '') {
+
+                    alert("Please Enter Email Address.");
+                    return false;
+                }
+                else if (reg.test(email) == false) {
+
+                    alert('Please Enter Valid Email Address.');
+                    $("#email").val("");
+                    return false;
+                }
+                else {
+
+                    $.ajax({
+
+                        type: 'GET',
+                        url:app_url+'/subscribe-newsletter',
+                        data: {'email': email, '_token':token},
+                        dataType:'json',
+
+                        success: function (data) {
+                            alert(data);
+                        }
+                    });
+                    $("#email").val("");
+                }
+            }
+        </script>
     </body>
 </html>

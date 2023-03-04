@@ -132,6 +132,9 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     //Home page
     Route::any('/',[WebController::class,'index'])->name('web.index');
 
+    // Subscribe
+    Route::get('/subscribe-newsletter',[WebController::class,'subscribeNewsletter']);
+
     // CMS Pages
     Route::get('/about-us',[WebController::class,'aboutUs'])->name('about.us');
 
