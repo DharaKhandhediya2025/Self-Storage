@@ -34,14 +34,9 @@ class WebController extends Controller
             // Get Categories
             $categories = Category::get();
 
-            return view('index');
-
             if(auth()->guard('buyer')->user() == '' && auth()->guard('seller')->user() == '') {
 
-                // Get New Launched Storages
-                //$new_launched_projects = self::getNewLaunchedProjects($category_id,9);
-
-                //return view('index',compact('new_launched_projects','categories','banners','category_id'));
+                return view('index');
             }
             else if(auth()->guard('seller')->user() != '') {
 
@@ -88,7 +83,7 @@ class WebController extends Controller
                 $order_list['Old'] = "Old First";
                 $order_list['Alpha'] = "Alphabetical(A-Z)";
 
-                return view('seller.home',compact('categories','seller','seller_id','seller_storages','category_id','order_list','order_name'));
+                return view('seller.home',compact('categories','seller','seller_id','seller_storages','category_id','order_list','order_name','banners'));
             }
             else if(auth()->guard('buyer')->user() != '') {
 
@@ -96,9 +91,9 @@ class WebController extends Controller
                 $buyer = Buyer::where('id',$buyer_id)->first();
 
                 // Get New Launched Storages
-                $new_launched_projects = self::getNewLaunchedProjects($category_id,9);
+                //$new_launched_projects = self::getNewLaunchedProjects($category_id,9);
 
-                return view('buyer.home',compact('buyer','buyer_id','new_launched_projects','recommended_posts','categories','cities_list','city_name','banners','search_txt','category_id','min_price','max_price','min_area','max_area','bhk_no','amenities'));
+                return view('buyer.home',compact('categories','buyer','buyer_id','category_id','banners'));
             }
         }
         catch(\Exception $e) {

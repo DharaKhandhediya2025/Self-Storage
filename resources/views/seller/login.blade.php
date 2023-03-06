@@ -9,17 +9,31 @@
             <div class="login_box">
                 <!-- <a href="#" class="close_btn"><i class="fa fa-times"></i></a> -->
                 <h3 class="login_text mt-4 mb-5">Login</h3>
-                <form class="login_form">
+
+                @if (session()->has('message')) 
+                    <div class="alert alert-success"> 
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                        </button>{{ session('message') }} 
+                    </div> 
+                @endif
+
+                @if (session()->has('error')) 
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                        </button>{{ session('error') }} 
+                    </div> 
+                @endif
+                
+                <form class="login_form" autocomplete="off" action="{{ url('/seller-login') }}" method="POST"><input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control login_input">
+                        <label>Email</label>
+                        <input type="email" id="email" name="email" class="form-control login_input">
                     </div>
                     <div class="form-group mb-4">
                         <label>Password</label>
-                        <input type="password" class="form-control login_input">
-                        <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                        <input type="password" id="password" name="password" class="form-control login_input"><i class="toggle-password fa fa-fw fa-eye-slash"></i>
                     </div>
-                    <button type="submit" class="btn btn-primary login_btn ">Login</button>
+                    <button type="submit" class="btn btn-primary login_btn">Login</button>
                 </form>
 
                 <div class="text-center">

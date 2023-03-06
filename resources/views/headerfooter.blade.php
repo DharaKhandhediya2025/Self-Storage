@@ -69,9 +69,43 @@
                                 <!-- <li class="nav-item">
                                     <a class="nav-link p-0" href="#"><img src="{{ config('global.front_base_url').'images/user-profile.png' }}" alt="user-profile" class="img-fluid"></a>
                                 </li> -->
-                                <li class="nav-item">
-                                    <a class="nav-link header_login_btn" href="{{ url('/login') }}">Login</a>
-                                </li>
+
+                                @if(isset($buyer) && $buyer != '')
+                                    
+                                    @if(isset($buyer->profile_image) && $buyer->profile_image != '')
+                                        <li class="nav-item">
+                                            <a class="nav-link p-0" href="#"><img src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="user-profile" class="img-fluid"></a>
+                                        </li>
+                                    @else
+                                        <li class="nav-item">
+                                            <a class="nav-link p-0" href="#"><img src="{{ asset('public/app-assets/images/user_default.png') }}" alt="user-profile" class="img-fluid"></a>
+                                        </li>
+                                    @endif
+
+                                    <li class="nav-item">
+                                        <a class="nav-link header_login_btn" href="{{ url('/web-logout') }}" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
+                                    </li>
+
+                                @elseif(isset($seller) && $seller != '')
+
+                                    @if(isset($seller->profile_image) && $seller->profile_image != '')
+                                        <li class="nav-item">
+                                            <a class="nav-link p-0" href="#"><img src="{{ asset('storage/app/public/'.$seller->profile_image) }}" alt="user-profile" class="img-fluid"></a>
+                                        </li>
+                                    @else
+                                        <li class="nav-item">
+                                            <a class="nav-link p-0" href="#"><img src="{{ asset('public/app-assets/images/user_default.png') }}" alt="user-profile" class="img-fluid"></a>
+                                        </li>
+                                    @endif
+
+                                    <li class="nav-item">
+                                        <a class="nav-link header_login_btn" href="{{ url('/seller-logout') }}" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="nav-link header_login_btn" href="{{ url('/login') }}">Login</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </nav>

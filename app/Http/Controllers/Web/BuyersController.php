@@ -267,4 +267,38 @@ class BuyersController extends Controller
             session()->flash('error', $e->getMessage());
         }
     }
+
+    public function buyerLogin(Request $request) {
+
+        try {
+
+            if (auth()->guard('buyer')->attempt(['email' => $request->email, 'password' => $request->password])) {
+
+                $buyer_id = Auth::guard('buyer')->user()->id;
+                $buyer = Buyer::where('id',$buyer_id)->first();
+
+                if(isset($buyer) && $buyer->active_block_status == 0) {
+
+                    session()->flash('error', 'You are Currently Blocked.');
+                    return redirect('/login');
+                }
+                elseif(isset($buyer) && $buyer->active_block_status == 1) {
+
+                    if(Hash::check($request->password,$buyer->password)) {
+
+                        // Login Firebase User
+                        /*$device_token = $request->device_token;
+                        $this->loginFirebaseUser($device_token,$buyer_id);*/
+
+                        return redirect('/');
+                    }
+                }
+            }
+            session()->flash('error', 'Credential Mismatched.');
+            return redirect('/login');
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
 }
