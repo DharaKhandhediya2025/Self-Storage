@@ -368,6 +368,12 @@ header .navbar .navbar-toggler:focus {
     outline: none !important;
 }
 
+.header_profile_img{
+    width: 48px;
+    height: 48px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
 /* Header Bottom CSS End */
 /* Header CSS End */
 

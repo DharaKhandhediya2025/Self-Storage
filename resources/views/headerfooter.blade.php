@@ -74,11 +74,11 @@
                                     
                                     @if(isset($buyer->profile_image) && $buyer->profile_image != '')
                                         <li class="nav-item">
-                                            <a class="nav-link p-0" href="#"><img src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="user-profile" class="img-fluid"></a>
+                                            <a class="nav-link p-0" href="#"><img src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="user-profile" class="img-fluid header_profile_img"></a>
                                         </li>
                                     @else
                                         <li class="nav-item">
-                                            <a class="nav-link p-0" href="#"><img src="{{ asset('public/app-assets/images/user_default.png') }}" alt="user-profile" class="img-fluid"></a>
+                                            <a class="nav-link p-0" href="#"><img src="{{ asset('public/front/images/user_default.png') }}" alt="user-profile" class="img-fluid header_profile_img"></a>
                                         </li>
                                     @endif
 
@@ -90,11 +90,11 @@
 
                                     @if(isset($seller->profile_image) && $seller->profile_image != '')
                                         <li class="nav-item">
-                                            <a class="nav-link p-0" href="#"><img src="{{ asset('storage/app/public/'.$seller->profile_image) }}" alt="user-profile" class="img-fluid"></a>
+                                            <a class="nav-link p-0" href="#"><img src="{{ asset('storage/app/public/'.$seller->profile_image) }}" alt="user-profile" class="img-fluid header_profile_img"></a>
                                         </li>
                                     @else
                                         <li class="nav-item">
-                                            <a class="nav-link p-0" href="#"><img src="{{ asset('public/app-assets/images/user_default.png') }}" alt="user-profile" class="img-fluid"></a>
+                                            <a class="nav-link p-0" href="#"><img src="{{ asset('public/front/images/user_default.png') }}" alt="user-profile" class="img-fluid header_profile_img"></a>
                                         </li>
                                     @endif
 

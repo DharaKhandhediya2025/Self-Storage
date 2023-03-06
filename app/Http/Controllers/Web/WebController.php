@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{AboutUs,ContactUs,FAQ,PrivacyPolicy,TermsCondition,Buyer,Seller,Storage,Category,Amenities,Banners,FavoriteStorage,Country,Subscribers};
+use Illuminate\Support\Facades\{Auth,Hash};
 
 class WebController extends Controller
 {
