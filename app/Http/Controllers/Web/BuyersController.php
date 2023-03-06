@@ -303,9 +303,10 @@ class BuyersController extends Controller
     }
 
     public function manageProfile(Request $request) {
+
         $buyer_id = Auth::guard('buyer')->user()->id;
         $buyer = Buyer::where('id',$buyer_id)->first();
-        //echo $buyer;exit();
+
         return view('buyer.manage-profile',compact('buyer'));
     }
 
@@ -313,6 +314,7 @@ class BuyersController extends Controller
 
         $buyer_id = Auth::guard('buyer')->user()->id;
         $buyer = Buyer::where('id',$buyer_id)->first();
+
         $buyer->name = $request->name;
         $profile_image = $request->file('profile_image');
 
@@ -325,16 +327,20 @@ class BuyersController extends Controller
             $buyer->profile_image = $buyer1;
         }
         $buyer->update();
+
         session()->flash('type','message');
         session()->flash('message', 'Profile Updated Successfully.');
         return redirect('manage-profile');
     }
 
     public function changePassword(Request $request) {
+
         $buyer_id = Auth::guard('buyer')->user()->id;
         $buyer = Buyer::where('id',$buyer_id)->first();
+
         return view('buyer.changepassword',compact('buyer'));
     }
+    
     public function updatePassword(Request $request) {
 
         $messages = [
@@ -377,5 +383,4 @@ class BuyersController extends Controller
             return redirect()->back();
         }
     }
-
 }

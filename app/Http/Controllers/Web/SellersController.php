@@ -303,11 +303,13 @@ class SellersController extends Controller
     }
 
     public function manageProfile(Request $request) {
+
         $seller_id = Auth::guard('seller')->user()->id;
         $seller = Seller::where('id',$seller_id)->first();
+
         $countrys = Country::All();
         $country = Country::where('id',$seller->country_code)->first();
-        //echo $seller_id;exit();
+        
         return view('seller.manage-profile',compact('seller','countrys','country'));
     }
 
@@ -315,6 +317,7 @@ class SellersController extends Controller
 
         $seller_id = Auth::guard('seller')->user()->id;
         $seller = Seller::where('id',$seller_id)->first();
+
         $seller->name = $request->name;
         $seller->email = $request->email;
         $seller->phone = $request->phone;
@@ -332,19 +335,22 @@ class SellersController extends Controller
             $seller1="seller/profile_image/".$name;
             $seller->profile_image = $seller1;
         }
-
         $seller->update();
 
         session()->flash('type','message');
         session()->flash('message', 'Profile Updated Successfully.');
+
         return redirect('seller/manage-profile');
     }
 
     public function changePassword(Request $request) {
+
         $seller_id = Auth::guard('seller')->user()->id;
         $seller = Seller::where('id',$seller_id)->first();
+
         return view('seller.changepassword',compact('seller'));
     }
+
     public function updatePassword(Request $request) {
 
         $messages = [

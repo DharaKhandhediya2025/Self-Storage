@@ -130,11 +130,11 @@ class WebController extends Controller
 
             $buyer_id = Auth::guard('buyer')->user()->id;
             $buyer = Buyer::where('id',$buyer_id)->first();
+
             $seller_id = Auth::guard('seller')->user()->id;
             $seller = Seller::where('id',$seller_id)->first();
-            $about_us = AboutUs::first();
 
-            //print_r($buyer_id);exit;
+            $about_us = AboutUs::first();
             return view('about-us',compact('about_us','buyer','seller'));
         }
         catch(\Exception $e) {
@@ -148,8 +148,10 @@ class WebController extends Controller
 
             $buyer_id = Auth::guard('buyer')->user()->id;
             $buyer = Buyer::where('id',$buyer_id)->first();
+
             $seller_id = Auth::guard('seller')->user()->id;
             $seller = Seller::where('id',$seller_id)->first();
+
             $contact_us = ContactUs::first();
             return view('contact-us',compact('contact_us','buyer','seller'));
         }

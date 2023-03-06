@@ -175,8 +175,9 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     //Buyer Manage Profile
     Route::get('/manage-profile',[BuyersController::class,'manageProfile']);
     Route::post('/update-profile',[BuyersController::class,'updateProfile']);
-    Route::post('/change-password',[BuyersController::class,'updatePassword']);
+
     Route::get('/change-password',[BuyersController::class,'changePassword']);
+    Route::post('/change-password',[BuyersController::class,'updatePassword']);
 
     // Seller Social Login Routes Start
     Route::get('/seller-google-login',[SellersController::class,'sellerGoogleLogin']);
@@ -204,11 +205,12 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('/login/facebook', [WebController::class, 'redirectToFacebook'])->name('login.facebook');
     Route::get('/login/facebook/callback', [WebController::class, 'handleFacebookCallback']);
 
-    //Buyer Manage Profile
+    //Seller Manage Profile
     Route::get('seller/manage-profile',[SellersController::class,'manageProfile']);
     Route::post('seller/update-profile',[SellersController::class,'updateProfile']);
-    Route::post('seller/change-password',[SellersController::class,'updatePassword']);
+
     Route::get('seller/change-password',[SellersController::class,'changePassword']);
+    Route::post('seller/change-password',[SellersController::class,'updatePassword']);
 });
 // Buyer Side After Login Routes End
 
