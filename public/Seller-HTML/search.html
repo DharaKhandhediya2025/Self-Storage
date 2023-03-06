@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <title>Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/slicktheme.css">
+    <link rel="stylesheet" href="assets/css/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body>
+     <!-- Header Section Start -->
+     <div class="Header_main">
+        <div class="header_top">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="header_top_left">
+                            <a href="#"><img src="assets/img/mail.png" alt="mail"><span>loremipsum@mail.com</span></a>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="header_top_right">
+                            <a href="#"><img src="assets/img/youtube.png" alt="youtube"></a>
+                            <a href="#"><img src="assets/img/instagram.png" alt="instagram"></a>
+                            <a href="#"><img src="assets/img/facebook-white.png" alt="Facebook"></a>
+                            <a href="#"><img src="assets/img/twitter.png" alt="Twitter"></a>
+                            <a href="#"><img src="assets/img/linkedin.png" alt="Linkedin"></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header>
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md ">
+                    <a class="navbar-brand" href="#"><img src="assets/img/logo.png" alt="logo"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link chat__btn" href="#"><img src="assets/img/chat.png" alt="chat"
+                                        class="img-fluid"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0" href="#"><img src="assets/img/user-profile.png"
+                                        alt="user-profile" class="img-fluid"></a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link header_login_btn" href="#">Login</a>
+                            </li> -->
+
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+        </header>
+    </div>
+    <!-- Header Section End -->
+    <!--Find Self Storage Section Start -->
+    <section class="self_store_section">
+        <div class="container-fluid">
+            <div class="self_storage_top">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3 col-lg-5 col-xl-6">
+                            <div class="search_box_left">
+                                <div class="form-group">
+                                    <input type="email" class="form-control search_input"
+                                        placeholder="Enter City, State or Zip code">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 d-flex">
+                            <div class="search_box_right">
+                                <div class="dropdown_box">
+                                    <button class="btn btn-secondary dropdown-toggle search_dropdown" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Dropdown button
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="price__box">
+                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Price">
+                                    <span class="price__span"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                </div>
+
+                                <div class="filter__box">
+                                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter">Filter </a>
+                                    <span class="filter__span"><i class="fa fa-filter"></i></span>
+                                </div>
+
+                                <div>
+                                    <a href="#" class="btn find_storage_btn">Find Storage</a>
+                                </div>
+
+                            </div>
+                        </div>
+                         <!-- Filter Modal -->
+                         <div class="Fiter_Model">
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Filters</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="multip__step_range">
+                                                <fieldset class="formSlider">
+                                                    <h4>Distance</h4>
+                                                    <div class="__range __range-step">
+                                                        <input value="1" type="range" max="4" min="1" step="1"
+                                                            list="ticks1">
+                                                        <datalist id="ticks1">
+                                                            <option value="1" class="active"><span
+                                                                    class="km_span">1 KM</span>
+                                                            </option>
+                                                            <option value="2"><span class="km_span">5 KM</span>
+                                                            </option>
+                                                            <option value="3"><span class="km_span">10 KM</span>
+                                                            </option>
+                                                            <option value="4"><span class="km_span">10+
+                                                                    KM</span>
+                                                            </option>
+                                                            <!-- <option value="5"><span class="km_span">5mm</span>
+                                                            </option> -->
+                                                        </datalist>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="mutiple_circle_range mt-5">
+                                                <div class="filter_content">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mutiple_circle_range">
+                                                                <h2>Size</h2>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 text-right">
+                                                            <div>
+                                                                <div class="drop-down">
+                                                                    <div class="selected position-relative">
+                                                                        <a href="#"><span>sq ft.</span><i
+                                                                                class="fa fa-angle-down drop_doown_icon"></i></a>
+                                                                    </div>
+                                                                    <div class="options">
+                                                                        <ul>
+                                                                            <li><a href="#">250 sq ft<span
+                                                                                        class="value">1</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">500 sq ft<span
+                                                                                        class="value">2</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">1000 sq ft<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="js-range-slider"
+                                                            name="my_range" value="" data-skin="round"
+                                                            data-type="double" data-min="0" data-max="1000"
+                                                            data-grid="false" />
+                                                        <div class="row mt-4">
+                                                            <div class="col-lg-4 from_slide"
+                                                                style="width: 33.33%;">
+                                                                <input type="number" maxlength="4" class="from"
+                                                                    placeholder="500 sq.ft">
+                                                            </div>
+
+                                                            <div class="col-lg-4 center_slide"
+                                                                style="width: 33.33%;">
+                                                                <h6 class="center_slode_text">TO</h6>
+                                                            </div>
+
+                                                            <div class="col-lg-4 to_slide"
+                                                                style="width: 33.33%;">
+                                                                <input type="number" maxlength="4" value=""
+                                                                    class="to" placeholder="1,700 sq.ft">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="rating__box">
+                                                <h2>Rating</h2>
+                                                <div class="rating_box_content">
+                                                    <div class="form-group">
+                                                        <div class="form-check active">
+                                                            <input type="radio" class="form-check-input"
+                                                                id="5 Star">
+                                                            <label class="form-check-label" for="5 Star">5
+                                                                Star</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" class="form-check-input"
+                                                                id="4 Star">
+                                                            <label class="form-check-label" for="4 Star">4
+                                                                Star</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" class="form-check-input"
+                                                                id="3 Star">
+                                                            <label class="form-check-label" for="3 Star">3
+                                                                Star</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input type="radio" class="form-check-input"
+                                                                id="2+ Star">
+                                                            <label class="form-check-label" for="2+ Star">2+
+                                                                Star</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-start">
+                                            <button type="button " class="btn cancel_btn"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary model_save_btn">Save
+                                                changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Filter Modal -->
+                    </div>
+                </form>
+            </div>
+            <div class="self_storage_center">
+                <div class="self_storage_content">
+                    <h4>Find Self Storage in <span>“Texas”</span></h4>
+                </div>
+                <div class="storage_grid">
+                    <div class="storage_grid_tabing">
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="list-tab" data-toggle="pill" href="#list"
+                                    role="tab" aria-controls="list" aria-selected="true"><i class="fa fa-list" ></i>  <span>List</span> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="grid-tab" data-toggle="pill" href="#grid"
+                                    role="tab" aria-controls="grid" aria-selected="false"><i class="fa fa-th" ></i> <span>Grid</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="map-tab" data-toggle="pill" href="#map"
+                                    role="tab" aria-controls="map" aria-selected="false"><i class="fa fa-map" ></i> <span>Map</span> </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="storage_grid_reault">
+                        <p>0 results found</p>
+                    </div>
+
+                    <div class="storage_grid_shorting">
+                        <span class="sortbt_text">Sort by</span>
+                        
+                        <div class="dropdown_box">
+                            <button class="btn btn-secondary dropdown-toggle storage_btn" type="button"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Highest rating
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Price low to high</a>
+                                <a class="dropdown-item" href="#">Price high to low</a>
+                                <a class="dropdown-item" href="#">Near me</a>
+                                <a class="dropdown-item" href="#">Highest rating</a>
+                                <a class="dropdown-item" href="#">Lowest rating</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <div class="storage_tabing_main">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="list" role="tabpanel"
+                            aria-labelledby="list-tab">
+                            <div class="no_result_box text-center">
+                                <i class="fa fa-search search_icon" ></i>
+                                <h4>No result found</h4>
+                                <h6>You will find new result here</h6>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="grid" role="tabpanel"
+                            aria-labelledby="grid-tab">2</div>
+                        <div class="tab-pane fade" id="map" role="tabpanel"
+                            aria-labelledby="map-tab">3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Find Self Storage Section End -->
+
+    <!-- Email box Section Start -->
+    <section class="email_box_section">
+        <div class="container-fluid">
+            <div class="email_box">
+                <h2>Lorem Ipsum is simply dummy text of the printing and
+                    type setting industry.</h2>
+
+                <div class="email_search_box">
+                    <input type="text" placeholder="Enter Your Email Address">
+                    <button class="emil_submit">
+                        <span>Submit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Email box Section End -->
+    <!-- Footer  Start -->
+    <footer>
+        <div class="container">
+            <div class="footer_top">
+                <img src="assets/img/Logo-white.png" alt="logo-white" class="img-fluid">
+                <div class="footer_social_icon">
+                    <a href="#"><img src="assets/img/youtube-footer.png" alt="youtube-footer" class="img-fluid"></a>
+                    <a href="#"><img src="assets/img/insta.png" alt="insta-footer" class="img-fluid"></a>
+                    <a href="#"><img src="assets/img/facebook-footer.png" alt="facebook-footer" class="img-fluid"></a>
+                    <a href="#"><img src="assets/img/twitter-footer.png" alt="twitter-footer" class="img-fluid"></a>
+                    <a href="#"><img src="assets/img/linkedin-footer.png" alt="linkedin-footer" class="img-fluid"></a>
+                </div>
+                <div class="footer_menus">
+                    <a href="#">About us <span>|</span></a>
+                    <a href="#">Contact Us<span>|</span></a>
+                    <a href="#">Terms and conditions </a>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer_bottom">
+            <p>© 2023 - TheHouse48 Inc. All Right Reserved</p>
+        </div>
+
+        <!-- <span class="to-top">Scroll to Top</span> -->
+        <a href="#" class="scrollup"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- chat Box Start -->
+    <div class="chat_box_main_wrapper">
+        <!-- <div class="chat_box_bg"></div> -->
+        <div class="chat_boxsub_wrapper">
+            <div class="chat_box_header">
+                <h6 class="chat_heaader_title">Message</h6>
+                <a href="#" class="chat_close"><i class="fa fa-times"></i></a>
+            </div>
+            <div class="chat_box_body">
+                <div class="chat_list">
+                    <a href="#" class="chat_sub_list">
+                        <div class="chat_box_img">
+                            <img src="assets/img/chat-img-one.png" alt="chat-img-one" class="img-fluid">
+                        </div>
+
+                        <div class="chat_box_content">
+                            <h4>Samantha William</h4>
+                            <p>Lorem ipsum dolor sit amet...</p>
+                        </div>
+
+                        <div class="chat_box_content_right">
+                            <span class="chat_time">12:45 PM</span>
+                            <span class="chat_badge">2</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="chat_sub_list mt-3">
+                        <div class="chat_box_img">
+                            <img src="assets/img/chat-img-two.png" alt="chat-img-one" class="img-fluid">
+                        </div>
+
+                        <div class="chat_box_content">
+                            <h4>Tony Soap</h4>
+                            <p>Lorem ipsum dolor sit amet...</p>
+                        </div>
+
+                        <div class="chat_box_content_right">
+                            <span class="chat_time">12:45 PM</span>
+                            <span class="chat_badge">2</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="chat_sub_list mt-3">
+                        <div class="chat_box_img">
+                            <img src="assets/img/chat-img-three.png" alt="chat-img-three" class="img-fluid">
+                        </div>
+
+                        <div class="chat_box_content">
+                            <h4>Karen Hope</h4>
+                            <p>Lorem ipsum dolor sit amet...</p>
+                        </div>
+
+                        <div class="chat_box_content_right">
+                            <span class="chat_time">12:45 PM</span>
+                            <!-- <span class="chat_badge">2</span> -->
+                        </div>
+                    </a>
+
+                    <a href="#" class="chat_sub_list mt-3">
+                        <div class="chat_box_img">
+                            <img src="assets/img/chat-img-four.png" alt="chat-img-four" class="img-fluid">
+                        </div>
+
+                        <div class="chat_box_content">
+                            <h4>Jordan Nico</h4>
+                            <p>Lorem ipsum dolor sit amet...</p>
+                        </div>
+
+                        <div class="chat_box_content_right">
+                            <span class="chat_time">12:45 PM</span>
+                            <!-- <span class="chat_badge">2</span> -->
+                        </div>
+                    </a>
+
+                    <a href="#" class="chat_sub_list mt-3">
+                        <div class="chat_box_img">
+                            <img src="assets/img/chat-img-five.png" alt="chat-img-five" class="img-fluid">
+                        </div>
+
+                        <div class="chat_box_content">
+                            <h4>Nadila Adja</h4>
+                            <p>Lorem ipsum dolor sit amet...</p>
+                        </div>
+
+                        <div class="chat_box_content_right">
+                            <span class="chat_time">12:45 PM</span>
+                            <!-- <span class="chat_badge">2</span> -->
+                        </div>
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- chatbox -->
+        <div class="chating_box">
+            <div class="chatbox">
+                <div class="modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="msg-head">
+                            <div class="d-flex align-items-center">
+                                <div class="mr-3">
+                                    <a href="#" class="chat_back">
+                                        <img src="assets/img/chat-back.png" alt="chat-back">
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <h3>Samantha William</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="msg-body">
+                                <ul>
+                                    <div class="d-flex">
+                                        <div class="sender_img_box">
+                                            <img src="assets/img/avatar.png" alt="" srcset="">
+                                        </div>
+                                        <li class="sender">
+                                            <p> <span>Hi, how are you Adam?</span>
+                                                <span class="time">8:55 AM, Today</span>
+                                            </p>
+
+                                        </li>
+                                    </div>
+
+
+
+                                    <div class="d-flex">
+                                        <li class="repaly">
+                                            <p>
+                                                <span>Hi Samantha i am good tnx how about you?</span>
+                                                <span class="time_sender">10:35 am</span>
+                                            </p>
+
+                                        </li>
+                                        <div class="sender_img_box">
+                                            <img src="assets/img/avatar.png" alt="" srcset="">
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex">
+                                        <div class="sender_img_box">
+                                            <img src="assets/img/avatar.png" alt="" srcset="">
+                                        </div>
+                                        <li class="sender">
+                                            <p> <span>I am good too, thank you for your chat template</span>
+                                                <span class="time">8:55 AM, Today</span>
+                                            </p>
+
+                                        </li>
+                                    </div>
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="send-box">
+                            <form action="">
+                                <input type="text" class="form-control" aria-label="message…"
+                                    placeholder="Write message…">
+                                <div class="send_btn_box">
+                                    <button type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- chatbox -->
+    </div>
+    <!-- chat Box End -->
+    <script src="assets/js/jQuery.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/ion.rangeSlider.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+</body>
+
+</html>
