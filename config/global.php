@@ -8,8 +8,8 @@ return [
   	'base_url' => $baseURL,
     'url' => $url,
     'front_base_url' => $baseURL."/front/",
-    /*'front_base_seller_url' => $baseURL."/front/seller/",*/
-    'front_base_seller_url' => $baseURL."/front/",
+    'front_base_seller_url' => $baseURL."/front/seller/",
+    /*'front_base_seller_url' => $baseURL."/front/",*/
     'image_base_url' => 'https://chessmafia.com/php/SelfStorage/storage/app/public',
 ]
 
