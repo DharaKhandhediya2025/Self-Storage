@@ -301,4 +301,90 @@ class SellersController extends Controller
             session()->flash('error', $e->getMessage());
         }
     }
+
+    public function manageProfile(Request $request) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $countrys = Country::All();
+        $country = Country::where('id',$seller->country_code)->first();
+        //echo $seller_id;exit();
+        return view('seller.manage-profile',compact('seller','countrys','country'));
+    }
+
+    public function updateProfile(Request $request) {
+
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $seller->name = $request->name;
+        $seller->email = $request->email;
+        $seller->phone = $request->phone;
+        $seller->country_code = $request->country_code;
+        $seller->city = $request->city;
+        $seller->zipcode = $request->zipcode;
+        $seller->address = $request->address;
+        $profile_image = $request->file('profile_image');
+
+        if(isset($profile_image) && $profile_image != '') {
+
+            $name = time().'.'.$profile_image->getClientOriginalExtension();
+            $d_path = public_path('../storage/app/public/seller/profile_image');
+            $profile_image->move($d_path,$name);
+            $seller1="seller/profile_image/".$name;
+            $seller->profile_image = $seller1;
+        }
+
+        $seller->update();
+
+        session()->flash('type','message');
+        session()->flash('message', 'Profile Updated Successfully.');
+        return redirect('seller/manage-profile');
+    }
+
+    public function changePassword(Request $request) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        return view('seller.changepassword',compact('seller'));
+    }
+    public function updatePassword(Request $request) {
+
+        $messages = [
+
+            'old_password.required' => 'Old Password is Required.',
+            'new_password.required' => 'New Password is Required.',
+            'confirm_password.required' => 'Confirm Password is Required.',
+        ];
+
+        $validator = $this->validate($request, [
+
+            'old_password' => 'required',
+            'new_password' => 'required',
+            'confirm_password' => 'required',
+        ],$messages);
+
+        if(Hash::check($request->old_password,Auth::guard('seller')->user()->password) == true) {
+
+            if($request->new_password == $request->confirm_password) { 
+
+                $seller = Seller::find(Auth::guard('buyer')->user()->id);
+
+                $seller->password = Hash::make($request->new_password);
+                $seller->update();
+                
+                session()->flash('type','message');
+                session()->flash('message', 'Password Reset Successfully.');
+                auth()->guard('seller')->logout();
+                return redirect('/login');
+            }
+            else {
+
+                session()->flash('error', 'New Password and Confirm Password are not match.');
+                return redirect()->back();
+            }
+        }
+        else {
+
+            session()->flash('error', 'Current Password are not correct.Please try again.');
+            return redirect()->back();
+        }
+    }
 }

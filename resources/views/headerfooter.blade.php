@@ -56,6 +56,7 @@
                         </button>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ url('/') }}">Home</a>
@@ -70,15 +71,17 @@
                                     <a class="nav-link p-0" href="#"><img src="{{ config('global.front_base_url').'images/user-profile.png' }}" alt="user-profile" class="img-fluid"></a>
                                 </li> -->
 
+                               
+
                                 @if(isset($buyer) && $buyer != '')
                                     
                                     @if(isset($buyer->profile_image) && $buyer->profile_image != '')
                                         <li class="nav-item">
-                                            <a class="nav-link p-0" href="#"><img src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="user-profile" class="img-fluid header_profile_img"></a>
+                                            <a class="nav-link p-0" href="{{ url('/manage-profile') }}"><img src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="user-profile" class="img-fluid header_profile_img"></a>
                                         </li>
                                     @else
                                         <li class="nav-item">
-                                            <a class="nav-link p-0" href="#"><img src="{{ asset('public/front/images/user_default.png') }}" alt="user-profile" class="img-fluid header_profile_img"></a>
+                                            <a class="nav-link p-0" href="{{ url('/manage-profile') }}"><img src="{{ asset('public/front/images/user_default.png') }}" alt="user-profile" class="img-fluid header_profile_img"></a>
                                         </li>
                                     @endif
 
@@ -89,8 +92,8 @@
                                 @elseif(isset($seller) && $seller != '')
 
                                     @if(isset($seller->profile_image) && $seller->profile_image != '')
-                                        <li class="nav-item">
-                                            <a class="nav-link p-0" href="#"><img src="{{ asset('storage/app/public/'.$seller->profile_image) }}" alt="user-profile" class="img-fluid header_profile_img"></a>
+                                       <li class="nav-item">
+                                            <a class="nav-link p-0" href="{{ url('seller/manage-profile') }}"><img src="{{ asset('storage/app/public/'.$seller->profile_image) }}" alt="user-profile" class="img-fluid header_profile_img"></a>
                                         </li>
                                     @else
                                         <li class="nav-item">

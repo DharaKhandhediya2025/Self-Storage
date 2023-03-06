@@ -301,4 +301,81 @@ class BuyersController extends Controller
             session()->flash('error', $e->getMessage());
         }
     }
+
+    public function manageProfile(Request $request) {
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        //echo $buyer;exit();
+        return view('buyer.manage-profile',compact('buyer'));
+    }
+
+    public function updateProfile(Request $request) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $buyer->name = $request->name;
+        $profile_image = $request->file('profile_image');
+
+        if(isset($profile_image) && $profile_image != '') {
+
+            $name = time().'.'.$profile_image->getClientOriginalExtension();
+            $d_path = public_path('../storage/app/public/buyer/profile_image');
+            $profile_image->move($d_path,$name);
+            $buyer1="buyer/profile_image/".$name;
+            $buyer->profile_image = $buyer1;
+        }
+        $buyer->update();
+        session()->flash('type','message');
+        session()->flash('message', 'Profile Updated Successfully.');
+        return redirect('manage-profile');
+    }
+
+    public function changePassword(Request $request) {
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        return view('buyer.changepassword',compact('buyer'));
+    }
+    public function updatePassword(Request $request) {
+
+        $messages = [
+
+            'old_password.required' => 'Old Password is Required.',
+            'new_password.required' => 'New Password is Required.',
+            'confirm_password.required' => 'Confirm Password is Required.',
+        ];
+
+        $validator = $this->validate($request, [
+
+            'old_password' => 'required',
+            'new_password' => 'required',
+            'confirm_password' => 'required',
+        ],$messages);
+
+        if(Hash::check($request->old_password,Auth::guard('buyer')->user()->password) == true) {
+
+            if($request->new_password == $request->confirm_password) { 
+
+                $buyer = Buyer::find(Auth::guard('buyer')->user()->id);
+
+                $buyer->password = Hash::make($request->new_password);
+                $buyer->update();
+                
+                session()->flash('type','message');
+                session()->flash('message', 'Password Reset Successfully.');
+                auth()->guard('buyer')->logout();
+                return redirect('/login');
+            }
+            else {
+
+                session()->flash('error', 'New Password and Confirm Password are not match.');
+                return redirect()->back();
+            }
+        }
+        else {
+
+            session()->flash('error', 'Current Password are not correct.Please try again.');
+            return redirect()->back();
+        }
+    }
+
 }
