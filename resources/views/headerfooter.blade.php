@@ -85,9 +85,9 @@
                                         </li>
                                     @endif
 
-                                    <li class="nav-item">
+                                   <!-- <li class="nav-item">
                                         <a class="nav-link header_login_btn" href="{{ url('/web-logout') }}" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
-                                    </li>
+                                    </li> -->
 
                                 @elseif(isset($seller) && $seller != '')
 
@@ -97,13 +97,13 @@
                                         </li>
                                     @else
                                         <li class="nav-item">
-                                            <a class="nav-link p-0" href="#"><img src="{{ asset('public/front/images/user_default.png') }}" alt="user-profile" class="img-fluid header_profile_img"></a>
+                                            <a class="nav-link p-0" href="{{ url('seller/manage-profile') }}"><img src="{{ asset('public/front/images/user_default.png') }}" alt="user-profile" class="img-fluid header_profile_img"></a>
                                         </li>
                                     @endif
 
-                                    <li class="nav-item">
+                                   <!-- <li class="nav-item">
                                         <a class="nav-link header_login_btn" href="{{ url('/seller-logout') }}" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
-                                    </li>
+                                    </li> -->
                                 @else
                                     <li class="nav-item">
                                         <a class="nav-link header_login_btn" href="{{ url('/login') }}">Login</a>

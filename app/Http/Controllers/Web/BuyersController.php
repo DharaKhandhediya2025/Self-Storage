@@ -283,7 +283,7 @@ class BuyersController extends Controller
                     return redirect('/login');
                 }
                 elseif(isset($buyer) && $buyer->active_block_status == 1) {
-
+                   
                     if(Hash::check($request->password,$buyer->password)) {
 
                         // Login Firebase User

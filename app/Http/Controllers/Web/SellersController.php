@@ -271,7 +271,7 @@ class SellersController extends Controller
     public function sellerLogin(Request $request) {
 
         try {
-
+            
             if (auth()->guard('seller')->attempt(['email' => $request->email, 'password' => $request->password])) {
 
                 $seller_id = Auth::guard('seller')->user()->id;
@@ -371,7 +371,7 @@ class SellersController extends Controller
 
             if($request->new_password == $request->confirm_password) { 
 
-                $seller = Seller::find(Auth::guard('buyer')->user()->id);
+                $seller = Seller::find(Auth::guard('seller')->user()->id);
 
                 $seller->password = Hash::make($request->new_password);
                 $seller->update();

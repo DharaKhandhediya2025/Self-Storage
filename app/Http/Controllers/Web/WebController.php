@@ -127,15 +127,24 @@ class WebController extends Controller
     public function aboutUs() {
 
         try {
+            if(auth()->guard('buyer')->user() != '') {
+                $buyer_id = Auth::guard('buyer')->user()->id;
+                $buyer = Buyer::where('id',$buyer_id)->first();
+                $about_us = AboutUs::first();
+                return view('about-us',compact('about_us','buyer'));
+            }
 
-            $buyer_id = Auth::guard('buyer')->user()->id;
-            $buyer = Buyer::where('id',$buyer_id)->first();
+            if(auth()->guard('seller')->user() != '') {
+                $seller_id = Auth::guard('seller')->user()->id;
+                $seller = Seller::where('id',$seller_id)->first();
+                $about_us = AboutUs::first();
+                return view('about-us',compact('about_us','seller'));
+            }
 
-            $seller_id = Auth::guard('seller')->user()->id;
-            $seller = Seller::where('id',$seller_id)->first();
-
-            $about_us = AboutUs::first();
-            return view('about-us',compact('about_us','buyer','seller'));
+            else{
+                $about_us = AboutUs::first();
+                return view('about-us',compact('about_us'));
+            }
         }
         catch(\Exception $e) {
             session()->flash('error', $e->getMessage());
@@ -145,15 +154,24 @@ class WebController extends Controller
     public function contactUs() {
 
         try {
+            if(auth()->guard('buyer')->user() != '') {
+                $buyer_id = Auth::guard('buyer')->user()->id;
+                $buyer = Buyer::where('id',$buyer_id)->first();
+                $about_us = AboutUs::first();
+                return view('contact-us',compact('about_us','buyer'));
+            }
 
-            $buyer_id = Auth::guard('buyer')->user()->id;
-            $buyer = Buyer::where('id',$buyer_id)->first();
+            elseif(auth()->guard('seller')->user() != '') {
+                $seller_id = Auth::guard('seller')->user()->id;
+                $seller = Seller::where('id',$seller_id)->first();
+                $about_us = AboutUs::first();
+                return view('contact-us',compact('about_us','seller'));
+            }
 
-            $seller_id = Auth::guard('seller')->user()->id;
-            $seller = Seller::where('id',$seller_id)->first();
-
-            $contact_us = ContactUs::first();
-            return view('contact-us',compact('contact_us','buyer','seller'));
+            else{
+                $about_us = AboutUs::first();
+                return view('contact-us',compact('about_us'));
+            }
         }
         catch(\Exception $e) {
             session()->flash('error', $e->getMessage());
@@ -208,9 +226,24 @@ class WebController extends Controller
     public function termsCondition() {
 
         try {
+            if(auth()->guard('buyer')->user() != '') {
+                $buyer_id = Auth::guard('buyer')->user()->id;
+                $buyer = Buyer::where('id',$buyer_id)->first();
+                $terms_condition = TermsCondition::first();
+                return view('terms-condition',compact('terms_condition' , 'buyer'));
+            }
 
-            $terms_condition = TermsCondition::first();
-            return view('terms-condition',compact('terms_condition'));
+            if(auth()->guard('seller')->user() != '') {
+                $seller_id = Auth::guard('seller')->user()->id;
+                $seller = Seller::where('id',$seller_id)->first();
+                $terms_condition = TermsCondition::first();
+                return view('terms-condition',compact('terms_condition' , 'seller'));
+            }
+
+            else{
+                $terms_condition = TermsCondition::first();
+                return view('terms-condition',compact('terms_condition'));
+            }
     
         }
         catch(\Exception $e) {

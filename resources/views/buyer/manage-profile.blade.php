@@ -13,19 +13,19 @@
                     <a class="nav-link active" id="myprofile-tab" data-toggle="pill" href="#myprofile" role="tab"
                         aria-controls="v-pills-profile" aria-selected="false">My Profile</a>
 
-                    <a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab"
+                <!--<a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab"
                         aria-controls="v-pills-profile" aria-selected="false">Favorites</a>
 
                     <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"
-                        aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a>
+                        aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a>-->
 
                     <a class="nav-link" id="password-tab" href="{{ url('/change-password') }}">Change password</a>
 
-                    <a href="{{ url('/web-logout') }}" class="nav-link log_out_text" id="logout-tab" >Logout</a>
+                    <a href="{{ url('/web-logout') }}" class="nav-link log_out_text" id="logout-tab" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
                 </div>
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active contact_tabing_box" id="myprofile" role="tabpanel"
-                        aria-labelledby="myprofile-tab">
+    <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active contact_tabing_box" id="myprofile" role="tabpanel"
+            aria-labelledby="myprofile-tab">
                  @if (session()->has('message')) 
                     <div class="alert alert-success"> 
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
@@ -39,62 +39,55 @@
                         </button>{{ session('error') }} 
                     </div> 
                 @endif
-                        <h2>My Profile</h2>
-                        <form class="myaccount_form" method="post" action="{{ url('/update-profile') }}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-row mt-3">
+            <h2>My Profile</h2>
+                <form class="myaccount_form" method="post" action="{{ url('/update-profile') }}" enctype="multipart/form-data">
+                    @csrf
+                     <div class="form-row mt-3">
                                 <div class="form-group col-md-6">
                                     <div class="profle_img">
                                         <div class="circle">
-                                    <div class="profle_img">
-                            <div class="circle">
-                                 @if(isset($buyer->profile_image) && $buyer->profile_image != '')
-                                 <img class="profile-pic" name="profile_image" src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="profile_signup">
-                                 @else
-                                <img class="profile-pic" name="profile_image" src="{{ config('global.front_base_url').'images/user_default.png' }}" alt="profile_signup">
-                                @endif
+                                             @if(isset($buyer->profile_image) && $buyer->profile_image != '')
+                                             <img class="profile-pic" name="profile_image" src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="profile_signup">
+                                             @else
+                                            <img class="profile-pic" name="profile_image" src="{{ config('global.front_base_url').'images/user_default.png' }}" alt="profile_signup">
+                                            @endif
 
-                            </div>
-                            <div class="p-image">
-                                <i class="fa fa-camera upload-button"></i>
-                                <input class="file-upload" type="file" name="profile_image" accept="image/*" id="profile_image" name="profile_image" />
-                            </div>
-                        </div>
                                         </div>
                                         <div class="p-image">
                                             <i class="fa fa-camera upload-button"></i>
-                                            <input class="file-upload" type="file" name="profile_image" accept="image/*" />
+                                            <input class="file-upload" type="file" name="profile_image" accept="image/*" id="profile_image" name="profile_image" />
                                         </div>
                                     </div>
                                 </div>
+                          </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="myaccount_label">Name</label>
+                                <input type="text" name="name" class="form-control myaccount_input" value="{{$buyer->name}}" placeholder="John Wick">
                             </div>
+                        </div>
 
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label class="myaccount_label">Name</label>
-                                    <input type="text" name="name" class="form-control myaccount_input" value="{{$buyer->name}}" placeholder="John Wick">
-                                </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="myaccount_label">E-Mail</label>
+                                <input type="email" class="form-control myaccount_input" value="{{$buyer->email}}"
+                                    placeholder="johnwick@mail.com" readonly disabled>
                             </div>
+                        </div>
 
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label class="myaccount_label">E-Mail</label>
-                                    <input type="email" class="form-control myaccount_input" value="{{$buyer->email}}"
-                                        placeholder="johnwick@mail.com" readonly disabled>
-                                </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="myaccount_label">Phone</label>
+                                <input type="email" class="form-control myaccount_input" value="{{$buyer->phone}}" placeholder="+1 123467897" readonly disabled>
                             </div>
+                        </div>
 
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label class="myaccount_label">Phone</label>
-                                    <input type="email" class="form-control myaccount_input" value="{{$buyer->phone}}" placeholder="+1 123467897" readonly disabled>
-                                </div>
-                            </div>
+                        <button type="submit" class="btn btn-primary myaccount_btn">Update</button>
+                    </form>
+                </div>
+            
 
-                            <button type="submit" class="btn btn-primary myaccount_btn">Update</button>
-                        </form>
-
-                    </div>
 
                     <div class="tab-pane fade contact_tabing_box" id="favorites" role="tabpanel"
                         aria-labelledby="favorites-tab">
@@ -415,3 +408,38 @@
 
 
   @stop
+
+   @section('customjs')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ config('global.front_base_seller_url').'js/select2.min.js' }}"></script>
+    <script type="text/javascript">
+
+        $("#country_code").select2();
+
+        function disabledButton() {
+            document.getElementById("submitbtn").disabled = true;
+        }
+
+        $(document).ready(function () {
+
+            var readURL = function (input) {
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.profile-pic').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(".file-upload").on('change', function () {
+                readURL(this);
+            });
+
+           
+        });
+    </script>
+@stop

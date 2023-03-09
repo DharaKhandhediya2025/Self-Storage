@@ -33,15 +33,15 @@
                     <a class="nav-link active" id="myprofile-tab" data-toggle="pill" href="#myprofile" role="tab"
                         aria-controls="v-pills-profile" aria-selected="false">My Profile</a>
 
-                    <a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab"
+                    <!--<a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab"
                         aria-controls="v-pills-profile" aria-selected="false">Reports</a>
 
                     <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"
-                        aria-controls="v-pills-messages" aria-selected="false">Subscription plan</a>
+                        aria-controls="v-pills-messages" aria-selected="false">Subscription plan</a>-->
 
                     <a class="nav-link" id="password-tab" href="{{ url('seller/change-password') }}">Change password</a>
 
-                    <a href="{{ url('/seller-logout') }}" class="nav-link log_out_text" id="logout-tab" >Logout</a>
+                    <a href="{{ url('/seller-logout') }}" class="nav-link log_out_text" id="logout-tab" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
                 </div>
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active contact_tabing_box" id="myprofile" role="tabpanel"
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="p-image">
                                             <i class="fa fa-camera upload-button"></i>
-                                            <input class="file-upload" type="file" name="profile_image" accept="image/*" />
+                                            <input class="file-upload" type="file" name="profile_image" accept="image/*"size="1" />
                                         </div>
                                     </div>
                                 </div>
@@ -182,9 +182,6 @@
                                     <h5>Contacted</h5>
                                 </div>
                             </div>
-
-
-
                         </div>
 
                         <div class="report__storage row mt-3">
@@ -313,10 +310,6 @@
 
         $("#country_code").select2();
 
-        function disabledButton() {
-            document.getElementById("submitbtn").disabled = true;
-        }
-
         $(document).ready(function () {
 
             var readURL = function (input) {
@@ -333,10 +326,6 @@
 
             $(".file-upload").on('change', function () {
                 readURL(this);
-            });
-
-            $(".upload-button").on('click', function () {
-                $(".file-upload").click();
             });
         });
     </script>
