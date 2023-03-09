@@ -4,54 +4,49 @@
     <!-- My Account Section Start -->
     <section class="my_account_section">
         <div class="container-fluid">
-            <div class="">
-                <h2 class="tabing_title">My Account</h2>
-            </div>
+            <div class=""><h2 class="tabing_title">My Account</h2></div>
             <div class="my_account_tabing">
-
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="myprofile-tab" data-toggle="pill" href="#myprofile" role="tab"
-                        aria-controls="v-pills-profile" aria-selected="false">My Profile</a>
+                    <a class="nav-link active" id="myprofile-tab" data-toggle="pill" href="#myprofile" role="tab" aria-controls="v-pills-profile" aria-selected="false">My Profile</a>
 
-                <!--<a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab"
-                        aria-controls="v-pills-profile" aria-selected="false">Favorites</a>
+                    <!-- <a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab" aria-controls="v-pills-profile" aria-selected="false">Favorites</a>
 
-                    <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"
-                        aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a>-->
+                    <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a> -->
 
-                    <a class="nav-link" id="password-tab" href="{{ url('/change-password') }}">Change password</a>
+                    <a class="nav-link" id="password-tab" href="{{ url('/change-password') }}">
+                    Change Password</a>
 
                     <a href="{{ url('/web-logout') }}" class="nav-link log_out_text" id="logout-tab" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
                 </div>
-    <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active contact_tabing_box" id="myprofile" role="tabpanel"
-            aria-labelledby="myprofile-tab">
-                 @if (session()->has('message')) 
-                    <div class="alert alert-success"> 
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
-                        </button>{{ session('message') }} 
-                    </div> 
-                @endif
 
-                @if (session()->has('error')) 
-                    <div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
-                        </button>{{ session('error') }} 
-                    </div> 
-                @endif
-            <h2>My Profile</h2>
-                <form class="myaccount_form" method="post" action="{{ url('/update-profile') }}" enctype="multipart/form-data">
-                    @csrf
-                     <div class="form-row mt-3">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active contact_tabing_box" id="myprofile" role="tabpanel" aria-labelledby="myprofile-tab">
+                    
+                        @if (session()->has('message')) 
+                            <div class="alert alert-success"> 
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                </button>{{ session('message') }} 
+                            </div> 
+                        @endif
+
+                        @if (session()->has('error')) 
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                </button>{{ session('error') }} 
+                            </div> 
+                        @endif
+                    
+                        <h2>My Profile</h2>
+                        <form class="myaccount_form" method="post" action="{{ url('/update-profile') }}" enctype="multipart/form-data">@csrf
+                            <div class="form-row mt-3">
                                 <div class="form-group col-md-6">
                                     <div class="profle_img">
                                         <div class="circle">
-                                             @if(isset($buyer->profile_image) && $buyer->profile_image != '')
-                                             <img class="profile-pic" name="profile_image" src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="profile_signup">
-                                             @else
-                                            <img class="profile-pic" name="profile_image" src="{{ config('global.front_base_url').'images/user_default.png' }}" alt="profile_signup">
+                                            @if(isset($buyer->profile_image) && $buyer->profile_image != '')
+                                                <img class="profile-pic" name="profile_image" src="{{ asset('storage/app/public/'.$buyer->profile_image) }}" alt="profile_signup">
+                                            @else
+                                                <img class="profile-pic" name="profile_image" src="{{ config('global.front_base_url').'images/user_default.png' }}" alt="profile_signup">
                                             @endif
-
                                         </div>
                                         <div class="p-image">
                                             <i class="fa fa-camera upload-button"></i>
@@ -59,35 +54,32 @@
                                         </div>
                                     </div>
                                 </div>
-                          </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="myaccount_label">Name</label>
-                                <input type="text" name="name" class="form-control myaccount_input" value="{{$buyer->name}}" placeholder="John Wick">
                             </div>
-                        </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="myaccount_label">E-Mail</label>
-                                <input type="email" class="form-control myaccount_input" value="{{$buyer->email}}"
-                                    placeholder="johnwick@mail.com" readonly disabled>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="myaccount_label">Name</label>
+                                    <input type="text" name="name" class="form-control myaccount_input" value="{{$buyer->name}}" placeholder="John Wick">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label class="myaccount_label">Phone</label>
-                                <input type="email" class="form-control myaccount_input" value="{{$buyer->phone}}" placeholder="+1 123467897" readonly disabled>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="myaccount_label">E-Mail</label>
+                                    <input type="email" class="form-control myaccount_input" value="{{$buyer->email}}"
+                                        placeholder="johnwick@mail.com" readonly disabled>
+                                </div>
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn btn-primary myaccount_btn">Update</button>
-                    </form>
-                </div>
-            
-
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="myaccount_label">Phone</label>
+                                    <input type="email" class="form-control myaccount_input" value="{{$buyer->phone}}" placeholder="+1 123467897" readonly disabled>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary myaccount_btn">Update</button>
+                        </form>
+                    </div>
 
                     <div class="tab-pane fade contact_tabing_box" id="favorites" role="tabpanel"
                         aria-labelledby="favorites-tab">
@@ -96,13 +88,12 @@
                             <div class="favorites_card_sub">
                                 <a href="#">
                                     <div class="favorites_card">
-                                        <div class="favorites_card">
-                                            <img src="assets/img/favorites-img-one.png" alt="favorites-img-one"
-                                                class="img-fluid">
-                                            <a href="#" class="favorites_card_link">
-                                                <i class="fa fa-heart favorite_heart"></i>
-                                            </a>
-                                        </div>
+                                        <img class="img-fluid" src="{{ config('global.front_base_url').'images/favorites-img-one.png' }}" alt="profile_signup">
+
+                                        <a href="#" class="favorites_card_link">
+                                            <i class="fa fa-heart favorite_heart"></i>
+                                        </a>
+                                    </div>
                                 </a>
                                 <a href="#">
                                     <div class="favorites_card_content">
@@ -121,8 +112,9 @@
                             <div class="favorites_card">
                                 <a href="#">
                                     <div class="favorites_card">
-                                        <img src="assets/img/favorites-img-two.png" alt="favorites-img-one"
-                                            class="img-fluid">
+
+                                        <img class="img-fluid" src="{{ config('global.front_base_url').'images/favorites-img-two.png' }}" alt="favorites-img-one">
+
                                         <a href="#" class="favorites_card_link">
                                             <i class="fa fa-heart favorite_heart"></i>
                                         </a>
@@ -138,10 +130,8 @@
                                         <h4>$61/mo</h4>
                                     </div>
                                 </a>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -149,13 +139,12 @@
                     aria-labelledby="storages-tab">
                     <h2>Contacted storages</h2>
                     <div class="favorites_card_main">
-
                         <div class="favorites_card_sub">
                             <div class="favorites_card">
                                 <a href="#">
                                     <div class="favorites_card">
-                                        <img src="assets/img/favorites-img-two.png" alt="favorites-img-one"
-                                            class="img-fluid">
+                                        <img src="{{ config('global.front_base_url').'images/favorites-img-two.png' }}" alt="favorites-img-one" class="img-fluid">
+
                                         <a href="#" class="favorites_card_link">
                                             <i class="fa fa-heart favorite_heart"></i>
                                         </a>
@@ -171,19 +160,15 @@
                                         <h4>$61/mo</h4>
                                     </div>
                                 </a>
-
                             </div>
                         </div>
-
-
                     </div>
                 </div>
 
                 <div class="tab-pane fade contact_tabing_box" id="password" role="tabpanel"
                     aria-labelledby="password-tab">
                     <h2>Change password</h2>
-                    <form class="myaccount_form mt-4" action="{{ url('/change-password') }}" method="post">
-                        @csrf
+                    <form class="myaccount_form mt-4" action="{{ url('/change-password') }}" method="post">@csrf
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="myaccount_label">Current Password</label>
@@ -213,24 +198,18 @@
                                 <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
                             @enderror
                         </div>
-
                         <button type="submit" class="btn btn-primary myaccount_btn">Change</button>
                     </form>
                 </div>
-
-                <!-- <div class="tab-pane fade" id="logout" role="tabpanel" aria-labelledby="logout-tab">
-                        5
-                    </div> -->
-
+                <!-- <div class="tab-pane fade" id="logout" role="tabpanel" aria-labelledby="logout-tab">5
+                </div> -->
             </div>
-        </div>
         </div>
     </section>
     <!-- My Account Section End -->
     
-    <!-- chat Box Start -->
-    <div class="chat_box_main_wrapper">
-        <!-- <div class="chat_box_bg"></div> -->
+    <!-- Chat Box Start -->
+    <!-- <div class="chat_box_main_wrapper">
         <div class="chat_boxsub_wrapper">
             <div class="chat_box_header">
                 <h6 class="chat_heaader_title">Message</h6>
@@ -282,7 +261,6 @@
 
                         <div class="chat_box_content_right">
                             <span class="chat_time">12:45 PM</span>
-                            <!-- <span class="chat_badge">2</span> -->
                         </div>
                     </a>
 
@@ -298,7 +276,6 @@
 
                         <div class="chat_box_content_right">
                             <span class="chat_time">12:45 PM</span>
-                            <!-- <span class="chat_badge">2</span> -->
                         </div>
                     </a>
 
@@ -314,16 +291,12 @@
 
                         <div class="chat_box_content_right">
                             <span class="chat_time">12:45 PM</span>
-                            <!-- <span class="chat_badge">2</span> -->
                         </div>
                     </a>
-
-
                 </div>
             </div>
         </div>
 
-        <!-- chatbox -->
         <div class="chating_box">
             <div class="chatbox">
                 <div class="modal-dialog-scrollable">
@@ -352,11 +325,8 @@
                                             <p> <span>Hi, how are you Adam?</span>
                                                 <span class="time">8:55 AM, Today</span>
                                             </p>
-
                                         </li>
                                     </div>
-
-
 
                                     <div class="d-flex">
                                         <li class="repaly">
@@ -364,7 +334,6 @@
                                                 <span>Hi Samantha i am good tnx how about you?</span>
                                                 <span class="time_sender">10:35 am</span>
                                             </p>
-
                                         </li>
                                         <div class="sender_img_box">
                                             <img src="assets/img/avatar.png" alt="" srcset="">
@@ -376,15 +345,12 @@
                                             <img src="assets/img/avatar.png" alt="" srcset="">
                                         </div>
                                         <li class="sender">
-                                            <p> <span>I am good too, thank you for your chat template</span>
+                                            <p> <span>I am good too, thank you for your chat template
+                                            </span>
                                                 <span class="time">8:55 AM, Today</span>
                                             </p>
-
                                         </li>
                                     </div>
-
-
-
                                 </ul>
                             </div>
                         </div>
@@ -402,24 +368,17 @@
                 </div>
             </div>
         </div>
-        <!-- chatbox -->
-    </div>
+    </div> -->
     <!-- chat Box End -->
+@stop
 
-
-  @stop
-
-   @section('customjs')
+@section('customjs')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ config('global.front_base_seller_url').'js/select2.min.js' }}"></script>
     <script type="text/javascript">
 
         $("#country_code").select2();
-
-        function disabledButton() {
-            document.getElementById("submitbtn").disabled = true;
-        }
 
         $(document).ready(function () {
 
@@ -438,8 +397,6 @@
             $(".file-upload").on('change', function () {
                 readURL(this);
             });
-
-           
         });
     </script>
 @stop

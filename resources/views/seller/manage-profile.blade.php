@@ -19,8 +19,8 @@
         }
     </style>
 @stop
-@section('content')
 
+@section('content')
 
     <!-- My Account Section Start -->
     <section class="my_account_section">
@@ -46,6 +46,19 @@
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active contact_tabing_box" id="myprofile" role="tabpanel"
                         aria-labelledby="myprofile-tab">
+                         @if (session()->has('message')) 
+                    <div class="alert alert-success"> 
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                        </button>{{ session('message') }} 
+                    </div> 
+                @endif
+
+                @if (session()->has('error')) 
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                        </button>{{ session('error') }} 
+                    </div> 
+                @endif
                         <h2>My Profile</h2>
                         <form class="myaccount_form" method="post" action="{{ url('seller/update-profile') }}" enctype="multipart/form-data">
                             @csrf
@@ -90,24 +103,23 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label class="myaccount_label">Country</label>
-                                    <select name="country_code" id= "country_code" class="form-control login_country_select" required="" placeholder="Select Country Code">
-                                        <option value="{{$country->id}}" selected>{{$country->name}}</option>
-                                        @foreach($countrys as $country)
-                                        <option value="{{$country->id}}">{{$country->name}}</option>
+                                    <select name="country_code" id="country_code" class="form-control login_country_select" required="" onchange="displayCity();">
+                                        @foreach ($countrys as $key => $value)
+                                            @if($value->id == $seller->country_code)
+                                                <option value="{{ $value->id }}" selected>
+                                                {{ $value->name }}</option>
+                                            @else
+                                                <option value="{{ $value->id }}">
+                                                {{ $value->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label class="myaccount_label">city</label>
-                                    <select class="form-control myaccount_input" name="city">
-
-                                        <option value="{{$seller->city}}" selected>{{$seller->city}}</option>
-                                        <option value="jaipur">Jaipur</option>
-                                        <option value="Ahmedabad">Ahmedabad</option>
-                                        <option value="Mumbai">Mumbai</option>
-                                        <option value="Kolkata">Kolkata</option>
-                                    </select>
+                                    <label class="myaccount_label">City</label>
+                                    <select id= "city_code" class="form-control login_country_select" required="" name="city"></select>
+                                    <input type="hidden" name="s_ct" id="s_ct" value="{{ $seller->city }}">
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -121,23 +133,17 @@
 
                                 <div class="form-group col-md-12">
                                     <label class="myaccount_label">Address</label>
-                                    <textarea class="form-control myaccount_input" rows="5"
-                                        placeholder="ex. 7815 Chelico DriveSan Antonio" name="address" value="{{$seller->address}}">{{$seller->address}}</textarea>
+                                    <textarea class="form-control myaccount_input" id="address" class="address" rows="5"
+                                        placeholder="Type..." name="address" value="{{$seller->address}}">{!!$seller->address!!}</textarea>
                                 </div>
-
                             </div>
-
-
-
                             <button type="submit" class="btn btn-primary myaccount_btn">Save</button>
                         </form>
-
                     </div>
 
                     <div class="tab-pane fade contact_tabing_box" id="favorites" role="tabpanel"
                         aria-labelledby="favorites-tab">
                         <h2>Reports</h2>
-
 
                         <form class="myaccount_form">
                             <div class="form-row">
@@ -149,15 +155,9 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <input type="date" class="form-control myaccount_input">
-
                                 </div>
-
-
-
                                 <div class="form-group col-md-2">
-
-                                    <button type="submit"
-                                        class="btn btn-primary myaccount_btn py-2 px-4">Submit</button>
+                                    <button type="submit" class="btn btn-primary myaccount_btn py-2 px-4">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -187,8 +187,7 @@
                         <div class="report__storage row mt-3">
                             <div class="report__storage__card col-xl-5">
                                 <div class="report__storage__imgbox">
-                                    <img src="assets/img/report-storage-card-one.png" alt="report-storage"
-                                        class="img-fluid">
+                                    <img src="assets/img/report-storage-card-one.png" alt="report-storage" class="img-fluid">
                                 </div>
                                 <div class="report__storage__contentbox">
                                     <h2>Storage name</h2>
@@ -196,29 +195,22 @@
                                     <h4>$13,157</h4>
                                     <a href="#" class="repoprt_storage_texts"><img src="assets/img/eye.png" alt="eye"
                                             class="img-fluid"><span>114 Views</span></a>
-                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/user.png" alt="user"
-                                            class="img-fluid"><span>12 Contacted</span></a>
-
+                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/user.png" alt="user" class="img-fluid"><span>12 Contacted</span></a>
                                 </div>
                             </div>
 
                             <div class="report__storage__card col-xl-5">
                                 <div class="report__storage__imgbox">
-                                    <img src="assets/img/report-storage-card-one.png" alt="report-storage"
-                                        class="img-fluid">
+                                    <img src="assets/img/report-storage-card-one.png" alt="report-storage" class="img-fluid">
                                 </div>
                                 <div class="report__storage__contentbox">
                                     <h2>Storage name</h2>
                                     <p>7815 Chelico DriveSan Antonio, TX 78223</p>
                                     <h4>$13,157</h4>
-                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/eye.png" alt="eye"
-                                            class="img-fluid"><span>114 Views</span></a>
-                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/user.png" alt="user"
-                                            class="img-fluid"><span>12 Contacted</span></a>
-
+                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/eye.png" alt="eye" class="img-fluid"><span>114 Views</span></a>
+                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/user.png" alt="user" class="img-fluid"><span>12 Contacted</span></a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -255,7 +247,6 @@
                                             <button type="submit" class="btn btn-primary myaccount_btn py-33 px-5">Upgrade</button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -285,30 +276,25 @@
                                     <input type="password" class="form-control myaccount_input" placeholder="*********">
                                 </div>
                             </div>
-
                             <button type="submit" class="btn btn-primary myaccount_btn">Change</button>
                         </form>
                     </div>
-
-                    <!-- <div class="tab-pane fade" id="logout" role="tabpanel" aria-labelledby="logout-tab">
-                        5
-                    </div> -->
-
+                    <!-- <div class="tab-pane fade" id="logout" role="tabpanel" aria-labelledby="logout-tab">5</div> -->
                 </div>
             </div>
         </div>
-
         <a href="#" class="scrollup"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
     </section>
     <!-- My Account Section End -->
-    @stop
-    @section('customjs')
+@stop
+
+@section('customjs')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ config('global.front_base_seller_url').'js/select2.min.js' }}"></script>
-    <script type="text/javascript">
+<script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 
-        $("#country_code").select2();
+    <script type="text/javascript">
 
         $(document).ready(function () {
 
@@ -327,6 +313,47 @@
             $(".file-upload").on('change', function () {
                 readURL(this);
             });
+
+            displayCity();
+
+            /*$("#country_code").select2({"placeholder" : '---Select Country---'});
+            $("#city_code").select2({"placeholder" : '---Select City---'});*/
+
+            CKEDITOR.replace('address', { 
+
+            });
         });
+
+
+        function displayCity() {
+
+            var country_code = $("#country_code").val();
+            var token = $("input[name=_token]").val();
+            var app_url = "{!! env('APP_URL'); !!}";
+            var s_ct = $("#s_ct").val();
+
+            $.ajax({
+                url: app_url + '/seller/city/',
+                type: "GET",
+                data: { 'country_code': country_code, '_token': token },
+                dataType: 'json',
+
+                success: function (data) {
+
+                    $('#city_code').empty();
+
+                    $.each(data.cities, function (index, display_city) {
+
+                        if (s_ct == display_city.id) {
+
+                            $('#city_code').append('<option value="' + display_city.id + '" selected>' + display_city.name + '</option>');
+                        }
+                        else {
+                            $('#city_code').append('<option value="' + display_city.id + '">' + display_city.name + '</option>');
+                        }
+                    });
+                }
+            });
+        }
     </script>
 @stop

@@ -71,8 +71,6 @@
                                     <a class="nav-link p-0" href="#"><img src="{{ config('global.front_base_url').'images/user-profile.png' }}" alt="user-profile" class="img-fluid"></a>
                                 </li> -->
 
-                               
-
                                 @if(isset($buyer) && $buyer != '')
                                     
                                     @if(isset($buyer->profile_image) && $buyer->profile_image != '')
@@ -168,6 +166,7 @@
         <script src="{{ config('global.front_base_url').'js/slick.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/ion.rangeSlider.min.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/custom.js' }}"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
         <!-- Script End -->
 
         <script type="text/javascript">

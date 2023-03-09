@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Http\Request;
-use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat};
+use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat,City};
 use Illuminate\Support\Facades\{Auth,Hash};
 use DB,Session;
 use Illuminate\Support\Str;
@@ -308,9 +308,10 @@ class SellersController extends Controller
         $seller = Seller::where('id',$seller_id)->first();
 
         $countrys = Country::All();
+        $cities = City::All();
         $country = Country::where('id',$seller->country_code)->first();
         
-        return view('seller.manage-profile',compact('seller','countrys','country'));
+        return view('seller.manage-profile',compact('seller','countrys','country','cities'));
     }
 
     public function updateProfile(Request $request) {
@@ -392,5 +393,16 @@ class SellersController extends Controller
             session()->flash('error', 'Current Password are not correct.Please try again.');
             return redirect()->back();
         }
+    }
+
+    //get city by Country
+    public function getCityByCountryID(Request $request)  {
+
+        $country_code = $request->country_code;
+        $cities = City::where('country_id',$country_code)->get();
+
+        $data['cities'] = $cities;
+
+        return json_encode($data);exit;
     }
 }
