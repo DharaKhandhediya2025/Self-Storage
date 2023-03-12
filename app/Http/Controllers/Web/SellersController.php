@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Http\Request;
 use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat,City};
-use Illuminate\Support\Facades\{Auth,Hash};
+use Illuminate\Support\Facades\{Auth,Hash,Route,url};
 use DB,Session;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -380,7 +380,7 @@ class SellersController extends Controller
                 session()->flash('type','message');
                 session()->flash('message', 'Password Reset Successfully.');
                 auth()->guard('seller')->logout();
-                return redirect('/login');
+                return redirect('/seller/login');
             }
             else {
 
@@ -405,4 +405,106 @@ class SellersController extends Controller
 
         return json_encode($data);exit;
     }
+
+    protected function _registerOrLoginUser($data){
+         
+        $seller = Seller::where('email',$data->email)->first();
+          if(!$seller){
+             $seller = new Seller();
+             $seller->name = $data->name;
+             $seller->email = $data->email;
+             $seller->google_id = $data->id;
+             //$seller->password = $data->avatar;
+             $seller->save();
+
+             $email = $data->email;
+
+            $seller_details = Seller::where('email',$email)->first();
+
+            if(isset($seller_details) && $seller_details != '') {
+
+                $generate_password = rand(1000,9999);
+                $seller_details->password = Hash::make($generate_password);
+                $seller_details->otp = $generate_password;
+                $seller_details->save();
+            }
+          
+            if (auth()->guard('seller')->attempt(['email' => $data->email, 'password' => $generate_password])) {
+
+                $seller_id = Auth::guard('seller')->user()->id;
+                $seller = Seller::where('id',$seller_id)->first();
+
+                if(isset($seller) && $seller->active_block_status == 0) {
+
+                    session()->flash('error', 'You are Currently Blocked.');
+                    return redirect('seller/login');
+                }
+                elseif(isset($seller) && $seller->active_block_status == 1) {
+                    if(Hash::check($generate_password,$seller->password)) {
+                        return redirect('/');
+                    }
+                }
+            }
+        }
+
+        $email = $data->email;
+
+        $seller_details = Seller::where('email',$email)->first();
+
+        if(isset($seller_details) && $seller_details != '') {
+
+            $generate_password = rand(1000,9999);
+            $seller_details->password = Hash::make($generate_password);
+            $seller_details->otp = $generate_password;
+            $seller_details->update();
+        }
+      
+        if (auth()->guard('seller')->attempt(['email' => $data->email, 'password' => $generate_password])) {
+
+            $seller_id = Auth::guard('seller')->user()->id;
+            $seller = Seller::where('id',$seller_id)->first();
+
+            if(isset($seller) && $seller->active_block_status == 0) {
+
+                session()->flash('error', 'You are Currently Blocked.');
+                return redirect('seller/login');
+            }
+            elseif(isset($seller) && $seller->active_block_status == 1) {
+                if(Hash::check($generate_password,$seller->password)) {
+                    return redirect('/');
+                }
+            }
+        }
+    }
+
+    public function sellerGoogleLogin(){
+
+        return Socialite::driver('google')->stateless()->redirect();
+    }
+
+    public function handleGoogleCallback(){
+        
+        $sellers = Socialite::driver('google')->stateless()->user();
+
+          $this->_registerorLoginUser($sellers);
+          //Auth::login($seller);
+        $seller = Seller::orderBy('updated_at','desc')->first();
+        $buyer = Buyer::orderBy('updated_at','desc')->first();
+        //echo $seller;exit;
+          return view('seller.home',compact('seller','buyer'));
+    }
+
+    //Facebook Login
+    public function sellerFacebookLogin(){
+        return Socialite::driver('facebook')->stateless()->redirect();
+    }
+
+    //facebook callback  
+    public function handleFacebookCallback(){
+
+        $user = Socialite::driver('facebook')->stateless()->user();
+        $this->_registerorLoginUser($user);
+        return redirect()->route('home');
+    }
+
 }

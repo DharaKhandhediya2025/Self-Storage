@@ -40,8 +40,8 @@
                     <a href="{{ url('forgot-password') }}" class="forgot_password_text">Forgot Password</a>
                     <h6 class="or_sign_text">Or sign in with</h6>
                     <div class="other_login_box">
-                        <a href="#"><img src="{{ config('global.front_base_url').'images/google.png' }}" alt="google-img"></a>
-                        <a href="#"><img src="{{ config('global.front_base_url').'images/facebook.png' }}" alt="facebook-img"></a>
+                        <a href="{{ url('buyer-google-login') }}"><img src="{{ config('global.front_base_url').'images/google.png' }}" alt="google-img"></a>
+                        <a href="{{ url('buyer-facebook-login') }}"><img src="{{ config('global.front_base_url').'images/facebook.png' }}" alt="facebook-img"></a>
                         <a href="#"><img src="{{ config('global.front_base_url').'images/apple-app.png' }}" alt="facebook-img"></a>
                     </div>
                     <p class="new_user_text">New user? <a href="{{ url('buyer-signup') }}">Create an account</a></p>

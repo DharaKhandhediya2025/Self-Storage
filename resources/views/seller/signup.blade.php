@@ -87,7 +87,7 @@
 					</div>
 					<div class="form-group">
 						<label>Phone</label>
-						<input type="number" name="phone" id= "phone" class="form-control login_input" placeholder="Type..." required="">
+						<input type="number" name="phone" id= "phone" class="form-control login_input" placeholder="Type..." required="" maxlength="15" minlength="7">
 					</div>
 					<div class="form-group mb-4">
                         <label>Password</label>

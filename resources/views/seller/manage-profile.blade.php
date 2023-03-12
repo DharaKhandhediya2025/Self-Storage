@@ -38,8 +38,11 @@
 
                     <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"
                         aria-controls="v-pills-messages" aria-selected="false">Subscription plan</a>-->
-
-                    <a class="nav-link" id="password-tab" href="{{ url('seller/change-password') }}">Change password</a>
+                    @if(isset($seller->google_id) || isset($buyer->google_id))
+                        @elseif(isset($seller->facebook_id) || isset($buyer->facebook_id))
+                        @else
+                        <a class="nav-link" id="password-tab" href="{{ url('seller/change-password') }}">Change password</a>
+                    @endif
 
                     <a href="{{ url('/seller-logout') }}" class="nav-link log_out_text" id="logout-tab" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
                 </div>
@@ -83,7 +86,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label class="myaccount_label">Name</label>
-                                    <input type="text" class="form-control myaccount_input" name="name" value="{{$seller->name}}" placeholder="John Wick">
+                                    <input type="text" class="form-control myaccount_input" name="name" value="{{$seller->name}}" placeholder="Type...">
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -91,13 +94,25 @@
                                     <input type="email" class="form-control myaccount_input"
                                         placeholder="johnwick@mail.com" name="email" value="{{$seller->email}}" readonly>
                                 </div>
-
+                                @if(isset($seller->google_id) || isset($buyer->google_id))
                                 <div class="form-group col-md-4">
                                     <label class="myaccount_label">Phone</label>
                                     <input type="number" class="form-control myaccount_input"
-                                        placeholder="+1 123467897" name="phone" value="{{$seller->phone}}" readonly>
+                                        placeholder="Type..." name="phone" value="{{$seller->phone}}">
                                 </div>
-
+                                @elseif(isset($seller->facebook_id) || isset($buyer->facebook_id))
+                                <div class="form-group col-md-4">
+                                    <label class="myaccount_label">Phone</label>
+                                    <input type="number" class="form-control myaccount_input"
+                                        placeholder="Type..." name="phone" value="{{$seller->phone}}">
+                                </div>
+                                @else
+                                <div class="form-group col-md-4">
+                                    <label class="myaccount_label">Phone</label>
+                                    <input type="number" class="form-control myaccount_input"
+                                        placeholder="Type..." name="phone" value="{{$seller->phone}}" readonly>
+                                </div>
+                                @endif
                             </div>
 
                             <div class="form-row">
@@ -124,7 +139,7 @@
 
                                 <div class="form-group col-md-4">
                                     <label class="myaccount_label">Zipcode</label>
-                                    <input type="text" class="form-control myaccount_input" placeholder="ex. 124567" name="zipcode" value="{{$seller->zipcode}}">
+                                    <input type="text" class="form-control myaccount_input" placeholder="Type..." name="zipcode" value="{{$seller->zipcode}}">
                                 </div>
 
                             </div>

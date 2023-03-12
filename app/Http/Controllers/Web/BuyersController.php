@@ -383,4 +383,104 @@ class BuyersController extends Controller
             return redirect()->back();
         }
     }
+
+    protected function _registerOrLoginUser($data){
+        
+        $buyer = Buyer::where('email',$data->email)->first();
+          if(!$buyer){
+             $buyer = new Buyer();
+             $buyer->name = $data->name;
+             $buyer->email = $data->email;
+             $buyer->google_id = $data->id;
+             $buyer->save();
+
+             $email = $data->email;
+
+            $buyer_details = Buyer::where('email',$email)->first();
+
+            if(isset($buyer_details) && $buyer_details != '') {
+
+                $generate_password = rand(1000,9999);
+                $buyer_details->password = Hash::make($generate_password);
+                $buyer_details->otp = $generate_password;
+                $buyer_details->save();
+            }
+          
+            if (auth()->guard('buyer')->attempt(['email' => $data->email, 'password' => $generate_password])) {
+
+                $buyer_id = Auth::guard('buyer')->user()->id;
+                $buyer = Buyer::where('id',$buyer_id)->first();
+
+                if(isset($buyer) && $buyer->active_block_status == 0) {
+
+                    session()->flash('error', 'You are Currently Blocked.');
+                    return redirect('/login');
+                }
+                elseif(isset($buyer) && $buyer->active_block_status == 1) {
+                    if(Hash::check($generate_password,$buyer->password)) {
+                        return view('buyer.home');
+                    }
+                }
+            }
+        }
+
+        $email = $data->email;
+
+            $buyer_details = Buyer::where('email',$email)->first();
+
+            if(isset($buyer_details) && $buyer_details != '') {
+
+                $generate_password = rand(1000,9999);
+                $buyer_details->password = Hash::make($generate_password);
+                $buyer_details->otp = $generate_password;
+                $buyer_details->save();
+            }
+          
+            if (auth()->guard('buyer')->attempt(['email' => $data->email, 'password' => $generate_password])) {
+
+                $buyer_id = Auth::guard('buyer')->user()->id;
+                $buyer = Buyer::where('id',$buyer_id)->first();
+
+                if(isset($buyer) && $buyer->active_block_status == 0) {
+
+                    session()->flash('error', 'You are Currently Blocked.');
+                    return redirect('/login');
+                }
+                elseif(isset($buyer) && $buyer->active_block_status == 1) {
+                    if(Hash::check($generate_password,$buyer->password)) {
+                        return redirect('/');
+                    }
+                }
+            }
+    }
+
+    public function buyerGoogleLogin(){
+        
+        return Socialite::driver('google')->stateless()->redirect();
+    }
+
+    public function handleGoogleCallback(){
+        $route =  url()->previous();
+        dd($route);
+        $buyers = Socialite::driver('google')->stateless()->user();
+
+        $this->_registerorLoginUser($buyers);
+        $buyer = Buyer::orderBy('updated_at','desc')->first();
+    
+          return view('buyer.home',compact('buyer'));
+    }
+
+    //Facebook Login
+    public function buyerFacebookLogin(){
+        return Socialite::driver('facebook')->stateless()->redirect();
+    }
+
+    //facebook callback  
+    public function handleFacebookCallback(){
+
+        $user = Socialite::driver('facebook')->stateless()->user();
+        $this->_registerorLoginUser($user);
+        return redirect()->route('home');
+    }
+
 }
