@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{AboutUs,ContactUs,FAQ,PrivacyPolicy,TermsCondition,Buyer,Seller,Storage,Category,Amenities,Banners,FavoriteStorage,Country,Subscribers};
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
+use DB,Session;
 use Illuminate\Support\Facades\{Auth,Hash};
 
 class WebController extends Controller
@@ -36,8 +39,8 @@ class WebController extends Controller
             $categories = Category::get();
 
             if(auth()->guard('buyer')->user() == '' && auth()->guard('seller')->user() == '') {
-
-                return view('index');
+                $storages = Storage::with('category')->orderby('id','desc')->get();
+                return view('index',compact('storages'));
             }
             else if(auth()->guard('seller')->user() != '') {
 
@@ -76,6 +79,8 @@ class WebController extends Controller
                 }
 
                 $seller_storages = $query->where('seller_id',$seller_id)->get();
+                 $storages = Storage::with('category')->orderby('id','desc')->get();
+
 
                 // Order List
 
@@ -84,17 +89,18 @@ class WebController extends Controller
                 $order_list['Old'] = "Old First";
                 $order_list['Alpha'] = "Alphabetical(A-Z)";
 
-                return view('seller.home',compact('categories','seller','seller_id','seller_storages','category_id','order_list','order_name','banners'));
+                return view('seller.home',compact('categories','seller','seller_id','seller_storages','storages','category_id','order_list','order_name','banners'));
             }
             else if(auth()->guard('buyer')->user() != '') {
 
                 $buyer_id = Auth::guard('buyer')->user()->id;
                 $buyer = Buyer::where('id',$buyer_id)->first();
+                $storages = Storage::with('category')->orderby('id','desc')->get();
 
                 // Get New Launched Storages
                 //$new_launched_projects = self::getNewLaunchedProjects($category_id,9);
 
-                return view('buyer.home',compact('categories','buyer','buyer_id','category_id','banners'));
+                return view('buyer.home',compact('categories','buyer','buyer_id','category_id','banners','storages'));
             }
         }
         catch(\Exception $e) {
@@ -250,4 +256,190 @@ class WebController extends Controller
             session()->flash('error', $e->getMessage());
         }
     }
+
+    public function redirectToGoogle() {
+
+        try {
+            return Socialite::driver('google')->redirect();
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function handleGoogleCallback(Request $request) {
+
+        try {
+
+            $password = Str::random(10);
+            $user = Socialite::driver('google')->stateless()->user();
+            $social_id = $user->getId();
+            $custom_token = uniqid(base64_encode(Str::random(10)));
+            
+            // OAuth Two Providers
+            $user_firstname = substr($user->getName(), 0, strpos($user->getName(), ' '));
+            $user_lastname = str_replace($user_firstname.' ', '', $user->getName());
+            $email = $user->getEmail();            
+            
+            if(empty($email)) {
+                $email = '';
+            }
+
+            $user_data = array(
+                'name' => $user_firstname.' '.$user_lastname,
+                'google_id' => $social_id,
+                'email' => $email,
+                'password' => Hash::make($password),
+            );
+
+            // Now check session value for both users
+            $role_nm = Session::get('role_nm');
+
+            if($role_nm == 'buyer') {
+
+                $existBuyer = Buyer::where('google_id','=',$social_id)->orWhere('email','=',$email)->get();
+           
+                if(count($existBuyer) > 0) {
+                
+                    $buyer_id = $existBuyer[0]->id;
+                    DB::table('buyers')->where('id','=',$buyer_id)->update($user_data);
+                }
+                else {
+
+                    $newBuyer = Buyer::create([
+                        'name' => $user_firstname.' '.$user_lastname,
+                        'email' => $email,
+                        'google_id'=> $social_id,
+                        'password' => Hash::make($password),
+                        'custom_token' => $custom_token,
+                    ]);
+                }
+
+                if (auth()->guard('buyer')->attempt(['email' => $email, 'password' => $password])) {
+                    return redirect()->intended('/');
+                }
+            }
+            else if($role_nm == 'seller') {
+                
+                $existSeller = Seller::where('google_id','=',$social_id)->orWhere('email','=',$email)->get();
+           
+                if(count($existSeller) > 0) {
+                
+                    $seller_id = $existSeller[0]->id;
+                    DB::table('sellers')->where('id','=',$seller_id)->update($user_data);
+                }
+                else {
+
+                    $newSeller = Seller::create([
+                        'name' => $user_firstname.' '.$user_lastname,
+                        'email' => $email,
+                        'google_id'=> $social_id,
+                        'password' => Hash::make($password),
+                        'custom_token' => $custom_token,
+                    ]);
+                }
+
+                if (auth()->guard('seller')->attempt(['email' => $email, 'password' => $password])) {
+                    return redirect('/');
+                }
+            }
+        }
+        catch(Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    // Social Login with facebook
+    public function redirectToFacebook() {
+
+        try {
+            return Socialite::driver('facebook')->redirect();
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
+
+    public function handleFacebookCallback(Request $request) {
+
+        try {
+
+            $password = Str::random(10);
+            $user = Socialite::driver('facebook')->stateless()->user();
+            $social_id = $user->getId();
+            $custom_token = uniqid(base64_encode(Str::random(10)));
+
+            // OAuth Two Providers
+            $user_firstname = substr($user->getName(), 0, strpos($user->getName(), ' '));
+            $user_lastname = str_replace($user_firstname.' ', '', $user->getName());
+            $email = $user->getEmail();            
+            
+            if(empty($email)) {
+                $email = '';    
+            }
+
+            $user_data = array(
+                'name' => $user_firstname.' '.$user_lastname,
+                'facebook_id' => $social_id,
+                'email' => $email,
+                'password' => Hash::make($password),
+            );
+
+            // Now check session value for both users
+            $role_nm = Session::get('role_nm');
+
+            if($role_nm == 'buyer') {
+
+                $existBuyer = Buyer::where('facebook_id','=',$social_id)->orWhere('email','=',$email)->get();
+           
+                if(count($existBuyer) > 0) {
+                
+                    $buyer_id = $existBuyer[0]->id;
+                    DB::table('buyers')->where('id','=',$buyer_id)->update($user_data);
+                }
+                else {
+
+                    $newBuyer = Buyer::create([
+                        'name' => $user_firstname.' '.$user_lastname,
+                        'email' => $email,
+                        'facebook_id'=> $social_id,
+                        'password' => Hash::make($password),
+                        'custom_token' => $custom_token,
+                    ]);
+                }
+
+                if (auth()->guard('buyer')->attempt(['email' => $email, 'password' => $password])) {
+                    return redirect()->intended('/');
+                }
+            }
+            else if($role_nm == 'seller') {
+
+                $existSeller = Seller::where('facebook_id','=',$social_id)->orWhere('email','=',$email)->get();
+           
+                if(count($existSeller) > 0) {
+                
+                    $seller_id = $existSeller[0]->id;
+                    DB::table('sellers')->where('id','=',$seller_id)->update($user_data);
+                }
+                else {
+
+                    $newSeller = Seller::create([
+                        'name' => $user_firstname.' '.$user_lastname,
+                        'email' => $email,
+                        'facebook_id'=> $social_id,
+                        'password' => Hash::make($password),
+                        'custom_token' => $custom_token,
+                    ]);
+                }
+
+                if (auth()->guard('seller')->attempt(['email' => $email, 'password' => $password])) {
+                    return redirect()->intended('/');
+                }
+            }
+        }
+        catch(Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
 }
+

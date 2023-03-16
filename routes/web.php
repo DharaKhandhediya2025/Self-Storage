@@ -180,9 +180,17 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/change-password',[BuyersController::class,'updatePassword']);
 
     // Seller Social Login Routes Start
+    Route::get('/buyer-google-login',[BuyersController::class,'buyerGoogleLogin']);
     Route::get('/seller-google-login',[SellersController::class,'sellerGoogleLogin']);
 
+    Route::get('/login/google', [WebController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('/login/google/callback', [WebController::class, 'handleGoogleCallback']);
+
+    Route::get('/buyer-facebook-login',[BuyersController::class,'buyerFacebookLogin']);
     Route::get('/seller-facebook-login',[SellersController::class,'sellerFacebookLogin']);
+
+    Route::get('/login/facebook', [WebController::class, 'redirectToFacebook'])->name('login.facebook');
+    Route::get('/login/facebook/callback', [WebController::class, 'handleFacebookCallback']);
 
     Route::get('seller/login', function () {
 
@@ -199,11 +207,6 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     // Seller Social Login Routes Start
 
     // Common Routes For Social Login
-    Route::get('/login/google', [WebController::class, 'redirectToGoogle'])->name('login.google');
-    Route::get('/login/google/callback', [WebController::class, 'handleGoogleCallback']);
-
-    Route::get('/login/facebook', [WebController::class, 'redirectToFacebook'])->name('login.facebook');
-    Route::get('/login/facebook/callback', [WebController::class, 'handleFacebookCallback']);
 
     //Seller Manage Profile
     Route::get('seller/manage-profile',[SellersController::class,'manageProfile']);
@@ -211,6 +214,11 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
 
     Route::get('seller/change-password',[SellersController::class,'changePassword']);
     Route::post('seller/change-password',[SellersController::class,'updatePassword']);
+    Route::get('seller/city', [SellersController::class, 'getCityByCountryID']);
+
+    //storage Details
+    Route::get('/storage-detail',[BuyersController::class,'storageDetail']);
+
 });
 // Buyer Side After Login Routes End
 

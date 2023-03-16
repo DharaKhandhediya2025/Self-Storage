@@ -25,8 +25,8 @@
         <div class="logo_box">
             <a href="{{ url('/') }}"><img src="{{ config('global.front_base_url').'images/logo.png' }}" alt="logo" class="img-fluid"></a>
         </div>
-        <div class="login_main_box">
-            <div class="login_box">
+        <div class="login_main_box ">
+            <div class="login_box create_login_main_box">
                 <!-- <a href="#" class="close_btn"><i class="fa fa-times"></i></a> -->
                 <h3 class="login_text mt-4 mb-4 Create_Account_text">Create An Account</h3>
 
@@ -88,7 +88,8 @@
 					</div>
 					<div class="form-group">
 						<label>Phone</label>
-						<input type="number" name="phone" id="phone" class="form-control login_input" placeholder="Type..." required="" maxlength="15" minlength="7">
+						<input maxlength="15" type="tel" name="phone" id="phone" class="form-control login_input" placeholder="Type..." required="" >
+						<span class="phonealert" style="color:red;"></span>
 					</div>
 					<div class="form-group mb-4">
                         <label>Password</label>
@@ -139,5 +140,33 @@
 		        $(".file-upload").click();
 	    	});
 		});
+
+
 	</script>
+	<script type="text/javascript">
+
+			$("#country_code").select2({'height' : '50px'});
+
+			function disabledButton() {
+				document.getElementById("submitbtn").disabled = true;
+			}
+
+			$('#phone').keypress(function (e) {
+
+            	var length = jQuery(this).val().length;
+
+	            if(e.which != 8 && e.which != 0 && e.which != 16 && e.which != 43 && (e.which < 48 || e.which > 57)) {
+	                return false;
+	            }
+	            else if((length == 0) && (e.which == 48)) {
+	                return false;
+	            }
+	            else if(length < 3 || length > 15) {
+	        		$("span.phonealert").html("Your number must be between 7 to 15 digits.");
+	            }
+	            else if(length > 7) {
+	        		$("span.phonealert").html('');
+	            }
+	        });
+		</script>
 @stop

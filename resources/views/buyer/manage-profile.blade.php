@@ -12,9 +12,12 @@
                     <!-- <a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab" aria-controls="v-pills-profile" aria-selected="false">Favorites</a>
 
                     <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a> -->
-
+                    @if(isset($seller->google_id) || isset($buyer->google_id))
+                        @elseif(isset($seller->facebook_id) || isset($buyer->facebook_id))
+                        @else
                     <a class="nav-link" id="password-tab" href="{{ url('/change-password') }}">
                     Change Password</a>
+                    @endif
 
                     <a href="{{ url('/web-logout') }}" class="nav-link log_out_text" id="logout-tab" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
                 </div>
@@ -74,7 +77,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="myaccount_label">Phone</label>
-                                    <input type="email" class="form-control myaccount_input" value="{{$buyer->phone}}" placeholder="+1 123467897" readonly disabled>
+                                    <input type="email" class="form-control myaccount_input" value="{{$buyer->phone}}" placeholder="Type..." readonly disabled>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary myaccount_btn">Update</button>
@@ -133,7 +136,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
                 <div class="tab-pane fade contact_tabing_box" id="storages" role="tabpanel"
                     aria-labelledby="storages-tab">
