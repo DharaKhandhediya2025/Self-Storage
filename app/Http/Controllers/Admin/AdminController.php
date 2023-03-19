@@ -128,9 +128,9 @@ class AdminController extends Controller
 
     public function getStorageDetailsByID($slug) {
 
-        $storages = Storage::with(['storage_amenities' => function($sql) {
+        $storages = Storage::with(['storage_aminites' => function($sql) {
             
-            $sql->with(['amenities_detail' => function($query) {
+            $sql->with(['aminites_detail' => function($query) {
                 $query->select('id','name');
             }]);
 

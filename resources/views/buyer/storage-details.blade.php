@@ -75,7 +75,7 @@
                             </ul>
                         </div>
                         <div class="store_amenities_box">
-                            <h4>Amenities</h4>
+                            <h4>Aminites</h4>
                             <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/right_img.png') }}" alt="right_img" class="img-fluid"><span
                                     class="store_amenities_span">Climate Control</span></a>
                             <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/right_img.png') }}" alt="right_img" class="img-fluid"><span

@@ -19,7 +19,7 @@ class Category extends Model
         return $this->hasMany(Subcategory::class,'cat_id','id');
     }
 
-    public function amenities() {
-        return $this->hasMany(Amenities::class,'cat_id','id');
+    public function aminites() {
+        return $this->hasMany(Aminites::class,'cat_id','id');
     }
 }

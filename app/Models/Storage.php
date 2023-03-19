@@ -35,8 +35,8 @@ class Storage extends Model
         return $this->hasMany(StorageImages::class,'storage_id','id');
     }
 
-    public function storage_amenities() {
-        return $this->hasMany(StorageAmenities::class,'storage_id','id');
+    public function storage_aminites() {
+        return $this->hasMany(StorageAminites::class,'storage_id','id');
     }
 
     public function favorite_storage() {

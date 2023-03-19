@@ -109,13 +109,13 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label class="create_post_label">Amenities </label>
+                                                        <label class="create_post_label">Aminites</label>
                                                         <div class="create_amenities_box">
 
                                                             <div class="form-group">
-                                                                @foreach($amenities as $aminity)
+                                                                @foreach($aminites as $aminity)
                                                                 <div class="form-check form_check_active">
-                                                                    <input type="checkbox" class="form-check-input" name="amenities[]" value="{{$aminity->id}}">
+                                                                    <input type="checkbox" class="form-check-input" name="aminites[]" value="{{$aminity->id}}">
                                                                     <label class="form-check-label">{{$aminity->name}}</label>
                                                                 </div>
                                                                 @endforeach

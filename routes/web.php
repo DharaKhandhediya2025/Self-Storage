@@ -151,9 +151,6 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     // Category wise Storage List
     Route::get('/storage-list/{slug}',[WebController::class,'getStorageListByType'])->name('storagelist.bytype');
 
-    // Get Amenities by Category in filter modal
-    Route::get('/get/amenities/{category_id}',[WebController::class,'getAmenitiesByCategoryID'])->name('get.amenities');
-
     // Buyer Social Login Routes
     Route::get('/buyer-google-login',[BuyersController::class,'buyerGoogleLogin']);
 

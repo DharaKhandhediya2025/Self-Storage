@@ -76,18 +76,18 @@
                                                 <td>City :</td>
                                                 <td>{{ $storages->city }}</td>
                                             </tr>
-                                            @if(isset($storages->storage_amenities) && $storages->storage_amenities != '')
+                                            @if(isset($storages->storage_aminites) && $storages->storage_aminites != '')
                                                 <tr>
-                                                    <td>Amenities :</td>
+                                                    <td>Aminites :</td>
                                                     <?php $name_string = ''; ?>
-                                                    @foreach($storages->storage_amenities as $key => $value)
+                                                    @foreach($storages->storage_aminites as $key => $value)
                                                         <?php
 
                                                             if($name_string == '') {
-                                                                $name_string = $value->amenities_detail->name;
+                                                                $name_string = $value->aminites_detail->name;
                                                             }
                                                             else {
-                                                                $name_string .= ', ' . $value->amenities_detail->name;
+                                                                $name_string .= ', ' . $value->aminites_detail->name;
                                                             }
                                                         ?>
                                                     @endforeach
