@@ -76,8 +76,14 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
+                                    @if(isset($buyer->phone))
                                     <label class="myaccount_label">Phone</label>
-                                    <input type="email" class="form-control myaccount_input" value="{{$buyer->phone}}" placeholder="Type..." readonly disabled>
+                                    <input type="Number" name="phone" class="form-control myaccount_input" value="{{$buyer->phone}}" placeholder="Type..." readonly disabled>
+                                    @else
+                                    <label class="myaccount_label">Phone</label>
+                                    <input type="Number" name="phone" class="form-control myaccount_input" placeholder="Type...">
+                                    @endif
+
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary myaccount_btn">Update</button>

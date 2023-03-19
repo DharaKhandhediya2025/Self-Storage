@@ -48,7 +48,7 @@
                         <input type="text" id="subject" name="subject" class="form-control contact_input" placeholder="Subject *" required>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control contact_input" id="message" name="message" rows="5" placeholder="Messages *" required></textarea>
+                        <textarea class="form-control contact_input" id="message" name="message" rows="5" placeholder="Message *" required></textarea>
                     </div>
                     <div class="text-right">
                         <button type="submit" class="btn contact_submit_btn">Submit Messages</button>

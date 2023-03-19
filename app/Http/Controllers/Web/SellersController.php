@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Http\Request;
-use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat,City};
+use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat,City,Amenities,StorageVariant,StorageAmenities,StorageImages};
 use Illuminate\Support\Facades\{Auth,Hash,Route,url};
 use DB,Session;
 use Illuminate\Support\Str;
@@ -395,7 +395,7 @@ class SellersController extends Controller
         }
     }
 
-    //get city by Country
+    //Get city by Country
     public function getCityByCountryID(Request $request)  {
 
         $country_code = $request->country_code;
@@ -406,6 +406,7 @@ class SellersController extends Controller
         return json_encode($data);exit;
     }
 
+    // Social Login
     public function sellerGoogleLogin() {
 
         Session()->put('role_nm', 'seller');
@@ -413,12 +414,483 @@ class SellersController extends Controller
         return redirect($url);
     }
 
-    // Social Login with facebook
     public function sellerFacebookLogin() {
 
         Session()->put('role_nm', 'seller');
         $url = config('global.url').'/login/facebook';
         return redirect($url);
+    }
+
+    public function createPost() {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $category = Category::All();
+        return view('seller.create-storage',compact('seller','category'));
+    }
+
+    public function getsecoundPost() {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $countrys = Country::All();
+
+      return view('seller.create-storage-secound',compact('seller','countrys'));
+    }
+
+    public function getthirdPost() {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $amenities = Amenities::All();
+      return view('seller.create-storage-third',compact('seller','amenities'));
+    }
+
+    public function getfinalPost() {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $amenities = Amenities::All();
+      return view('seller.create-storage-final',compact('seller','amenities'));
+    }
+
+    public function secoundPost(Request $request) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+
+        $storage = new Storage();
+        $storage->seller_id = $seller->id;
+        $storage->title = $request->title;
+        $storage->slug = Str::slug($request->title ,'-');
+        $storage->cat_id = $request->category;
+        $category = Category::where('id',$storage->cat_id)->first();
+        $storage->storage_type = $category->name;
+        $storage->description = $request->description;
+        $storage->save();
+
+        $storage = Storage::orderby('id','desc')->first();
+
+        return redirect('secound-post');
+    }
+
+    public function thirdPost(Request $request) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+
+        $storage = Storage::orderby('id','desc')->first();
+        $storage->country = $request->country;
+        $storage->city = $request->city;
+        $storage->address = $request->address;
+        $storage->storage_no = $request->storage_no;
+        $storage->zipcode = $request->zipcode;
+        $storage->phone1 = $request->phone1;
+        $storage->phone2 = $request->phone2;
+        $storage->update();
+
+        return redirect('third-post');
+    }
+
+    public function finalPost(Request $request) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+
+        $storage = Storage::orderby('id','desc')->first();
+        $storage->no_of_floors = $request->no_of_floors;
+        $storage->size = $request->size;
+        $storage->update();
+        $news = $request->input('employee');
+        $diamentions = $request->input('diamention');
+        $inventorys = $request->input('inventory');
+        $prices = $request->input('price');
+        $surfaces = $request->input('surface');
+        $amenities = $request->input('amenities');
+
+            for($j=0; $j < count($diamentions); $j++){
+
+                $storagevariant = new StorageVariant();
+                $storagevariant->storage_id = $storage->id;
+                $storagevariant->dimension = $request->diamention[$j];
+                $storagevariant->inventory = $request->inventory[$j];
+                $storagevariant->price = $request->price[$j];
+                $storagevariant->surface = $request->surface[$j];
+                $storagevariant->save();
+            }
+
+            for($a=0; $a < count($amenities); $a++){
+                $storageamenities = new StorageAmenities();
+                $storageamenities->storage_id = $storage->id;
+                $storageamenities->amenities_id = $request->amenities[$a];
+                $storageamenities->save();
+            }
+        return redirect('final-post');
+    }
+
+    public function uploadPost(Request $request) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+
+        $img1 = $request->img1;
+        //echo $img1;exit;
+        if($request->has('img1') && $request->img1 != '') {
+
+                $image = $request->file('img1');
+                $name = time().'1'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image1 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image1;
+                $storageimage->image = $image1;
+                $storageimage->save();
+            }
+            else {
+                $img1 = NULL;
+            }
+
+            $img2 = $request->img2;
+        if($request->has('img2') && $request->img2 != '') {
+
+                $image = $request->file('img2');
+                $name = time().'2'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image2 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image2;
+                $storageimage->save();
+            }
+            else {
+                $img2 = NULL;
+            }
+
+            $img3 = $request->img3;
+        if($request->has('img3') && $request->img3 != '') {
+
+                $image = $request->file('img3');
+                $name = time().'3'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image3 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image3;
+                $storageimage->save();
+            }
+            else {
+                $img3 = NULL;
+            }
+
+            $img4 = $request->img4;
+        if($request->has('img4') && $request->img4 != '') {
+
+                $image = $request->file('img4');
+                $name = time().'4'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image4 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image4;
+                $storageimage->save();
+            }
+            else {
+                $img4 = NULL;
+            }
+
+            $img5 = $request->img5;
+        if($request->has('img5') && $request->img5 != '') {
+
+                $image = $request->file('img5');
+                $name = time().'5'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image5 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image5;
+                $storageimage->save();
+            }
+            else {
+                $img5 = NULL;
+            }
+            $storage = Storage::orderby('id','desc')->first();
+            $storage->video_url = $request->url();
+            $storage->update();
+            return redirect('create-post');
+    }
+
+    public function storageList(Request $request) {
+
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $storage = Storage::where('seller_id',$seller->id)->get();
+        $main = Storage::where('seller_id',$seller->id)->first();
+        $image = StorageImages::where('storage_id',$main->id)->first();
+        $inquiry = Inquiry::where('storage_id',$main->id)->count();
+        return view('seller.myads', compact('storage','seller','image','inquiry'));
+    }
+
+    public function storageDeactivate(Request $request , $slug) {
+
+        $storage = Storage::where('slug',$slug)->first();
+        $storage->storage_status = 0;
+        $storage->update();
+   
+        return redirect('/my-ads');
+    }
+
+    public function storageActivate(Request $request , $slug) {
+
+        $storage = Storage::where('slug',$slug)->first();
+        $storage->storage_status = 1;
+        $storage->update();
+   
+        return redirect('/my-ads');
+    }
+
+    public function storageDelete(Request $request , $slug) {
+
+        $storage = Storage::where('slug',$slug)->delete();
+
+        return redirect('/my-ads');
+    }
+
+     public function storageEdit(Request $request , $slug) {
+
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $category = Category::All();
+        $storage = Storage::where('slug',$slug)->first();
+        return view('seller.create-storage',compact('seller','category','storage'));
+    }
+
+    public function storageUpdate(Request $request , $slug) {
+        
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $category = Category::All();
+        $storage = Storage::where('slug',$slug)->first();
+        $storage->seller_id = $seller->id;
+        $storage->title = $request->title;
+        $storage->slug = Str::slug($request->title ,'-');
+        $storage->cat_id = $request->category;
+        $category = Category::where('id',$storage->cat_id)->first();
+        $storage->storage_type = $category->name;
+        $storage->description = $request->description;
+        $storage->update();
+
+        return view('seller.create-storage-secound',compact('seller','category','storage'));
+    }
+
+    public function editsecoundPost($slug) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $storage = Storage::where('slug',$slug)->first();
+        $countrys = Country::All();
+        $cities = City::All();
+
+      return view('seller.create-storage-secound',compact('seller','countrys','storage','cities'));
+    }
+
+    public function editthirdPost($slug) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $amenities = Amenities::All();
+        $storage = Storage::where('slug',$slug)->first();
+      return view('seller.create-storage-third',compact('seller','amenities','storage'));
+    }
+
+    public function editfinalPost($slug) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+        $amenities = Amenities::All();
+        $storage = Storage::where('slug',$slug)->first();
+      return view('seller.create-storage-final',compact('seller','amenities','storage'));
+    }
+
+    public function updatesecoundPost(Request $request , $slug) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+
+        $storage = Storage::where('slug',$slug)->first();
+        $storage->seller_id = $seller->id;
+        $storage->title = $request->title;
+        $storage->slug = Str::slug($request->title ,'-');
+        $storage->cat_id = $request->category;
+        $category = Category::where('id',$storage->cat_id)->first();
+        $storage->storage_type = $category->name;
+        $storage->description = $request->description;
+        $storage->update();
+
+        $storage = Storage::orderby('id','desc')->first();
+
+        return redirect('secound-post/{$slug}');
+    }
+
+    public function updatethirdPost(Request $request , $slug) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+
+        $storage = Storage::where('slug',$slug)->first();
+        $storage->country = $request->country;
+        $storage->city = $request->city;
+        $storage->address = $request->address;
+        $storage->storage_no = $request->storage_no;
+        $storage->zipcode = $request->zipcode;
+        $storage->phone1 = $request->phone1;
+        $storage->phone2 = $request->phone2;
+        $storage->update();
+
+        return redirect('third-post');
+    }
+
+    public function updatefinalPost(Request $request , $slug) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+
+        $storage = Storage::where('slug',$slug)->first();
+        $storage->no_of_floors = $request->no_of_floors;
+        $storage->size = $request->size;
+        $storage->update();
+        $news = $request->input('employee');
+        $diamentions = $request->input('diamention');
+        $inventorys = $request->input('inventory');
+        $prices = $request->input('price');
+        $surfaces = $request->input('surface');
+        $amenities = $request->input('amenities');
+
+            for($j=0; $j < count($diamentions); $j++){
+
+                $storagevariant = new StorageVariant();
+                $storagevariant->storage_id = $storage->id;
+                $storagevariant->dimension = $request->diamention[$j];
+                $storagevariant->inventory = $request->inventory[$j];
+                $storagevariant->price = $request->price[$j];
+                $storagevariant->surface = $request->surface[$j];
+                $storagevariant->save();
+            }
+
+            for($a=0; $a < count($amenities); $a++){
+                $storageamenities = new StorageAmenities();
+                $storageamenities->storage_id = $storage->id;
+                $storageamenities->amenities_id = $request->amenities[$a];
+                $storageamenities->save();
+            }
+        return redirect('final-post');
+    }
+
+    public function updateuploadPost(Request $request , $slug) {
+        $seller_id = Auth::guard('seller')->user()->id;
+        $seller = Seller::where('id',$seller_id)->first();
+
+        $img1 = $request->img1;
+        //echo $img1;exit;
+        if($request->has('img1') && $request->img1 != '') {
+
+                $image = $request->file('img1');
+                $name = time().'1'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image1 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image1;
+                $storageimage->image = $image1;
+                $storageimage->save();
+            }
+            else {
+                $img1 = NULL;
+            }
+
+            $img2 = $request->img2;
+        if($request->has('img2') && $request->img2 != '') {
+
+                $image = $request->file('img2');
+                $name = time().'2'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image2 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image2;
+                $storageimage->save();
+            }
+            else {
+                $img2 = NULL;
+            }
+
+            $img3 = $request->img3;
+        if($request->has('img3') && $request->img3 != '') {
+
+                $image = $request->file('img3');
+                $name = time().'3'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image3 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image3;
+                $storageimage->save();
+            }
+            else {
+                $img3 = NULL;
+            }
+
+            $img4 = $request->img4;
+        if($request->has('img4') && $request->img4 != '') {
+
+                $image = $request->file('img4');
+                $name = time().'4'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image4 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image4;
+                $storageimage->save();
+            }
+            else {
+                $img4 = NULL;
+            }
+
+            $img5 = $request->img5;
+        if($request->has('img5') && $request->img5 != '') {
+
+                $image = $request->file('img5');
+                $name = time().'5'.'.'.$image->getClientOriginalExtension();
+                $destinationPath = public_path('../storage/app/public/storages');
+                $image->move($destinationPath, $name);
+                $image5 = 'storages/'.$name;
+
+                $storage = Storage::orderby('id','desc')->first();
+                $storageimage = new StorageImages();
+                $storageimage->storage_id = $storage->id;
+                $storageimage->image = $image5;
+                $storageimage->save();
+            }
+            else {
+                $img5 = NULL;
+            }
+            $storage = Storage::orderby('id','desc')->first();
+            $storage->video_url = $request->url();
+            $storage->update();
+            return redirect('create-post');
     }
 
 }

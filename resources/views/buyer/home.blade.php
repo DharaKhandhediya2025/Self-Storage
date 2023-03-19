@@ -3,7 +3,18 @@
 @section('content')
 
     <!-- Banner Section Start -->
+
     <section class="hero_banner__Section">
+        @if (session()->has('message')) 
+            <script>alert("{{ session('message') }}"); </script> 
+        @endif
+
+            @if (session()->has('error')) 
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                    </button>{{ session('error') }} 
+                </div> 
+            @endif
         <div class="container">
             <div class="banner__box">
                 <div class="banner_content_box text-center">
@@ -15,43 +26,45 @@
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Residential</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Residential</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Commercial</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="banner_search_main">
-                                    <form action="">
+                                    <form action="{{ url('/residential-storage')}}" method="post">
+                                        @csrf
                                         <div class="banner_text_location">
-                                            <input type="text" placeholder="Enter City, State or Zipcode">
+                                            <input type="text" name="city" placeholder="Enter City, State or Zipcode">
                                         </div>
                                         <div class="banner_text_price">
-                                            <input type="text" placeholder="Price">
+                                            <input type="text" name="price" placeholder="Price">
                                             <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
                                         </div>
                                         <div class="banner_text_filter">
-                                            <input type="text" placeholder="Filter">
+                                            <input type="text" name="filter" placeholder="Filter">
                                             <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
                                         </div>
-                                        <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        <button type="submit" class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                                     </form>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="banner_search_main">
-                                    <form action="">
+                                    <form action="{{ url('/commertial-storage')}}" method="post">
+                                        @csrf
                                         <div class="banner_text_location">
-                                            <input type="text" placeholder="Enter City, State or Zipcode">
+                                            <input type="text" name="city" placeholder="Enter City, State or Zipcode">
                                         </div>
                                         <div class="banner_text_price">
-                                            <input type="text" placeholder="Price">
+                                            <input type="text" placeholder="Price" name="price">
                                             <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
                                         </div>
                                         <div class="banner_text_filter">
-                                            <input type="text" placeholder="Filter">
+                                            <input type="text" placeholder="Filter" name="filter">
                                             <span class="filter_text"><i class="fa fa-filter" aria-hidden="true"></i></span>
                                         </div>
-                                        <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        <button type="submit" class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -133,20 +146,30 @@
                 <div class="nearbyslider">
                     @foreach($storages as $storage)
                     <div class="nearby_slider_card">
-                        <a href="{{ url('/storage-detail')}}">
+                        <a href="{{ url('/storage-detail')}}/{{$storage->slug}}">
                             <div class="nearby_slider_img">
                                 <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
+
+                                <a href="{{ url('/add-favorite')}}/{{$storage->slug}}" class="slider_crad_heart"><i class="fa fa-heart" style="color: white;"></i></a>
+                                
+                                @foreach($favorites as $favorite)
+                                @if($favorite->storage_id == $storage->id)
+                                <a href="{{ url('/remove-favorite')}}/{{$storage->slug}}" class="slider_crad_heart"><i class="fa fa-heart" style="color: red;"></i></a>
+                                 @else
+                                 <a href="{{ url('/add-favorite')}}/{{$storage->slug}}" class="slider_crad_heart"><i class="fa fa-heart" style="color: white;"></i></a>
+                               @endif
+                               @endforeach
+                                
                             </div>
                         </a>
-                        <a href="{{ url('/storage-detail')}}">
+                        <a href="{{ url('/storage-detail')}}/{{$storage->slug}}">
                             <div class="nearby_slider_content">
                                 <p> {{$storage->title}} - {{$storage->storage_no}} , {{$storage->city}} </p>
                                 <ul>
                                     <li>{{$storage->storage_type}}</li>
                                     <li>{{$storage->category->name }}</li>
                                 </ul>
-                                <h4>$30/mo</h4>
+                                <h4>${{$storage->price}}/mo</h4>
                             </div>
                         </a>
                     </div>
@@ -346,4 +369,38 @@
         </div>
     </section>
     <!-- Client Review Section End -->
+@stop
+@section('customcss')
+    <script>
+
+        getLocation();
+              
+        function getLocation() {
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        }
+
+        function onError() {
+            console.log("Please allow to location fetched");
+        }
+
+        function onSuccess(position) {
+
+            const {
+                latitude,
+                longitude
+            } = position.coords;
+
+            sessionStorage.latitude = latitude;
+            sessionStorage.longitude = longitude;
+
+            createCookie('current_latitude',latitude);
+            createCookie('current_longitude',longitude);
+        }
+
+        function createCookie(name,value) {
+
+            var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+    </script>
 @stop

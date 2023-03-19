@@ -79,28 +79,27 @@ class WebController extends Controller
                 }
 
                 $seller_storages = $query->where('seller_id',$seller_id)->get();
-                 $storages = Storage::with('category')->orderby('id','desc')->get();
-
+                $storages = Storage::with('category')->orderby('id','desc')->get();
+                $favorites = FavoriteStorage::where('buyer_id',$buyer->id)->get();
 
                 // Order List
-
                 $order_list = array();
                 $order_list['New'] = "New First";
                 $order_list['Old'] = "Old First";
                 $order_list['Alpha'] = "Alphabetical(A-Z)";
 
-                return view('seller.home',compact('categories','seller','seller_id','seller_storages','storages','category_id','order_list','order_name','banners'));
+                return view('seller.home',compact('categories','seller','seller_id','seller_storages','storages','category_id','order_list','order_name','banners','favorites'));
             }
             else if(auth()->guard('buyer')->user() != '') {
 
                 $buyer_id = Auth::guard('buyer')->user()->id;
                 $buyer = Buyer::where('id',$buyer_id)->first();
                 $storages = Storage::with('category')->orderby('id','desc')->get();
-
+                $favorites = FavoriteStorage::All();
                 // Get New Launched Storages
                 //$new_launched_projects = self::getNewLaunchedProjects($category_id,9);
 
-                return view('buyer.home',compact('categories','buyer','buyer_id','category_id','banners','storages'));
+                return view('buyer.home',compact('categories','buyer','buyer_id','category_id','banners','storages','favorites'));
             }
         }
         catch(\Exception $e) {
@@ -133,21 +132,25 @@ class WebController extends Controller
     public function aboutUs() {
 
         try {
+
             if(auth()->guard('buyer')->user() != '') {
+
                 $buyer_id = Auth::guard('buyer')->user()->id;
                 $buyer = Buyer::where('id',$buyer_id)->first();
+
                 $about_us = AboutUs::first();
                 return view('about-us',compact('about_us','buyer'));
             }
+            else if(auth()->guard('seller')->user() != '') {
 
-            if(auth()->guard('seller')->user() != '') {
                 $seller_id = Auth::guard('seller')->user()->id;
                 $seller = Seller::where('id',$seller_id)->first();
+
                 $about_us = AboutUs::first();
                 return view('about-us',compact('about_us','seller'));
             }
+            else {
 
-            else{
                 $about_us = AboutUs::first();
                 return view('about-us',compact('about_us'));
             }
@@ -160,21 +163,25 @@ class WebController extends Controller
     public function contactUs() {
 
         try {
+
             if(auth()->guard('buyer')->user() != '') {
+
                 $buyer_id = Auth::guard('buyer')->user()->id;
                 $buyer = Buyer::where('id',$buyer_id)->first();
+
                 $about_us = AboutUs::first();
                 return view('contact-us',compact('about_us','buyer'));
             }
+            else if(auth()->guard('seller')->user() != '') {
 
-            elseif(auth()->guard('seller')->user() != '') {
                 $seller_id = Auth::guard('seller')->user()->id;
                 $seller = Seller::where('id',$seller_id)->first();
+
                 $about_us = AboutUs::first();
                 return view('contact-us',compact('about_us','seller'));
             }
+            else {
 
-            else{
                 $about_us = AboutUs::first();
                 return view('contact-us',compact('about_us'));
             }
@@ -222,7 +229,6 @@ class WebController extends Controller
 
             $privacy_policy = PrivacyPolicy::first();
             return view('privacy-policy',compact('privacy_policy'));
-          
         }
         catch(\Exception $e) {
             session()->flash('error', $e->getMessage());
@@ -232,25 +238,28 @@ class WebController extends Controller
     public function termsCondition() {
 
         try {
+
             if(auth()->guard('buyer')->user() != '') {
+
                 $buyer_id = Auth::guard('buyer')->user()->id;
                 $buyer = Buyer::where('id',$buyer_id)->first();
+
                 $terms_condition = TermsCondition::first();
                 return view('terms-condition',compact('terms_condition' , 'buyer'));
             }
+            else if(auth()->guard('seller')->user() != '') {
 
-            if(auth()->guard('seller')->user() != '') {
                 $seller_id = Auth::guard('seller')->user()->id;
                 $seller = Seller::where('id',$seller_id)->first();
+
                 $terms_condition = TermsCondition::first();
                 return view('terms-condition',compact('terms_condition' , 'seller'));
             }
+            else {
 
-            else{
                 $terms_condition = TermsCondition::first();
                 return view('terms-condition',compact('terms_condition'));
             }
-    
         }
         catch(\Exception $e) {
             session()->flash('error', $e->getMessage());
@@ -442,4 +451,3 @@ class WebController extends Controller
         }
     }
 }
-

@@ -65,7 +65,9 @@ li {
     position: relative;
     overflow-y: auto;
 }
-
+.create_login_main_box{
+    margin:180px 0 50px 0;
+}
 
 .login_box {
 

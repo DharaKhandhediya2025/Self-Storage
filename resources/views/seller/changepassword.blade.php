@@ -48,6 +48,7 @@
                             <div class="form-group col-md-6">
                                 <label class="myaccount_label">Current Password</label>
                                 <input type="password" name="old_password" class="form-control myaccount_input" placeholder="Type..." required>
+                                <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                             </div>
                             @error('old_password')
                                 <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
@@ -58,6 +59,7 @@
                             <div class="form-group col-md-6">
                                 <label class="myaccount_label">New Password</label>
                                 <input type="password" name="new_password" class="form-control myaccount_input" placeholder="Type..." required>
+                                <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                             </div>
                             @error('new_password')
                                 <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
@@ -68,6 +70,7 @@
                             <div class="form-group col-md-6">
                                 <label class="myaccount_label">Confirm Password</label>
                                 <input type="password" name="confirm_password" class="form-control myaccount_input" placeholder="Type..." required>
+                                <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                             </div>
                              @error('confirm_password')
                                 <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>

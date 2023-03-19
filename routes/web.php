@@ -217,8 +217,44 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('seller/city', [SellersController::class, 'getCityByCountryID']);
 
     //storage Details
-    Route::get('/storage-detail',[BuyersController::class,'storageDetail']);
+    Route::get('/storage-detail/{slug}',[BuyersController::class,'storageDetail']);
+    Route::post('/add-inquiry/{slug}',[BuyersController::class,'storageInquiry']);
+    Route::post('/add-review/{slug}',[BuyersController::class,'storageReview']);
+    Route::get('/add-favorite/{slug}',[BuyersController::class,'storageFavoriteAdd']);
+    Route::get('/remove-favorite/{slug}',[BuyersController::class,'storageFavoriteRemove']);
 
+    //storage list
+    Route::post('/commertial-storage',[BuyersController::class,'commertialStorage']);
+    Route::post('/residential-storage',[BuyersController::class,'commertialStorage']);
+
+    //seller side create storage
+    Route::get('/create-post',[SellersController::class,'createPost']);
+    Route::get('/secound-post',[SellersController::class,'getsecoundPost']);
+    Route::get('/third-post',[SellersController::class,'getthirdPost']);
+    Route::get('/final-post',[SellersController::class,'getfinalPost']);
+    Route::post('/secound-post',[SellersController::class,'secoundPost']);
+    Route::post('/third-post',[SellersController::class,'thirdPost']);
+    Route::post('/final-post',[SellersController::class,'finalPost']);
+    Route::post('/upload-post',[SellersController::class,'uploadPost']);
+
+    //seller storage list
+    Route::get('/my-ads',[SellersController::class,'storageList']);
+    Route::get('/storage-deactivate/{slug}',[SellersController::class,'storageDeactivate']);
+    Route::get('/storage-activate/{slug}',[SellersController::class,'storageActivate']);
+    Route::get('/storage-edit/{slug}',[SellersController::class,'storageEdit']);
+    Route::post('/storage-edit/{slug}',[SellersController::class,'storageUpdate']);
+    Route::get('/storage-delete/{slug}',[SellersController::class,'storageDelete']);
+
+    Route::post('/update-post/{$slug}',[SellersController::class,'updatesecoundPost']);
+    Route::post('/third-post/{$slug}',[SellersController::class,'updatethirdPost']);
+    Route::post('/final-post/{$slug}',[SellersController::class,'updatefinalPost']);
+    Route::post('/upload-post/{$slug}',[SellersController::class,'updateuploadPost']);
+
+    Route::get('/secound-post/{slug}',[SellersController::class,'editsecoundPost']);
+    Route::get('/third-post/{slug}',[SellersController::class,'editthirdPost']);
+    Route::get('/final-post/{slug}',[SellersController::class,'editfinalPost']);
+
+    
 });
 // Buyer Side After Login Routes End
 

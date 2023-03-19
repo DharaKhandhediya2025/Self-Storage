@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Http\Request;
-use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat};
+use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat,StorageImages};
 use Illuminate\Support\Facades\{Auth,Hash};
 use DB,Session;
 use Illuminate\Support\Str;
@@ -89,7 +89,7 @@ class BuyersController extends Controller
             \Mail::send('emails.sendOTP', $input, function ($message) use($input) {
                 $message->to($input['email'])->subject('Verification Code');
             });
-
+            //echo "cx";exit;
             session(['email' => $email]);
             session(['page' => 'Login']);
 
@@ -316,6 +316,7 @@ class BuyersController extends Controller
         $buyer = Buyer::where('id',$buyer_id)->first();
 
         $buyer->name = $request->name;
+        $buyer->phone = $request->phone;
         $profile_image = $request->file('profile_image');
 
         if(isset($profile_image) && $profile_image != '') {
@@ -384,14 +385,14 @@ class BuyersController extends Controller
         }
     }
 
+    // Social Login
     public function buyerGoogleLogin() {
 
         Session()->put('role_nm', 'buyer');
         $url = config('global.url').'/login/google';
         return redirect($url);
     }
-    
-    // Social Login with facebook
+
     public function buyerFacebookLogin() {
 
         Session()->put('role_nm', 'buyer');
@@ -399,9 +400,100 @@ class BuyersController extends Controller
         return redirect($url);
     }
 
-    //storage
+    // Storage Details
+    public function storageDetail($slug) {
 
-    public function storageDetail(){
-        return view('buyer.storage-details');
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $storage = Storage::where('slug',$slug)->first();
+        $storage_images = StorageImages::where('storage_id',$storage->id)->get();
+        $storage_rates = StorageRating::with('buyer')->where('storage_id',$storage->id)->get();
+        $count = sizeof($storage_rates);
+        return view('buyer.storage-details',compact('buyer','storage','storage_images','storage_rates','count'));
+    }
+
+    public function storageInquiry(Request $request , $slug) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $storage = Storage::where('slug',$slug)->first();
+
+        $inquiry = New Inquiry();
+        $inquiry->buyer_id = $buyer->id;
+        $inquiry->storage_id = $storage->id;
+        $inquiry->name = $request->name;
+        $inquiry->email = $request->email;
+        $inquiry->phone = $request->phone;
+        $inquiry->message = $request->message;
+        $inquiry->save();
+
+        session()->flash('type','message');
+        session()->flash('message', 'Inquiry Generated Successfully.');
+        return redirect()->back();
+    }
+
+    public function storageReview(Request $request , $slug) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $storage = Storage::where('slug',$slug)->first();
+
+        $rate = New StorageRating();
+        $rate->buyer_id = $buyer->id;
+        $rate->storage_id = $storage->id;
+        $rate->rate = $request->rate;
+        $rate->review = $request->review;
+        $rate->save();
+
+        session()->flash('type','message');
+        session()->flash('message', 'Thanx For Rating.');
+        return redirect()->back();
+    }
+
+    public function storageFavoriteAdd(Request $request , $slug) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $storage = Storage::where('slug',$slug)->first();
+
+        $favorite = New FavoriteStorage();
+        $favorite->buyer_id = $buyer->id;
+        $favorite->storage_id = $storage->id;
+        $favorite->save();
+
+        session()->flash('type','message');
+        session()->flash('message', 'Storage Added In Favorite.');
+        return redirect()->back();
+    }
+
+    public function storageFavoriteRemove(Request $request , $slug) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $storage = Storage::where('slug',$slug)->first();
+
+        FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$storage->id)->delete();
+
+        session()->flash('type','message');
+        session()->flash('message', 'Storage Removed From Favorite.');
+        return redirect()->back();
+    }
+
+    public function commertialStorage(Request $request) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $storage = Storage::where('cat_id', 2)->where('price',$request->price)->orwhere('city', $request->city)->orwhere('zipcode', $request->city)->get();
+
+        return view('buyer.storage-list',compact('buyer','storage'));
+    }
+
+    public function residentialStorage(Request $request) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $storage = Storage::where('cat_id', 1)->where('price',$request->price)->orwhere('city', $request->city)->orwhere('zipcode', $request->city)->get();
+
+        return view('buyer.storage-list',compact('buyer','storage'));
     }
 }

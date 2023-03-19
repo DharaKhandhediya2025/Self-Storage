@@ -13,11 +13,28 @@
         <link rel="icon" type="image/png" href="{{ config('global.front_base_url').'images/logo_icon.png' }}"/>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        @if(isset($seller) && $seller != '')
+        <link rel="stylesheet" href="{{ asset('public/Seller-HTML/assets/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/Seller-HTML/assets/css/slick.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/Seller-HTML/assets/css/slicktheme.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/Seller-HTML/assets/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/Seller-HTML/assets/css/responsive.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/Seller-HTML/assets/css/slick-carousel.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/Seller-HTML/assets/css/ion.rangeSlider.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/Seller-HTML/assets/css/tailwind.min.css.css') }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/bootstrap.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slick.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slicktheme.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/style.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/responsive.css' }}">
+        @else
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/bootstrap.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slick.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slicktheme.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/style.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/responsive.css' }}">
+        @endif
+      
     </head>
 
     <body>
@@ -67,6 +84,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/contact-us') }}">Contact us</a>
                                 </li>
+                                @if(isset($seller))
+                                <li class="nav-item">
+                                    <a class="nav-link header_login_btn" href="{{ url('/create-post') }}">Post</a>
+                                 </li>
+                                @endif
                                 <!-- <li class="nav-item">
                                     <a class="nav-link p-0" href="#"><img src="{{ config('global.front_base_url').'images/user-profile.png' }}" alt="user-profile" class="img-fluid"></a>
                                 </li> -->
@@ -160,13 +182,29 @@
         @yield('customjs')
 
         <!-- Script start -->
+         @if(isset($seller) && $seller != '')
+        <script src="{{ asset('public/Seller-HTML/assets/js/jQuery.js') }}"></script>
+        <script src="{{ asset('public/Seller-HTML/assets/js/popper.js') }}"></script>
+        <script src="{{ asset('public/Seller-HTML/assets/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('public/Seller-HTML/assets/js/slick.js') }}"></script>
+        <script src="{{ asset('public/Seller-HTML/assets/js/ion.rangeSlider.min.js') }}"></script>
+        <script src="{{ asset('public/Seller-HTML/assets/js/alpine.js') }}"></script>
+        <script src="{{ asset('public/Seller-HTML/assets/js/custom.js') }}"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
         <script src="{{ config('global.front_base_url').'js/jQuery.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/popper.min.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/bootstrap.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/slick.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/ion.rangeSlider.min.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/custom.js' }}"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+        @else
+        <script src="{{ config('global.front_base_url').'js/jQuery.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/popper.min.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/bootstrap.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/slick.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/ion.rangeSlider.min.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/custom.js' }}"></script>
+        @endif
         <!-- Script End -->
 
         <script type="text/javascript">
@@ -207,5 +245,6 @@
                 }
             }
         </script>
+        
     </body>
 </html>

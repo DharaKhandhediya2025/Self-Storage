@@ -15,13 +15,14 @@
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Residential</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Residential</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">commercial</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="banner_search_main">
-                                    <form action="">
+                                    <form action="{{ url('/residential-storage')}}" method="post">
+                                        @csrf
                                         <div class="banner_text_location">
                                             <input type="text" placeholder="Enter City, State or Zipcode">
                                         </div>
@@ -39,7 +40,8 @@
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="banner_search_main">
-                                    <form action="">
+                                    <form action="{{ url('/commertial-storage')}}" method="post">
+                                        @csrf
                                         <div class="banner_text_location">
                                             <input type="text" placeholder="Enter City, State or Zipcode">
                                         </div>
@@ -131,187 +133,26 @@
                     <h4>Nearby Self storages</h4>
                 </div>
                 <div class="nearbyslider">
+                     @foreach($storages as $storage)
                     <div class="nearby_slider_card">
-                        <a href="#">
+                        <a href="{{ url('/login')}}">
                             <div class="nearby_slider_img">
                                 <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
+                                
                             </div>
                         </a>
-                        <a href="#">
+                        <a href="{{ url('/login')}}">
                             <div class="nearby_slider_content">
-                                <p>7815 Chelico DriveSan Antonio, TX 78223 </p>
+                                <p>{{$storage->storage_no}} , {{$storage->city}} ,{{$storage->title}} </p>
                                 <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
+                                    <li>{{$storage->storage_type}}</li>
+                                    <li>{{$storage->category->name }}</li>
                                 </ul>
-                                <h4>$30/mo</h4>
+                                <h4>${{$storage->price}}/mo</h4>
                             </div>
                         </a>
                     </div>
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-two.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>2505 S HackberrySan Antonio, TX 78210</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$61/mo</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-three.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>909 Runnels AveSan Antonio, TX 78208</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$42/mo</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-four.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>1426 N Panam ExpySan Antonio, TX 78208</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$43/mo</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-five.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>4910 S Zarzamora StreetSan Antonio, TX 78211</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$61/mo</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>7815 Chelico DriveSan Antonio, TX 78223</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$30/mo</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-two.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>2505 S HackberrySan Antonio, TX 78210</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$61/mo</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-three.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>909 Runnels AveSan Antonio, TX 78208</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$42/mo</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-four.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>1426 N Panam ExpySan Antonio, TX 78208</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$43/mo</h4>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="nearby_slider_card">
-                        <a href="#">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-five.png' }}" alt="nearby-one" class="img-fluid">
-                                <a href="#" class="slider_crad_heart"><i class="fa fa-heart-o heart_icon"></i></a>
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="nearby_slider_content">
-                                <p>4910 S Zarzamora StreetSan Antonio, TX 78211</p>
-                                <ul>
-                                    <li>Climate Controlled</li>
-                                    <li>Vehicle Storage</li>
-                                </ul>
-                                <h4>$61/mo</h4>
-                            </div>
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -505,4 +346,38 @@
         </div>
     </section>
     <!-- Client Review Section End -->
+@stop
+@section('customcss')
+    <script>
+
+        getLocation();
+              
+        function getLocation() {
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        }
+
+        function onError() {
+            console.log("Please allow to location fetched");
+        }
+
+        function onSuccess(position) {
+
+            const {
+                latitude,
+                longitude
+            } = position.coords;
+
+            sessionStorage.latitude = latitude;
+            sessionStorage.longitude = longitude;
+
+            createCookie('current_latitude',latitude);
+            createCookie('current_longitude',longitude);
+        }
+
+        function createCookie(name,value) {
+
+            var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+    </script>
 @stop

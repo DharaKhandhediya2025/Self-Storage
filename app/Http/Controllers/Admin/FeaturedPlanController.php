@@ -127,7 +127,7 @@ class FeaturedPlanController extends Controller
 
         return view('admin.featured-plan.featured-plan-view',compact('featured_plan'));
     }
-
+ 
     public function deleteFeaturedPlan($id) {
 
         FeaturedPlan::destroy($id);

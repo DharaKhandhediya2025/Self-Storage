@@ -68,11 +68,11 @@
 
                     <div class="form-group">
 						<label>Name</label>
-						<input type="text" name="name" id= "name" class="form-control login_input" placeholder="Type..." required="">
+						<input type="text" name="name" id= "name" class="form-control login_input" placeholder="Type..." required="" maxlength="30">
 					</div>
 					<div class="form-group">
 						<label>E-mail</label>
-						<input type="email" name="email" id= "email" class="form-control login_input" placeholder="Type..." required="">
+						<input type="email" name="email" id= "email" class="form-control login_input" placeholder="Type..." required="" maxlength="50">
 					</div>
 					<div class="form-group">
 						<label>Country Code</label>
@@ -92,7 +92,7 @@
 					</div>
 					<div class="form-group mb-4">
                         <label>Password</label>
-                        <input type="password" class="form-control login_input">
+                        <input type="password" class="form-control login_input" name="password" minlength="8">
                         <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                     </div>
                     <button type="submit" class="btn btn-primary login_btn" id="submitbtn">Register

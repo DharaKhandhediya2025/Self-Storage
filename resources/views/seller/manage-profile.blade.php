@@ -33,11 +33,13 @@
                     <a class="nav-link active" id="myprofile-tab" data-toggle="pill" href="#myprofile" role="tab"
                         aria-controls="v-pills-profile" aria-selected="false">My Profile</a>
 
-                    <!--<a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab"
+                    <a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab"
                         aria-controls="v-pills-profile" aria-selected="false">Reports</a>
 
                     <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"
-                        aria-controls="v-pills-messages" aria-selected="false">Subscription plan</a>-->
+                        aria-controls="v-pills-messages" aria-selected="false">Subscription plan</a>
+
+                        <a class="nav-link" id="storages-tab" href="{{ url('my-ads') }}">My Ads</a>
                     @if(isset($seller->google_id) || isset($buyer->google_id))
                         @elseif(isset($seller->facebook_id) || isset($buyer->facebook_id))
                         @else
@@ -94,13 +96,8 @@
                                     <input type="email" class="form-control myaccount_input"
                                         placeholder="johnwick@mail.com" name="email" value="{{$seller->email}}" readonly>
                                 </div>
-                                @if(isset($seller->google_id) || isset($buyer->google_id))
-                                <div class="form-group col-md-4">
-                                    <label class="myaccount_label">Phone</label>
-                                    <input type="number" class="form-control myaccount_input"
-                                        placeholder="Type..." name="phone" value="{{$seller->phone}}">
-                                </div>
-                                @elseif(isset($seller->facebook_id) || isset($buyer->facebook_id))
+                               
+                                @if(isset($seller->phone))
                                 <div class="form-group col-md-4">
                                     <label class="myaccount_label">Phone</label>
                                     <input type="number" class="form-control myaccount_input"
@@ -202,28 +199,27 @@
                         <div class="report__storage row mt-3">
                             <div class="report__storage__card col-xl-5">
                                 <div class="report__storage__imgbox">
-                                    <img src="assets/img/report-storage-card-one.png" alt="report-storage" class="img-fluid">
+                                    <img src="{{ asset('public/Seller-HTML/assets/img/report-storage-card-one.png') }}" alt="report-storage" class="img-fluid">
                                 </div>
                                 <div class="report__storage__contentbox">
                                     <h2>Storage name</h2>
                                     <p>7815 Chelico DriveSan Antonio, TX 78223</p>
                                     <h4>$13,157</h4>
-                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/eye.png" alt="eye"
-                                            class="img-fluid"><span>114 Views</span></a>
-                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/user.png" alt="user" class="img-fluid"><span>12 Contacted</span></a>
+                                    <a href="#" class="repoprt_storage_texts"><img src="{{ asset('public/Seller-HTML/assets/img/eye.png') }}" alt="eye" class="img-fluid"><span>114 Views</span></a>
+                                    <a href="#" class="repoprt_storage_texts"><img src="{{ asset('public/Seller-HTML/assets/img/user.png') }}" alt="user" class="img-fluid"><span>12 Contacted</span></a>
                                 </div>
                             </div>
 
                             <div class="report__storage__card col-xl-5">
                                 <div class="report__storage__imgbox">
-                                    <img src="assets/img/report-storage-card-one.png" alt="report-storage" class="img-fluid">
+                                    <img src="{{ asset('public/Seller-HTML/assets/img/report-storage-card-one.png') }}" alt="report-storage" class="img-fluid">
                                 </div>
                                 <div class="report__storage__contentbox">
                                     <h2>Storage name</h2>
                                     <p>7815 Chelico DriveSan Antonio, TX 78223</p>
                                     <h4>$13,157</h4>
-                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/eye.png" alt="eye" class="img-fluid"><span>114 Views</span></a>
-                                    <a href="#" class="repoprt_storage_texts"><img src="assets/img/user.png" alt="user" class="img-fluid"><span>12 Contacted</span></a>
+                                    <a href="#" class="repoprt_storage_texts"><img src="{{ asset('public/Seller-HTML/assets/img/eye.png') }}" alt="eye" class="img-fluid"><span>114 Views</span></a>
+                                    <a href="#" class="repoprt_storage_texts"><img src="{{ asset('public/Seller-HTML/assets/img/user.png') }}" alt="user" class="img-fluid"><span>12 Contacted</span></a>
                                 </div>
                             </div>
                         </div>
