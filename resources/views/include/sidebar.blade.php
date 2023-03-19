@@ -63,7 +63,7 @@
 
         <li class="bold">
             <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'featured-plan') ? 'active' : '' }}" href="{{ url('/admin/featured-plan') }}" title="Featured Plan">
-                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Featured Plan">Featured Plan</span>
+                <i class="material-icons">credit_card</i><span class="menu-title" data-i18n="Featured Plan">Featured Plan</span>
             </a>
         </li>
 
@@ -82,7 +82,7 @@
 
         <li class="bold">
             <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/contact-us') ? 'active' : '' }}" href="{{ url('/admin/contact-us') }}" title="Contact Us">
-                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Contact Us">Contact Us</span>
+                <i class="material-icons">phone</i><span class="menu-title" data-i18n="Contact Us">Contact Us</span>
             </a>
         </li>
 
