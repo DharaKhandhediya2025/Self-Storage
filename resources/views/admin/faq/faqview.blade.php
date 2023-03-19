@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/app-assets/css/pages/page-faq.css') }}">
 @stop
 
-@extends('include.master')@section('title','FAQs')
+@extends('include.master')@section('title','FAQ')
 
 @section('content')
 
