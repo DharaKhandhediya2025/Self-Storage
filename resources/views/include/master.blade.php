@@ -171,13 +171,13 @@
                         var sellers_count = response['sellers'];
                         var storage_count = response['storages'];
                         var featured_plans_count = response['featured_plans'];
-                        var inquiry_count = response['inquiry'];
+                        var buyer_inquiry_count = response['buyer_inquiry'];
 
                         $("#buyers_count").html("" + buyers_count + "");
                         $("#sellers_count").html("" + sellers_count + "");
                         $("#storage_count").html("" + storage_count + "");
                         $("#featured_plans_count").html("" + featured_plans_count + "");
-                        $("#inquiry_count").html("" + inquiry_count + "");
+                        $("#buyer_inquiry_count").html("" + buyer_inquiry_count + "");
                     }
                 });
             }

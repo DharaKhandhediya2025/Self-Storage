@@ -13,13 +13,13 @@ class ContactUsController extends Controller
         $contact_us = ContactUs::orderBy('id','desc')->get();
         $count = sizeof($contact_us);
 
-        return view('admin.contact-inquiry.list',compact('contact_us','count'));
+        return view('admin.contact-us.list',compact('contact_us','count'));
     }
 
-    public function contactInquiryDetails(Request $request ,$id) {
+    public function contactUsDetails(Request $request ,$id) {
 
         $contact_us = ContactUs::where('id',$id)->first();
 
-        return view('admin.contact-inquiry.details',compact('contact_us'));
+        return view('admin.contact-us.details',compact('contact_us'));
     }
 }

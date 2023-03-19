@@ -75,14 +75,14 @@
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/inquiry') ? 'active' : '' }}" href="{{ url('/admin/inquiry') }}" title="Buyer Inquiry">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/buyer-inquiry') ? 'active' : '' }}" href="{{ url('/admin/buyer-inquiry') }}" title="Buyer Inquiry">
                 <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Buyer Inquiry">Buyer Inquiry</span>
             </a>
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/contact') ? 'active' : '' }}" href="{{ url('/admin/contact-inquiry') }}" title="Contact Inquiry">
-                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Contact Inquiry">Contact Inquiry</span>
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/contact-us') ? 'active' : '' }}" href="{{ url('/admin/contact-us') }}" title="Contact Us">
+                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Contact Us">Contact Us</span>
             </a>
         </li>
 

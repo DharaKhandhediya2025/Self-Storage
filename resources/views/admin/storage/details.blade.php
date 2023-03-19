@@ -125,7 +125,7 @@
                         </div>
                     </div>
 
-                    @if(isset($storages->storage_image) && $storages->storage_image != '')
+                    @if(isset($storages->storage_image) && sizeof($storages->storage_image) > 0)
                         <div class="card">
                             <div class="carousel">
                                 @foreach($storages->storage_image as $key1 => $value1)

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\BannersController;
+use App\Http\Controllers\Admin\BuyerInquiryController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CountryController;
@@ -344,8 +345,13 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         Route::get('/buyers',[AdminController::class,'getBuyers'])->name('get.buyers');
         Route::get('update/buyerstatus',[AdminController::class,'updateBuyerStatus'])->name('update.buyerstatus');
 
-        // Inquiry
-        Route::get('/inquiry',[AdminController::class,'getBuyerInquires'])->name('get.buyerinquiries');
+        // Buyer Inquiry
+        Route::get('buyer-inquiry', [BuyerInquiryController::class, 'getBuyerInquires'])->name('get.buyerinquiries');
+        Route::get('buyer-inquiry/{id}', [BuyerInquiryController::class, 'buyerInquiryDetails'])->name('get.buyerdetails');
+
+        // Contact Inquiry
+        Route::get('contact-us', [ContactUsController::class, 'index'])->name('get.contactus');
+        Route::get('contact-us/{id}', [ContactUsController::class, 'contactUsDetails'])->name('get.contactusdetails');
 
         // Featured Plans
         Route::get('featured-plan',[FeaturedPlanController::class,'index'])->name('admin.featuredplan');
@@ -376,10 +382,6 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         // About Us
         Route::get('about-us', [AboutUsController::class, 'index'])->name('admin.aboutus');
         Route::post('add-about-us', [AboutUsController::class, 'addUpdate'])->name('admin.aboutusadd');
-
-        // Contact Us
-        Route::get('contact-inquiry', [ContactUsController::class, 'index'])->name('admin.contactinquiry');
-        Route::get('contact-inquiry-details/{id}', [ContactUsController::class, 'contactInquiryDetails'])->name('admin.contactdetails');
     });        
 });
 // Admin Panel Routes End

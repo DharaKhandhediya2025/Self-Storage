@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inquiry extends Model
+class BuyerInquiry extends Model
 {
     use HasFactory;
 
-    protected $table = 'inquiry';
+    protected $table = 'buyer_inquiry';
 
     protected $hidden = ['created_at','updated_at'];
 

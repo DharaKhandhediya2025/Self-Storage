@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\{Hash,DB,Auth};
-use App\Models\{Buyer,Seller,Admin,Storage,FeaturedPlan,Inquiry};
+use App\Models\{Buyer,Seller,Admin,Storage,FeaturedPlan,BuyerInquiry};
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -20,9 +20,9 @@ class AdminController extends Controller
         $sellers = Seller::orderBy('id','desc')->get()->count();
         $storages = Storage::orderBy('id','desc')->get()->count();
         $featured_plans = FeaturedPlan::orderBy('id','desc')->get()->count();
-        $inquiry = Inquiry::orderBy('id','desc')->get()->count();
+        $buyer_inquiry = BuyerInquiry::orderBy('id','desc')->get()->count();
 
-        return view('admin.dashboard',compact('buyers','sellers','storages','featured_plans','inquiry'));
+        return view('admin.dashboard',compact('buyers','sellers','storages','featured_plans','buyer_inquiry'));
     }
 
     public function dashboardDatewise() {
@@ -39,13 +39,13 @@ class AdminController extends Controller
 
         $featured_plans = FeaturedPlan::whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
 
-        $inquiry = Inquiry::with(['buyers_details','storage_details'])->whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
+        $buyer_inquiry = BuyerInquiry::with(['buyers_details','storage_details'])->whereDate('created_at','>=',$from_date)->whereDate('created_at','<=',$to_date)->count();
 
         $data['buyers'] = $buyers;
         $data['sellers'] = $sellers;
         $data['storages'] = $storages;
         $data['featured_plans'] = $featured_plans;
-        $data['inquiry'] = $inquiry;
+        $data['buyer_inquiry'] = $buyer_inquiry;
 
         return json_encode($data);
     }
@@ -151,20 +151,6 @@ class AdminController extends Controller
         $count = sizeof($buyers);
 
         return view('admin.buyer-list', ['buyers' => $buyers,'count' => $count]);
-    }
-
-    public function getBuyerInquires(Request $request) {
-
-        if(isset($request->start_date) && isset($request->end_date)) {
-            
-            $inquiry = Inquiry::with(['buyers_details','storage_details'])->whereDate('created_at','>=',$request->start_date)->whereDate('created_at','<=',$request->end_date)->orderBy('id','desc')->get();
-        }
-        else {
-            $inquiry = Inquiry::with(['buyers_details','storage_details'])->orderBy('id','desc')->get();
-        }
-        $count = sizeof($inquiry);
-
-        return view('admin.buyer-inquiry', ['inquiry' => $inquiry,'count' => $count]);
     }
 
     public function updateSellerStatus() {

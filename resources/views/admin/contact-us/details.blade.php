@@ -1,4 +1,4 @@
-@extends('include.master')@section('title','Contact Inquiry')
+@extends('include.master')@section('title','Contact Us')
 
 @section('content')
 
@@ -8,14 +8,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Contact Inquiry</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Contact Us</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
                             </a></li>
-                            <li class="breadcrumb-item"><a href="{{ url('admin/contact-inquiry')}}">Contact Inquiry</a></li>
-                            <li class="breadcrumb-item active">Contact Inquiry Details</li>
+                            <li class="breadcrumb-item"><a href="{{ url('admin/contact-us')}}">Contact Us
+                            </a></li>
+                            <li class="breadcrumb-item active">Contact Us Details</li>
                         </ol>
                     </div>
                 </div>

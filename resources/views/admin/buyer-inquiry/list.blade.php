@@ -24,7 +24,7 @@
 		        <div class="section section-data-tables">
 		            <div class="row">
 		                <div class="col s12 m12 l12">
-		                    <div id="button-trigger" class="card card card-default scrollspy">
+		                    <div id="button-trigger" class="card card-default scrollspy">
 		                        <div class="card-content">
 
 		                            <div id="html-view-validations">
@@ -44,7 +44,7 @@
 		                                @endif
 		                            </div>
 
-		                            <h4 class="card-title">Buyer Inquiry ({{ $count }})</h4>
+		                            <h4 class="card-title">Buyer Inquiry List ({{ $count }})</h4>
 
 		                            <div class="row">
 		                                <div class="col s12">
@@ -52,7 +52,6 @@
 		                                        <thead>
 		                                        	<tr>
 		                                        		<th style="text-align: center;">Sr No.</th>
-										                <th style="text-align: center;">Buyer</th>
 										                <th style="text-align: center;">Storage</th>
 										                <th style="text-align: center;">Name</th>
 										                <th style="text-align: center;">Email</th>
@@ -60,16 +59,15 @@
 		                                        	</tr>
 		                                        </thead>
 		                                        <tbody>
-		                                        	@if($inquiry->count() > 0)
+		                                        	@if($buyer_inquiry->count() > 0)
 									                @php $i=0 @endphp
-									                    @foreach ($inquiry as $row)
+									                    @foreach ($buyer_inquiry as $row)
 									                        <tr>
 									                            <td style="width: 10px;text-align: center;">{{ ++$i }}</td>
-									                            <td>{{ $row->buyers_details->name }}</td>
-									                            <td>{{ $row->storage_details->title }}</td>
-									                            <td>{{ $row->name }}</td>
-									                            <td>{{ $row->email }}</td>
-									                            <td>{{ $row->phone }}</td>
+									                            <td style="text-align: center;"><a href="{{ url('admin/buyer-inquiry')}}/{{$row->id}}">{{ @$row->storage_details->title }}</a></td>
+									                            <td style="text-align: center;">{{ $row->name }}</td>
+									                            <td style="text-align: center;">{{ $row->email }}</td>
+									                            <td style="text-align: center;">{{ $row->phone }}</td>
 									                        </tr>
 									                    @endforeach
 									                @endif

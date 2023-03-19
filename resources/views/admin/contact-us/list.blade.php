@@ -1,4 +1,4 @@
-@extends('include.master')@section('title','Contact Inquiry')
+@extends('include.master')@section('title','Contact Us')
 
 @section('content')
     <div class="row">
@@ -7,13 +7,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Contact Inquiry</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Contact Us</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
                             </a></li>
-                            <li class="breadcrumb-item active">Contact Inquiry</li>
+                            <li class="breadcrumb-item active">Contact Us</li>
                         </ol>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                                         @endif
                                     </div>
 
-                                    <h4 class="card-title">Contact Inquiry ({{ $count }})</h4>
+                                    <h4 class="card-title">Contact Us List ({{ $count }})</h4>
 
                                     <div class="row">
                                         <div class="col s12">
@@ -63,10 +63,9 @@
                                                         @foreach ($contact_us as $row)
                                                             <tr>
                                                                 <td style="width: 10px;text-align: center;">{{ ++$i }}</td>
-                                                                <td><center><a href="{{ url('admin/contact-inquiry-details')}}/{{$row->id}}">{{ $row->name }}</a></center></td>
-                                                                <td><center>{{ $row->email }}</center></td>
-                                                                <td><center>{{ $row->subject }}</center>
-                                                                </td>
+                                                                <td style="text-align: center;"><a href="{{ url('admin/contact-us')}}/{{$row->id}}">{{ $row->name }}</a></td>
+                                                                <td style="text-align: center;">{{ $row->email }}</td>
+                                                                <td style="text-align: center;">{{ $row->subject }}</td>
                                                             </tr>
                                                         @endforeach
                                                     @endif
