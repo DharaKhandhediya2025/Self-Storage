@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Http\Request;
-use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat,City,Amenities,StorageVariant,StorageAmenities,StorageImages};
+use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,BuyerInquiry,Chat,City,Amenities,StorageVariant,StorageAmenities,StorageImages};
 use Illuminate\Support\Facades\{Auth,Hash,Route,url};
 use DB,Session;
 use Illuminate\Support\Str;
@@ -634,7 +634,7 @@ class SellersController extends Controller
         $storage = Storage::where('seller_id',$seller->id)->get();
         $main = Storage::where('seller_id',$seller->id)->first();
         $image = StorageImages::where('storage_id',$main->id)->first();
-        $inquiry = Inquiry::where('storage_id',$main->id)->count();
+        $inquiry = BuyerInquiry::where('storage_id',$main->id)->count();
         return view('seller.myads', compact('storage','seller','image','inquiry'));
     }
 

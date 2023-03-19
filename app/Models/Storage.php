@@ -44,11 +44,11 @@ class Storage extends Model
     }
 
     public function storage_inquiries() {
-        return $this->hasMany(Inquiry::class,'storage_id','id');
+        return $this->hasMany(BuyerInquiry::class,'storage_id','id');
     }
 
     public function buyer_inquiry() {
-        return $this->hasOne(Inquiry::class,'storage_id','id');
+        return $this->hasOne(BuyerInquiry::class,'storage_id','id');
     }
 
     public function featured_storage() {

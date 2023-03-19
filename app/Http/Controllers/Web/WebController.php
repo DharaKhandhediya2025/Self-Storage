@@ -203,7 +203,7 @@ class WebController extends Controller
             $contact_us->save();
 
             session()->flash('type','message');
-            session()->flash('message', 'Contact Inquiry Submitted Successfully.');
+            session()->flash('message', 'Contact Inquiry Added Successfully.');
             return redirect('/contact-us');
         }
         catch(\Exception $e) {

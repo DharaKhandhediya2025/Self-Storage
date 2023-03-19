@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Http\Request;
-use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,Inquiry,Chat,StorageImages};
+use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,BuyerInquiry,Chat,StorageImages};
 use Illuminate\Support\Facades\{Auth,Hash};
 use DB,Session;
 use Illuminate\Support\Str;
@@ -418,7 +418,7 @@ class BuyersController extends Controller
         $buyer = Buyer::where('id',$buyer_id)->first();
         $storage = Storage::where('slug',$slug)->first();
 
-        $inquiry = New Inquiry();
+        $inquiry = New BuyerInquiry();
         $inquiry->buyer_id = $buyer->id;
         $inquiry->storage_id = $storage->id;
         $inquiry->name = $request->name;
@@ -428,7 +428,7 @@ class BuyersController extends Controller
         $inquiry->save();
 
         session()->flash('type','message');
-        session()->flash('message', 'Inquiry Generated Successfully.');
+        session()->flash('message', 'Inquiry Added Successfully.');
         return redirect()->back();
     }
 
