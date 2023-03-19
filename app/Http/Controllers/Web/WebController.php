@@ -39,6 +39,7 @@ class WebController extends Controller
             $categories = Category::get();
 
             if(auth()->guard('buyer')->user() == '' && auth()->guard('seller')->user() == '') {
+                
                 $storages = Storage::with('category')->orderby('id','desc')->get();
                 return view('index',compact('storages'));
             }
@@ -56,7 +57,6 @@ class WebController extends Controller
                     $query1->where('seller_id',$seller_id);
                     $query1->where('expired_date','>=',$today_date);
                 }]);
-
 
                 if($category_id > 0) {
                     $query = $query->where('post.cat_id','=',$category_id);
@@ -77,8 +77,8 @@ class WebController extends Controller
                 else {
                     $query = $query->orderBy('id','desc');
                 }
-
                 $seller_storages = $query->where('seller_id',$seller_id)->get();
+
                 $storages = Storage::with('category')->orderby('id','desc')->get();
                 $favorites = FavoriteStorage::where('buyer_id',$buyer->id)->get();
 
@@ -96,8 +96,6 @@ class WebController extends Controller
                 $buyer = Buyer::where('id',$buyer_id)->first();
                 $storages = Storage::with('category')->orderby('id','desc')->get();
                 $favorites = FavoriteStorage::All();
-                // Get New Launched Storages
-                //$new_launched_projects = self::getNewLaunchedProjects($category_id,9);
 
                 return view('buyer.home',compact('categories','buyer','buyer_id','category_id','banners','storages','favorites'));
             }

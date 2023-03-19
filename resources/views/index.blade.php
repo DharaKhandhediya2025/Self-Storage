@@ -133,25 +133,24 @@
                     <h4>Nearby Self storages</h4>
                 </div>
                 <div class="nearbyslider">
-                     @foreach($storages as $storage)
-                    <div class="nearby_slider_card">
-                        <a href="{{ url('/login')}}">
-                            <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
-                                
-                            </div>
-                        </a>
-                        <a href="{{ url('/login')}}">
-                            <div class="nearby_slider_content">
-                                <p>{{$storage->storage_no}} , {{$storage->city}} ,{{$storage->title}} </p>
-                                <ul>
-                                    <li>{{$storage->storage_type}}</li>
-                                    <li>{{$storage->category->name }}</li>
-                                </ul>
-                                <h4>${{$storage->price}}/mo</h4>
-                            </div>
-                        </a>
-                    </div>
+                    @foreach($storages as $storage)
+                        <div class="nearby_slider_card">
+                            <a href="{{ url('/login')}}">
+                                <div class="nearby_slider_img">
+                                    <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
+                                </div>
+                            </a>
+                            <a href="{{ url('/login')}}">
+                                <div class="nearby_slider_content">
+                                    <p>{{ $storage->storage_no }} , {{ $storage->city }} ,{{ $storage->title }}</p>
+                                    <ul>
+                                        <li>{{ $storage->storage_type }}</li>
+                                        <li>{{ $storage->category->name }}</li>
+                                    </ul>
+                                    <h4>${{ $storage->price }}/mo</h4>
+                                </div>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
             </div>

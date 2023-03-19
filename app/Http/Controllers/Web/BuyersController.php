@@ -409,6 +409,7 @@ class BuyersController extends Controller
         $storage_images = StorageImages::where('storage_id',$storage->id)->get();
         $storage_rates = StorageRating::with('buyer')->where('storage_id',$storage->id)->get();
         $count = sizeof($storage_rates);
+
         return view('buyer.storage-details',compact('buyer','storage','storage_images','storage_rates','count'));
     }
 
@@ -446,7 +447,7 @@ class BuyersController extends Controller
         $rate->save();
 
         session()->flash('type','message');
-        session()->flash('message', 'Thanx For Rating.');
+        session()->flash('message', 'Thanks For Rating.');
         return redirect()->back();
     }
 
