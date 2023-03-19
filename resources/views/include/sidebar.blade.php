@@ -56,8 +56,8 @@
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/storage') ? 'active' : '' }}" href="{{ url('/admin/storages') }}" title="Storage">
-                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Storage">Storage</span>
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/storage') ? 'active' : '' }}" href="{{ url('/admin/storages') }}" title="Storages">
+                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Storages">Storages</span>
             </a>
         </li>
 

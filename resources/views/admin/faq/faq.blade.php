@@ -100,7 +100,7 @@
                                                                                 <div class="modal-footer">
                                                                                     <a class="waves-effect waves-light btn gradient-45deg-amber-amber box-shadow-none border-round mr-1 mb-1 close-btn" data-dismiss="modal">Close</a>
 
-                                                                                    <a href="{{ route('admin.deletefaq' ,['id'=>$row->id ])}}" class="aves-effect waves-light btn gradient-45deg-light-blue-cyan box-shadow-none border-round mr-1 mb-1">Yes, Delete</a>
+                                                                                    <a href="{{ route('admin.deletefaq' ,['id'=>$row->id ])}}" class="waves-effect waves-light btn gradient-45deg-red-pink box-shadow-none border-round mr-1 mb-1">Yes, Delete</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
