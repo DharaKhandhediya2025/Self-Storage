@@ -10,7 +10,7 @@ use App\Http\Controllers\Web\SellersController;
 use App\Http\Controllers\Web\WebController;
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AmenitiesController;
+use App\Http\Controllers\Admin\AminitesController;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\BannersController;
 use App\Http\Controllers\Admin\BuyerInquiryController;
@@ -321,12 +321,12 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         Route::get('edit-category/{id}',[CategoryController::class,'addUpdateCategory'])->name('admin.updatecategory');
         Route::get('delete-category/{id}',[CategoryController::class,'deleteCategory'])->name('admin.deletecategory');
 
-        // Amenities
-        Route::get('amenities',[AmenitiesController::class,'index'])->name('admin.amenities');
-        Route::get('add-amenities',[AmenitiesController::class,'addUpdateAmenities'])->name('admin.addamenities');
-        Route::post('add-edit-amenities',[AmenitiesController::class,'saveAmenities'])->name('admin.saveamenities');
-        Route::get('edit-amenities/{id}',[AmenitiesController::class,'addUpdateAmenities'])->name('admin.updateamenities');
-        Route::get('delete-amenities/{id}',[AmenitiesController::class,'deleteAmenities'])->name('admin.deleteamenities');
+        // Aminites
+        Route::get('aminites',[AminitesController::class,'index'])->name('admin.aminites');
+        Route::get('aminites/add',[AminitesController::class,'addUpdateAminites'])->name('admin.addaminites');
+        Route::post('add-edit-aminites',[AminitesController::class,'saveAminites'])->name('admin.saveaminites');
+        Route::get('edit-aminites/{id}',[AminitesController::class,'addUpdateAminites'])->name('admin.updateaminites');
+        Route::get('delete-aminites/{id}',[AminitesController::class,'deleteAminites'])->name('admin.deleteaminites');
 
         // Countries
         Route::get('/country',[CountryController::class,'getCountries'])->name('get.countries');

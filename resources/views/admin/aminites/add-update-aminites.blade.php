@@ -1,4 +1,4 @@
-@extends('include.master')@section('title','Amenities')
+@extends('include.master')@section('title','Aminites')
 
 @section('css')
     <style>
@@ -16,13 +16,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Amenities</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Aminites</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
                             </a></li>
-                            <li class="breadcrumb-item active">Amenities List</li>
+                            <li class="breadcrumb-item active">Aminites List</li>
                         </ol>
                     </div>
                 </div>
@@ -38,24 +38,24 @@
 									<div class="card-title">
 										<div class="row">
 											<div class="col s12 m6 l10">
-                                                @if(isset($amenities->id) && $amenities->id > 0)
-                                                    <h4 class="card-title">Edit Amenities</h4>
+                                                @if(isset($aminites->id) && $aminites->id > 0)
+                                                    <h4 class="card-title">Edit Aminites</h4>
                                                 @else
-                                                    <h4 class="card-title">Add Amenities</h4>
+                                                    <h4 class="card-title">Add Aminites</h4>
                                                 @endif
 											</div>
 										</div>	
 									</div>
-                                    <form class="formValidate0" id="amenities_form" enctype="multipart/form-data" action="{{ route('admin.saveamenities') }}" method="POST">@csrf
+                                    <form class="formValidate0" id="aminites_form" enctype="multipart/form-data" action="{{ route('admin.saveaminites') }}" method="POST">@csrf
 
                 						<div class="row">
-                							<input type="hidden" name="id" value="{{ $amenities->id }}">
+                							<input type="hidden" name="id" value="{{ $aminites->id }}">
                 							<div class="input-field col s6">
                 								<strong>Category :</strong>
                 								<select id="cat_id" name="cat_id" class="browser-default" tabindex="1">
                                                     <option value="">Select Category</option>
                                                     @foreach ($category as $key => $value)
-                                                    	@if($value->id == $amenities->cat_id)
+                                                    	@if($value->id == $aminites->cat_id)
                                                         	<option value="{{ $value->id }}" selected>
                                                         	{{ $value->name }}</option>
                                                         @else
@@ -71,16 +71,16 @@
 
                 							<div class="input-field col s6">
                 								<strong>Name :</strong>
-                								<input type="text" name="name" id="name" class="form-control" value="{{ $amenities->name }}" placeholder="Name" tabindex="2" />
+                								<input type="text" name="name" id="name" class="form-control" value="{{ $aminites->name }}" placeholder="Name" tabindex="2" />
                 								@error('name')
 	                                                <span class="invalid-feedback" role='alert' style="color: red;"><strong>{{$message}}</strong></span>
 	                                            @enderror
                 							</div>
 
                 							<div class="input-field col s12">
-                								<a href="{{ url('admin/amenities') }}" class="btn waves-effect waves-light left">Cancel</a>
+                								<a href="{{ url('admin/aminites') }}" class="btn waves-effect waves-light left">Cancel</a>
 
-	                							@if(isset($amenities->id) && $amenities->id != '')
+	                							@if(isset($aminites->id) && $aminites->id != '')
 	                								<button class="btn waves-effect waves-light right submit" type="submit" name="action">Update</button>
 	                							@else
 		                							<button class="btn waves-effect waves-light right submit" type="submit" name="action">Submit
@@ -105,7 +105,7 @@
 
         jQuery(document).ready(function() {
 
-            $("#amenities_form").validate({
+            $("#aminites_form").validate({
                 rules: {
                     "cat_id": {
                         required: true

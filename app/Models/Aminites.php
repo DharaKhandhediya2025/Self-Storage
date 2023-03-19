@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Amenities extends Model
+class Aminites extends Model
 {
     use HasFactory;
 
-    protected $table = 'amenities';
+    protected $table = 'aminites';
 
     protected $hidden = ['created_at','updated_at'];
 

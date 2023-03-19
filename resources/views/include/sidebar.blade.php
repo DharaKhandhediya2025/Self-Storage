@@ -43,8 +43,8 @@
         </li> -->
 
         <li class="bold">
-            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'amenities') ? 'active' : '' }}" href="{{ url('/admin/amenities') }}" title="Amenities">
-                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Amenities">Amenities</span>
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'aminites') ? 'active' : '' }}" href="{{ url('/admin/aminites') }}" title="Aminites">
+                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Aminites">Aminites</span>
             </a>
         </li>
 

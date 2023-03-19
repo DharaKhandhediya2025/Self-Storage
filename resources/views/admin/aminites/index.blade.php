@@ -5,7 +5,7 @@
         }
     </style>
 @stop
-@extends('include.master')@section('title','Amenities')
+@extends('include.master')@section('title','Aminites')
 
 @section('content')
     <div class="row">
@@ -14,13 +14,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 m6 l6">
-                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Amenities</span></h5>
+                        <h5 class="breadcrumbs-title mt-0 mb-0"><span>Aminites</span></h5>
                     </div>
                     <div class="col s12 m6 l6 right-align-md">
                         <ol class="breadcrumbs mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('admin/dashboard')}}">Dashboard
                             </a></li>
-                            <li class="breadcrumb-item active">Amenities List</li>
+                            <li class="breadcrumb-item active">Aminites List</li>
                         </ol>
                     </div>
                 </div>
@@ -53,10 +53,10 @@
                                     </div>
 
                                     <div class="col s12">
-                                        <a href="{{ url('admin/add-amenities') }}" class="btn waves-effect waves-light invoice-export border-round right" title="Add New Amenities">Add New Amenities</a>
+                                        <a href="{{ url('admin/aminites/add') }}" class="btn waves-effect waves-light invoice-export border-round right" title="Add New Aminites">Add New Aminites</a>
                                     </div>
 
-                                    <h4 class="card-title">Amenities List ({{ $count }})</h4>
+                                    <h4 class="card-title">Aminites List ({{ $count }})</h4>
 
                                     <div class="row">
                                         <div class="col s12">
@@ -70,18 +70,18 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if($amenities->count() > 0)
+                                                    @if($aminites->count() > 0)
                                                     @php $i=0 @endphp
-                                                        @foreach ($amenities as $row)
+                                                        @foreach ($aminites as $row)
                                                             <tr>
                                                                 <td style="text-align: center;">
                                                                 {{ ++$i }}</td>
-                                                                <td style="word-wrap: break-word;text-align: center;">{{ $row->category->name }}</td>
+                                                                <td style="word-wrap: break-word;text-align: center;">{{ @$row->category->name }}</td>
                                                                 <td style="word-wrap: break-word;text-align: center;">{{ $row->name }}</td>
 
                                                                 <td style="width:250px;text-align: center;">
 
-                                                                    <a href="{{ route('admin.updateamenities' ,['id'=> $row->id ])}}" title="Edit" class="btn-small btn-light-blue">Edit</a>
+                                                                    <a href="{{ route('admin.updateaminites' ,['id'=> $row->id ])}}" title="Edit" class="btn-small btn-light-blue">Edit</a>
 
                                                                     <a data-toggle="modal" data-target="#deleteModal_{{ $row->id }}" title="Delete" class="btn-small btn-light-pink modal-trigger right">Delete</a>
 
@@ -102,7 +102,7 @@
                                                                                 <div class="modal-footer">
                                                                                     <a class="waves-effect waves-light btn gradient-45deg-amber-amber box-shadow-none border-round mr-1 mb-1 close-btn" data-dismiss="modal">Close</a>
 
-                                                                                    <a href="{{ route('admin.deleteamenities' ,['id'=>$row->id ])}}" class="aves-effect waves-light btn gradient-45deg-light-blue-cyan box-shadow-none border-round mr-1 mb-1">Yes, Delete</a>
+                                                                                    <a href="{{ route('admin.deleteaminites' ,['id'=>$row->id ])}}" class="waves-effect waves-light btn gradient-45deg-light-blue-cyan box-shadow-none border-round mr-1 mb-1">Yes, Delete</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
