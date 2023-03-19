@@ -91,8 +91,8 @@
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
                     <li class="bold">
-                        <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'faq') ? 'active' : '' }}" href="{{ url('/admin/faq-list') }}">
-                            <i class="material-icons">question_answer</i><span class="menu-title" data-i18n="FAQ's">FAQ's</span>
+                        <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'faqs') ? 'active' : '' }}" href="{{ url('/admin/faqs') }}">
+                            <i class="material-icons">question_answer</i><span class="menu-title" data-i18n="FAQ">FAQ</span>
                         </a>
                     </li>
                     <li class="bold">

@@ -36,7 +36,7 @@
                                     </div>
 
                                     <div class="col s12">
-                                        <a href="{{ url('admin/add-faq') }}" class="btn waves-effect waves-light invoice-export border-round right" title="Add New FAQ">Add New FAQ</a>
+                                        <a href="{{ url('admin/faqs/add') }}" class="btn waves-effect waves-light invoice-export border-round right" title="Add New FAQ">Add New FAQ</a>
                                     </div>
 
                                     <h4 class="card-title">FAQ List ({{ $count }})</h4>

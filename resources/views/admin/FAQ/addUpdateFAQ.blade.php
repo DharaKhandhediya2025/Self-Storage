@@ -38,7 +38,7 @@
                 							</div>
 
                 							<div class="input-field col s3">
-                								<a href="{{ url('admin/faq-list') }}" class="btn waves-effect waves-light left">Cancel</a>
+                								<a href="{{ url('admin/faqs') }}" class="btn waves-effect waves-light left">Cancel</a>
                 							</div>
                 							<div class="input-field col s6"></div>
 

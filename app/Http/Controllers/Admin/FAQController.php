@@ -13,20 +13,20 @@ class FAQController extends Controller
         $faq = FAQ::orderBy('id','desc')->get();
         $count = sizeof($faq);
 
-        return view('admin.faq.faq',compact('faq','count'));
+        return view('admin.FAQ.list',compact('faq','count'));
     }
 
-    public function addUpdateFaq(Request $request ,$id=false) {
+    public function addUpdateFAQ(Request $request ,$id=false) {
 
         $faq = new FAQ();
 
         if($id) {
             $faq = FAQ::where('id','=',$id)->firstOrFail();
         }
-        return view('admin.faq.addfaq',compact('faq'));
+        return view('admin.FAQ.addUpdateFAQ',compact('faq'));
     }
 
-    public function saveFaq(Request $request) {
+    public function saveFAQ(Request $request) {
 
         $id = $request->get('id');
         $faq = FAQ::find($id);
@@ -53,7 +53,7 @@ class FAQController extends Controller
             session()->flash('type','message');
             session()->flash('message', 'FAQ Added Successfully.');
     
-            return redirect('admin/faq-list');
+            return redirect('admin/faqs');
         }
         else { 
 
@@ -64,23 +64,23 @@ class FAQController extends Controller
             session()->flash('type','message');
             session()->flash('message', 'FAQ Updated Successfully.');
 
-            return redirect('admin/faq-list');
+            return redirect('admin/faqs');
         }
     }
 
-    public function viewFaq($id) {
+    public function viewFAQ($id) {
 
         $faq = FAQ::where('id','=',$id)->first();
-        return view('admin.faq.faqview',compact('faq'));
+        return view('admin.FAQ.details',compact('faq'));
     }
 
-    public function deleteFaq($id) {
+    public function deleteFAQ($id) {
 
-        $faq = FAQ::destroy($id);
+        FAQ::destroy($id);
 
         session()->flash('type','message');
         session()->flash('message', 'FAQ Deleted Successfully.');
 
-        return redirect('admin/faq-list');
+        return redirect('admin/faqs');
     }
 }

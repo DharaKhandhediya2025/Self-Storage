@@ -361,12 +361,12 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         // CMS Pages
 
         // FAQs
-        Route::get('faq-list',[FAQController::class,'index'])->name('admin.faq');
-        Route::get('add-faq',[FAQController::class,'addUpdateFaq'])->name('admin.addfaq');
-        Route::post('add-edit-faq',[FAQController::class,'saveFaq'])->name('admin.savefaq');
-        Route::get('edit-faq/{id}',[FAQController::class,'addUpdateFaq'])->name('admin.updatefaq');
-        Route::get('delete-faq/{id}',[FAQController::class,'deleteFaq'])->name('admin.deletefaq');
-        Route::get('view-faq/{id}',[FAQController::class,'viewFaq'])->name('admin.viewfaq');
+        Route::get('faqs',[FAQController::class,'index'])->name('admin.faq');
+        Route::get('faqs/add',[FAQController::class,'addUpdateFAQ'])->name('admin.addfaq');
+        Route::post('add-edit-faqs',[FAQController::class,'saveFAQ'])->name('admin.savefaq');
+        Route::get('faqs/edit/{id}',[FAQController::class,'addUpdateFAQ'])->name('admin.updatefaq');
+        Route::get('faqs/delete/{id}',[FAQController::class,'deleteFAQ'])->name('admin.deletefaq');
+        Route::get('faqs/{id}',[FAQController::class,'viewFAQ'])->name('admin.viewfaq');
 
         // Terms & Condition
         Route::get('terms-condition', [TermsConditionController::class, 'index'])->name('admin.terms');
