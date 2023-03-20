@@ -5,13 +5,13 @@
     <section class="self_store_section">
         <div class="container-fluid">
             <div class="self_storage_top">
-                <form>
+                <form action="{{ url('storage')}}/{{$slug}}" method="post">@csrf
                     <div class="row">
                         <div class="col-sm-12 col-md-3 col-lg-5 col-xl-6">
                             <div class="search_box_left">
                                 <div class="form-group">
-                                    <input type="email" class="form-control search_input"
-                                        placeholder="Enter City, State or Zip code">
+                                    <input type="text" class="form-control search_input"
+                                        placeholder="Enter City, State or Zip code" value="{{$city}}" name="city">
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
 
                                 <div class="price__box">
                                     <input type="text" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Price">
+                                    aria-describedby="emailHelp" placeholder="Price" name="price" value="{{$price}}">
                                     <span class="price__span"><i class="fa fa-usd" aria-hidden="true"></i></span>
                                 </div>
 
@@ -44,7 +44,7 @@
                                 </div>
 
                                 <div>
-                                    <a href="#" class="btn find_storage_btn">Find Storage</a>
+                                    <button type="submit" class="btn find_storage_btn">Find Storage</a>
                                 </div>
 
                             </div>
@@ -241,24 +241,30 @@
                         <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
                             <div class="list_tab_box">
                                 <div class="row">
+                                    @foreach($storages as $storage)
                                     <div class="col-12 mt-3">
                                         <div class="grid__main__box">
                                             <div class="grid_left_box">
                                                 <div class="grid_left_subbox">
                                                     <div class="list_img_box">
-                                                        <img src="{{ asset('public/Buyer-HTML/assets/img/list-img-five.png') }}" alt="list-img-one"
-                                                            class="img-fluid">
-                                                        <a href="#" class="list_heart_box">
+                                                        @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
+                                                        <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="list-img-one"
+                                                            class="img-fluid" style="height: 200px;width: 200px;">
+                                                        <a href="{{url('login')}}" class="list_heart_box">
                                                             <i class="fa fa-heart-o list_heart"></i>
                                                         </a>
+                                                        @else
+                                                        <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                                        @endif
+                                                        
 
                                                     </div>
 
                                                     <div class="list_content_box">
-                                                        <h6>7815 Chelico DriveSan Antonio, TX 78223</h6>
+                                                        <h6>{{$storage->title}} - {{$storage->storage_no}} , {{$storage->city}}</h6>
                                                         <ul>
-                                                            <li>Climate Controlled</li>
-                                                            <li>Vehicle Storage</li>
+                                                            <li>{{$storage->storage_type}}</li>
+                                                            <li>{{$storage->category->name }}</li>
                                                         </ul>
                                                         <div class="list_rating_box">
                                                             <a href="#"><span>4.0</span></a>
@@ -278,52 +284,12 @@
 
                                             </div>
                                             <div class="grid_right_box">
-                                                <h6>$42/mo</h6>
+                                                <h6>${{$storage->price}}/mo</h6>
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                     
-                                    <div class="col-12 mt-3">
-                                        <div class="grid__main__box">
-                                            <div class="grid_left_box">
-                                                <div class="grid_left_subbox">
-                                                    <div class="list_img_box">
-                                                        <img src="{{ asset('public/Buyer-HTML/assets/img/list-img-five.png') }}" alt="list-img-one"
-                                                            class="img-fluid">
-                                                        <a href="#" class="list_heart_box">
-                                                            <i class="fa fa-heart-o list_heart"></i>
-                                                        </a>
-
-                                                    </div>
-
-                                                    <div class="list_content_box">
-                                                        <h6>7815 Chelico DriveSan Antonio, TX 78223</h6>
-                                                        <ul>
-                                                            <li>Climate Controlled</li>
-                                                            <li>Vehicle Storage</li>
-                                                        </ul>
-                                                        <div class="list_rating_box">
-                                                            <a href="#"><span>4.0</span></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/empty-star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <div class="grid_right_box">
-                                                <h6>$47/mo</h6>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-12 text-center mt-3">
                                         <a href="#" class="btn more_btn">257 More <i
                                                 class="fa fa-arrow-down pl-4"></i></a>
@@ -335,12 +301,21 @@
                         <div class="tab-pane fade" id="grid" role="tabpanel" aria-labelledby="grid-tab">
                             <div class="grid_tab_box">
                                 <div class="row">
+                                     @foreach($storages as $storage)
                                     <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                         <div class="grid_tab_card">
                                             <a href="#">
                                                 <div class="grid_tab_img">
-                                                    <img src="assets/img/list-img-one.png" alt="list-img"
-                                                        class="img-fluid">
+                                                    @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
+                                                    <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="list-img-one"
+                                                            class="img-fluid" style="height: 200px;width: 320px;">
+                                                        <a href="#" class="list_heart_box">
+                                                            <i class="fa fa-heart-o list_heart"></i>
+                                                        </a>
+                                                        @else
+                                                        <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                                        @endif
+                                                    
                                                     <a href="#" class="list_heart_box">
                                                         <i class="fa fa-heart-o list_heart"></i>
                                                     </a>
@@ -348,185 +323,18 @@
                                             </a>
                                             <a href="#">
                                                 <div class="grid_tab_content">
-                                                    <p>7815 Chelico DriveSan Antonio, TX 78223</p>
+                                                    <p>{{$storage->title}} - {{$storage->storage_no}} , {{$storage->city}}</p>
                                                     <ul>
-                                                        <li>Climate Controlled</li>
-                                                        <li>Vehicle Storage</li>
+                                                        <li>{{$storage->storage_type}}</li>
+                                                        <li>{{$storage->category->name }}</li>
                                                     </ul>
-                                                    <h4>$30/mo</h4>
+                                                    <h4>${{$storage->price}}/mo</h4>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                        <div class="grid_tab_card">
-                                            <a href="#">
-                                                <div class="grid_tab_img">
-                                                    <img src="assets/img/list-img-two.png" alt="list-img"
-                                                        class="img-fluid">
-                                                    <a href="#" class="list_heart_box">
-                                                        <i class="fa fa-heart-o list_heart"></i>
-                                                    </a>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="grid_tab_content">
-                                                    <p>2505 S HackberrySan Antonio, TX 78210</p>
-                                                    <ul>
-                                                        <li>Climate Controlled</li>
-                                                        <li>Vehicle Storage</li>
-                                                    </ul>
-                                                    <h4>$61/mo</h4>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                        <div class="grid_tab_card">
-                                            <a href="#">
-                                                <div class="grid_tab_img">
-                                                    <img src="assets/img/list-img-three.png" alt="list-img"
-                                                        class="img-fluid">
-                                                    <a href="#" class="list_heart_box">
-                                                        <i class="fa fa-heart-o list_heart"></i>
-                                                    </a>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="grid_tab_content">
-                                                    <p>909 Runnels AveSan Antonio, TX 78208</p>
-                                                    <ul>
-                                                        <li>Climate Controlled</li>
-                                                        <li>Vehicle Storage</li>
-                                                    </ul>
-                                                    <h4>$42/mo</h4>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                        <div class="grid_tab_card">
-                                            <a href="#">
-                                                <div class="grid_tab_img">
-                                                    <img src="assets/img/list-img-four.png" alt="list-img"
-                                                        class="img-fluid">
-                                                    <a href="#" class="list_heart_box">
-                                                        <i class="fa fa-heart-o list_heart"></i>
-                                                    </a>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="grid_tab_content">
-                                                    <p>1426 N Panam ExpySan Antonio, TX 78208</p>
-                                                    <ul>
-                                                        <li>Climate Controlled</li>
-                                                        <li>Vehicle Storage</li>
-                                                    </ul>
-                                                    <h4>$61/mo</h4>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                        <div class="grid_tab_card">
-                                            <a href="#">
-                                                <div class="grid_tab_img">
-                                                    <img src="assets/img/list-img-five.png" alt="list-img"
-                                                        class="img-fluid">
-                                                    <a href="#" class="list_heart_box">
-                                                        <i class="fa fa-heart-o list_heart"></i>
-                                                    </a>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="grid_tab_content">
-                                                    <p>4910 S Zarzamora StreetSan Antonio, TX 78211</p>
-                                                    <ul>
-                                                        <li>Climate Controlled</li>
-                                                        <li>Vehicle Storage</li>
-                                                    </ul>
-                                                    <h4>$30/mo</h4>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                        <div class="grid_tab_card">
-                                            <a href="#">
-                                                <div class="grid_tab_img">
-                                                    <img src="assets/img/list-img-three.png" alt="list-img"
-                                                        class="img-fluid">
-                                                    <a href="#" class="list_heart_box">
-                                                        <i class="fa fa-heart-o list_heart"></i>
-                                                    </a>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="grid_tab_content">
-                                                    <p>909 Runnels AveSan Antonio, TX 78208</p>
-                                                    <ul>
-                                                        <li>Climate Controlled</li>
-                                                        <li>Vehicle Storage</li>
-                                                    </ul>
-                                                    <h4>$30/mo</h4>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                        <div class="grid_tab_card">
-                                            <a href="#">
-                                                <div class="grid_tab_img">
-                                                    <img src="assets/img/list-img-two.png" alt="list-img"
-                                                        class="img-fluid">
-                                                    <a href="#" class="list_heart_box">
-                                                        <i class="fa fa-heart-o list_heart"></i>
-                                                    </a>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="grid_tab_content">
-                                                    <p>2505 S HackberrySan Antonio, TX 78210</p>
-                                                    <ul>
-                                                        <li>Climate Controlled</li>
-                                                        <li>Vehicle Storage</li>
-                                                    </ul>
-                                                    <h4>$61/mo</h4>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                        <div class="grid_tab_card">
-                                            <a href="#">
-                                                <div class="grid_tab_img">
-                                                    <img src="assets/img/list-img-five.png" alt="list-img"
-                                                        class="img-fluid">
-                                                    <a href="#" class="list_heart_box">
-                                                        <i class="fa fa-heart-o list_heart"></i>
-                                                    </a>
-                                                </div>
-                                            </a>
-
-                                            <a href="#">
-                                                <div class="grid_tab_content">
-                                                    <p>909 Runnels AveSan Antonio, TX 78208</p>
-                                                    <ul>
-                                                        <li>Climate Controlled</li>
-                                                        <li>Vehicle Storage</li>
-                                                    </ul>
-                                                    <h4>$42/mo</h4>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    @endforeach
 
                                     <div class="col-12 text-center mt-3">
                                         <a href="#" class="btn more_btn">257 More <i
@@ -544,12 +352,20 @@
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                         <div class="grid_tab_box">
                                             <div class="row">
+                                                @foreach($storages as $storage)
                                                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                                     <div class="grid_tab_card">
                                                         <a href="#">
                                                             <div class="grid_tab_img">
-                                                                <img src="assets/img/list-img-one.png" alt="list-img"
-                                                                    class="img-fluid">
+                                                            @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
+                                                                 <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="list-img-one"
+                                                                 class="img-fluid" style="height: 200px;width: 320px;">
+                                                                 <a href="#" class="list_heart_box">
+                                                                 <i class="fa fa-heart-o list_heart"></i>
+                                                                </a>
+                                                            @else
+                                                                <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                                            @endif
                                                                 <a href="#" class="list_heart_box">
                                                                     <i class="fa fa-heart-o list_heart"></i>
                                                                 </a>
@@ -557,88 +373,17 @@
                                                         </a>
                                                         <a href="#">
                                                             <div class="grid_tab_content">
-                                                                <p>7815 Chelico DriveSan Antonio, TX 78223</p>
+                                                                <p>{{$storage->title}} - {{$storage->storage_no}} , {{$storage->city}}</p>
                                                                 <ul>
-                                                                    <li>Climate Controlled</li>
-                                                                    <li>Vehicle Storage</li>
+                                                                    <li>{{$storage->storage_type}}</li>
+                                                                    <li>{{$storage->category->name }}</li>
                                                                 </ul>
-                                                                <h4>$30/mo</h4>
+                                                                <h4>${{$storage->price}}/mo</h4>
                                                             </div>
                                                         </a>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                                    <div class="grid_tab_card">
-                                                        <a href="#">
-                                                            <div class="grid_tab_img">
-                                                                <img src="assets/img/list-img-two.png" alt="list-img"
-                                                                    class="img-fluid">
-                                                                <a href="#" class="list_heart_box">
-                                                                    <i class="fa fa-heart-o list_heart"></i>
-                                                                </a>
-                                                            </div>
-                                                        </a>
-                                                        <a href="#">
-                                                            <div class="grid_tab_content">
-                                                                <p>2505 S HackberrySan Antonio, TX 78210</p>
-                                                                <ul>
-                                                                    <li>Climate Controlled</li>
-                                                                    <li>Vehicle Storage</li>
-                                                                </ul>
-                                                                <h4>$61/mo</h4>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                                    <div class="grid_tab_card">
-                                                        <a href="#">
-                                                            <div class="grid_tab_img">
-                                                                <img src="assets/img/list-img-three.png" alt="list-img"
-                                                                    class="img-fluid">
-                                                                <a href="#" class="list_heart_box">
-                                                                    <i class="fa fa-heart-o list_heart"></i>
-                                                                </a>
-                                                            </div>
-                                                        </a>
-                                                        <a href="#">
-                                                            <div class="grid_tab_content">
-                                                                <p>7815 Chelico DriveSan Antonio, TX 78223</p>
-                                                                <ul>
-                                                                    <li>Climate Controlled</li>
-                                                                    <li>Vehicle Storage</li>
-                                                                </ul>
-                                                                <h4>$42/mo</h4>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                                    <div class="grid_tab_card">
-                                                        <a href="#">
-                                                            <div class="grid_tab_img">
-                                                                <img src="assets/img/list-img-four.png" alt="list-img"
-                                                                    class="img-fluid">
-                                                                <a href="#" class="list_heart_box">
-                                                                    <i class="fa fa-heart-o list_heart"></i>
-                                                                </a>
-                                                            </div>
-                                                        </a>
-                                                        <a href="#">
-                                                            <div class="grid_tab_content">
-                                                                <p>2505 S HackberrySan Antonio, TX 78210</p>
-                                                                <ul>
-                                                                    <li>Climate Controlled</li>
-                                                                    <li>Vehicle Storage</li>
-                                                                </ul>
-                                                                <h4>$61/mo</h4>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                                @endforeach
 
                                                 <div class="col-12 mt-3">
                                                     <a href="#" class="btn more_btn">257 More <i

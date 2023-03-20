@@ -222,8 +222,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('/remove-favorite/{slug}',[BuyersController::class,'storageFavoriteRemove']);
 
     //storage list
-    Route::post('/commertial-storage',[BuyersController::class,'commertialStorage']);
-    Route::post('/residential-storage',[BuyersController::class,'commertialStorage']);
+    Route::post('/storage/{slug}',[WebController::class,'storageList']);
 
     //seller side create storage
     Route::get('/create-post',[SellersController::class,'createPost']);
@@ -243,10 +242,10 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::post('/storage-edit/{slug}',[SellersController::class,'storageUpdate']);
     Route::get('/storage-delete/{slug}',[SellersController::class,'storageDelete']);
 
-    Route::post('/update-post/{$slug}',[SellersController::class,'updatesecoundPost']);
-    Route::post('/third-post/{$slug}',[SellersController::class,'updatethirdPost']);
-    Route::post('/final-post/{$slug}',[SellersController::class,'updatefinalPost']);
-    Route::post('/upload-post/{$slug}',[SellersController::class,'updateuploadPost']);
+    Route::post('/update-post/{slug}',[SellersController::class,'updatesecoundPost']);
+    Route::post('/third-post/{slug}',[SellersController::class,'updatethirdPost']);
+    Route::post('/final-post/{slug}',[SellersController::class,'updatefinalPost']);
+    Route::post('/upload-post/{slug}',[SellersController::class,'updateuploadPost']);
 
     Route::get('/secound-post/{slug}',[SellersController::class,'editsecoundPost']);
     Route::get('/third-post/{slug}',[SellersController::class,'editthirdPost']);

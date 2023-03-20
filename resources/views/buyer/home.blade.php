@@ -22,52 +22,64 @@
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     <div class="banner_tabing">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Residential</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Commercial</a>
-                            </li>
+                           <?php $i=0 ?>
+                            @foreach($categories as $row)
+                                @if($i == 0)
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home_{{$row->id}}" role="tab" aria-controls="home_{{$row->id}}" aria-selected="true">{{$row->name}}</a>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home_{{$row->id}}" role="tab" aria-controls="home_{{$row->id}}" aria-selected="true">{{$row->name}}</a>
+                                    </li>
+                                @endif
+                            <?php $i++ ?>
+                            @endforeach
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="banner_search_main">
-                                    <form action="{{ url('/residential-storage')}}" method="post">
-                                        @csrf
-                                        <div class="banner_text_location">
-                                            <input type="text" name="city" placeholder="Enter City, State or Zipcode">
-                                        </div>
-                                        <div class="banner_text_price">
-                                            <input type="text" name="price" placeholder="Price">
-                                            <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                        </div>
-                                        <div class="banner_text_filter">
-                                            <input type="text" name="filter" placeholder="Filter">
-                                            <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
-                                        </div>
-                                        <button type="submit" class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                    </form>
+                            <?php $j=0 ?>
+                            @foreach($categories as $row)
+                            @if($j == 0)
+                                <div class="tab-pane fade show active" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="banner_search_main">
+                                        <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
+                                            <div class="banner_text_location">
+                                                <input type="text" placeholder="Enter Country, City or Zipcode" name="city">
+                                            </div>
+                                            <div class="banner_text_price">
+                                                <input type="number" placeholder="Price" name="price" minlength="0" maxlength="10">
+                                                <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                            </div>
+                                            <div class="banner_text_filter">
+                                                <input type="text" placeholder="Filter">
+                                                <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
+                                            </div>
+                                            <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <div class="banner_search_main">
-                                    <form action="{{ url('/commertial-storage')}}" method="post">
-                                        @csrf
-                                        <div class="banner_text_location">
-                                            <input type="text" name="city" placeholder="Enter City, State or Zipcode">
-                                        </div>
-                                        <div class="banner_text_price">
-                                            <input type="text" placeholder="Price" name="price">
-                                            <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                        </div>
-                                        <div class="banner_text_filter">
-                                            <input type="text" placeholder="Filter" name="filter">
-                                            <span class="filter_text"><i class="fa fa-filter" aria-hidden="true"></i></span>
-                                        </div>
-                                        <button type="submit" class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                    </form>
+                            @else
+                                <div class="tab-pane fade show" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="banner_search_main">
+                                        <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
+                                            <div class="banner_text_location">
+                                                <input type="text" placeholder="Country, City or Zipcode" name="city">
+                                            </div>
+                                            <div class="banner_text_price">
+                                                <input type="text" placeholder="Price" name="price">
+                                                <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                            </div>
+                                            <div class="banner_text_filter">
+                                                <input type="text" placeholder="Filter">
+                                                <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
+                                            </div>
+                                            <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+                            <?php $j++ ?>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -148,18 +160,22 @@
                     <div class="nearby_slider_card">
                         <a href="{{ url('/storage-detail')}}/{{$storage->slug}}">
                             <div class="nearby_slider_img">
-                                <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
+                                 @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
+                                    <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                    @else
+                                    <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                    @endif
 
                                 <a href="{{ url('/add-favorite')}}/{{$storage->slug}}" class="slider_crad_heart"><i class="fa fa-heart" style="color: white;"></i></a>
-                                
-                                @foreach($favorites as $favorite)
-                                @if($favorite->storage_id == $storage->id)
-                                <a href="{{ url('/remove-favorite')}}/{{$storage->slug}}" class="slider_crad_heart"><i class="fa fa-heart" style="color: red;"></i></a>
-                                 @else
-                                 <a href="{{ url('/add-favorite')}}/{{$storage->slug}}" class="slider_crad_heart"><i class="fa fa-heart" style="color: white;"></i></a>
+
+                                <?php
+                                    $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$storage->id)->first();
+                                ?>
+                                @if(isset($existRecord) && $existRecord != '')
+                                    <a href="{{ url('/remove-favorite')}}/{{$storage->slug}}" class="slider_crad_heart"><i class="fa fa-heart" style="color: red;"></i></a>
+                                @else
+                                    <a href="{{ url('/add-favorite')}}/{{$storage->slug}}" class="slider_crad_heart"><i class="fa fa-heart" style="color: white;"></i></a>
                                @endif
-                               @endforeach
-                                
                             </div>
                         </a>
                         <a href="{{ url('/storage-detail')}}/{{$storage->slug}}">
@@ -401,6 +417,28 @@
 
             var expires = "";
             document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        function addToFavourite(property_id,type) {
+
+            var app_url = "{!! env('APP_URL') !!}";
+
+            $.ajax({
+                type: 'GET',
+                url:app_url+'/property-add-to-favorite/'+property_id,
+                dataType:'json',
+                success: function(data) {
+
+                    if (data.message == 'Success') {
+
+                        alert("Add To Favourite Success.");
+                    }
+                    else (data.message == 'Delete') {
+
+                        alert("Remove From Favourite List.");
+                    }
+                }
+            });
         }
     </script>
 @stop

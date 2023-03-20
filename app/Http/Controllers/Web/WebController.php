@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{AboutUs,ContactUs,FAQ,PrivacyPolicy,TermsCondition,Buyer,Seller,Storage,Category,Banners,FavoriteStorage,Country,Subscribers};
+use App\Models\{AboutUs,ContactUs,FAQ,PrivacyPolicy,TermsCondition,Buyer,Seller,Storage,Category,Banners,FavoriteStorage,Country,Subscribers,StorageImages};
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use DB,Session;
@@ -39,9 +39,16 @@ class WebController extends Controller
             $categories = Category::get();
 
             if(auth()->guard('buyer')->user() == '' && auth()->guard('seller')->user() == '') {
-                
-                $storages = Storage::with('category')->orderby('id','desc')->get();
-                return view('index',compact('storages'));
+
+                $storages = Storage::with(['storage_aminites' => function($sql) {
+            
+                    $sql->with(['aminites_detail' => function($query) {
+                        $query->select('id','name');
+                    }]);
+
+                }])->with(['category','storage_image'])->orderby('id','desc')->get();
+
+                return view('index',compact('storages','categories'));
             }
             else if(auth()->guard('seller')->user() != '') {
 
@@ -79,7 +86,7 @@ class WebController extends Controller
                 }
                 $seller_storages = $query->where('seller_id',$seller_id)->get();
 
-                $storages = Storage::with('category')->orderby('id','desc')->get();
+                $storages = Storage::with('category')->with('storage_image')->orderby('id','desc')->get();
                 $favorites = FavoriteStorage::where('buyer_id',$buyer->id)->get();
 
                 // Order List
@@ -94,7 +101,8 @@ class WebController extends Controller
 
                 $buyer_id = Auth::guard('buyer')->user()->id;
                 $buyer = Buyer::where('id',$buyer_id)->first();
-                $storages = Storage::with('category')->orderby('id','desc')->get();
+                $storages = Storage::with('category','storage_image','favorite_storage')->orderby('id','desc')->get();
+              //  echo $storages->favorite_storage->storage_id; exit;
                 $favorites = FavoriteStorage::All();
 
                 return view('buyer.home',compact('categories','buyer','buyer_id','category_id','banners','storages','favorites'));
@@ -447,5 +455,16 @@ class WebController extends Controller
         catch(Exception $e) {
             session()->flash('error', $e->getMessage());
         }
+    }
+
+    public function storageList(Request $request ,$slug) {
+
+        $city = $request->city;
+        $price = $request->price;
+        $storages = Storage::where('slug', $slug)->where('price',$request->price)->orwhere('city', 'LIKE', '%'.$request->city.'%')->orwhere('zipcode', 'LIKE', '%' .$request->city. '%')->get();
+
+        $image = Storage::with(['storage_image','category']);
+
+        return view('buyer.storage-list',compact('storages','city','price','image','slug'));
     }
 }

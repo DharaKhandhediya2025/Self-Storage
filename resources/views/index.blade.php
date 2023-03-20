@@ -11,52 +11,65 @@
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     <div class="banner_tabing">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Residential</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Commercial</a>
-                            </li>
+                            <?php $i=0 ?>
+                            @foreach($categories as $row)
+                                @if($i == 0)
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home_{{$row->id}}" role="tab" aria-controls="home_{{$row->id}}" aria-selected="true">{{$row->name}}</a>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home_{{$row->id}}" role="tab" aria-controls="home_{{$row->id}}" aria-selected="true">{{$row->name}}</a>
+                                    </li>
+                                @endif
+                            <?php $i++ ?>
+                            @endforeach
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="banner_search_main">
-                                    <form action="{{ url('/residential-storage')}}" method="post">
-                                        @csrf
-                                        <div class="banner_text_location">
-                                            <input type="text" placeholder="Enter City, State or Zipcode">
-                                        </div>
-                                        <div class="banner_text_price">
-                                            <input type="text" placeholder="Price">
-                                            <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                        </div>
-                                        <div class="banner_text_filter">
-                                            <input type="text" placeholder="Filter">
-                                            <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
-                                        </div>
-                                        <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                    </form>
+                            <?php $j=0 ?>
+                            @foreach($categories as $row)
+                            @if($j == 0)
+                                <div class="tab-pane fade show active" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="banner_search_main">
+                                        <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
+                                            <div class="banner_text_location">
+                                                <input type="text" placeholder="Enter Country, City or Zipcode" name="city">
+                                            </div>
+                                            <div class="banner_text_price">
+                                                <input type="number" placeholder="Price" name="price">
+                                                <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                            </div>
+                                            <div class="banner_text_filter">
+                                                <input type="text" placeholder="Filter">
+                                                <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
+                                            </div>
+                                            <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <div class="banner_search_main">
-                                    <form action="{{ url('/commertial-storage')}}" method="post">
-                                        @csrf
-                                        <div class="banner_text_location">
-                                            <input type="text" placeholder="Enter City, State or Zipcode">
-                                        </div>
-                                        <div class="banner_text_price">
-                                            <input type="text" placeholder="Price">
-                                            <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                        </div>
-                                        <div class="banner_text_filter">
-                                            <input type="text" placeholder="Filter">
-                                            <span class="filter_text"><i class="fa fa-filter" aria-hidden="true"></i></span>
-                                        </div>
-                                        <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                    </form>
+                            @else
+                                <div class="tab-pane fade show" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="banner_search_main">
+                                        <form action="{{ url('storage')}}/{{$row->slug}}" method="post">
+                                            @csrf
+                                            <div class="banner_text_location">
+                                                <input type="text" placeholder="Enter Country, City or Zipcode">
+                                            </div>
+                                            <div class="banner_text_price">
+                                                <input type="text" placeholder="Price">
+                                                <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                            </div>
+                                            <div class="banner_text_filter">
+                                                <input type="text" placeholder="Filter">
+                                                <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
+                                            </div>
+                                            <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+                            <?php $j++ ?>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -137,16 +150,23 @@
                         <div class="nearby_slider_card">
                             <a href="{{ url('/login')}}">
                                 <div class="nearby_slider_img">
-                                    <img src="{{ config('global.front_base_url').'images/nearby-one.png' }}" alt="nearby-one" class="img-fluid">
+                                    @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
+                                    <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                    @else
+                                    <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                    @endif
                                 </div>
                             </a>
                             <a href="{{ url('/login')}}">
                                 <div class="nearby_slider_content">
-                                    <p>{{ $storage->storage_no }} , {{ $storage->city }} ,{{ $storage->title }}</p>
-                                    <ul>
-                                        <li>{{ $storage->storage_type }}</li>
-                                        <li>{{ $storage->category->name }}</li>
-                                    </ul>
+                                    <p>{{ $storage->storage_no }}, {{ $storage->city }}, {{ $storage->title }}</p>
+                                    @if(isset($storage->storage_aminites) && sizeof($storage->storage_aminites) > 0)
+                                        <ul>
+                                            @foreach($storage->storage_aminites as $key => $value)
+                                                <li>{{ @$value->aminites_detail->name }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                     <h4>${{ $storage->price }}/mo</h4>
                                 </div>
                             </a>

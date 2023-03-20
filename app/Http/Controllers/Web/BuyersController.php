@@ -479,22 +479,4 @@ class BuyersController extends Controller
         session()->flash('message', 'Storage Removed From Favorite.');
         return redirect()->back();
     }
-
-    public function commertialStorage(Request $request) {
-
-        $buyer_id = Auth::guard('buyer')->user()->id;
-        $buyer = Buyer::where('id',$buyer_id)->first();
-        $storage = Storage::where('cat_id', 2)->where('price',$request->price)->orwhere('city', $request->city)->orwhere('zipcode', $request->city)->get();
-
-        return view('buyer.storage-list',compact('buyer','storage'));
-    }
-
-    public function residentialStorage(Request $request) {
-
-        $buyer_id = Auth::guard('buyer')->user()->id;
-        $buyer = Buyer::where('id',$buyer_id)->first();
-        $storage = Storage::where('cat_id', 1)->where('price',$request->price)->orwhere('city', $request->city)->orwhere('zipcode', $request->city)->get();
-
-        return view('buyer.storage-list',compact('buyer','storage'));
-    }
 }

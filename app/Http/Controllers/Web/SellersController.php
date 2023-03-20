@@ -426,8 +426,10 @@ class SellersController extends Controller
         $seller_id = Auth::guard('seller')->user()->id;
         $seller = Seller::where('id',$seller_id)->first();
         $category = Category::All();
+        $countrys = Country::All();
+        $aminites = Aminites::All();
 
-        return view('seller.create-storage',compact('seller','category'));
+        return view('seller.create-storage',compact('seller','category','countrys','aminites'));
     }
 
     public function getsecoundPost() {
