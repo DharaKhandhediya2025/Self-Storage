@@ -51,7 +51,7 @@
                                                     </div>
                                                 @else
                                                     <div class="col-md-12 mb-2">
-                                                        <img id="preview-image-before-upload" style="height:150px;width:150px;border-radius: 20px;"/>
+                                                        <img id="preview-image-before-upload" style="height:150px;width:150px;"/>
                                                     </div>
                                                 @endif
 
