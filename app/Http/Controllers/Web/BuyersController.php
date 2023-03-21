@@ -480,4 +480,33 @@ class BuyersController extends Controller
         session()->flash('message', 'Storage Removed From Favorite.');
         return redirect()->back();
     }
+
+    public function addPropertyToFavourite($storage_id) {
+
+        try {
+
+            $buyer_id = Auth::guard('buyer')->user()->id;
+
+            $check = FavoriteStorage::where(['buyer_id' => $buyer_id,'storage_id' => $storage_id])->first();
+
+            if(isset($check)) {
+                
+                $check->delete();
+                $data['message'] = 'Delete';
+            }
+            else {
+
+                $add = new FavoriteStorage();
+                $add->buyer_id = $buyer_id;
+                $add->storage_id = $storage_id;
+                $add->save();
+
+                $data['message'] = 'Success';
+            }
+            return json_encode($data);
+        }
+        catch(\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
+    }
 }

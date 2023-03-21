@@ -9,69 +9,71 @@
                 <div class="banner_content_box text-center">
                     <h2>Find your <span>Storage Unite</span></h2>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                    <div class="banner_tabing">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <?php $i=0 ?>
-                            @foreach($categories as $row)
-                                @if($i == 0)
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home_{{$row->id}}" role="tab" aria-controls="home_{{$row->id}}" aria-selected="true">{{$row->name}}</a>
-                                    </li>
-                                @else
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#home_{{$row->id}}" role="tab" aria-controls="home_{{$row->id}}" aria-selected="true">{{$row->name}}</a>
-                                    </li>
-                                @endif
-                            <?php $i++ ?>
-                            @endforeach
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <?php $j=0 ?>
-                            @foreach($categories as $row)
-                            @if($j == 0)
-                                <div class="tab-pane fade show active" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="banner_search_main">
-                                        <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
-                                            <div class="banner_text_location">
-                                                <input type="text" placeholder="Enter Country, City or Zipcode" name="search">
+                    @if(isset($categories) && sizeof($categories) > 0)
+                        <div class="banner_tabing">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <?php $i=0 ?>
+                                @foreach($categories as $row)
+                                    @if($i == 0)
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home_{{$row->id}}" role="tab" aria-controls="home_{{$row->id}}" aria-selected="true">{{$row->name}}</a>
+                                        </li>
+                                    @else
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="home-tab" data-toggle="tab" href="#home_{{$row->id}}" role="tab" aria-controls="home_{{$row->id}}" aria-selected="true">{{$row->name}}</a>
+                                        </li>
+                                    @endif
+                                <?php $i++ ?>
+                                @endforeach
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <?php $j=0 ?>
+                                @foreach($categories as $row)
+                                    @if($j == 0)
+                                        <div class="tab-pane fade show active" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
+                                            <div class="banner_search_main">
+                                                <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
+                                                    <div class="banner_text_location">
+                                                        <input type="text" placeholder="Enter Country, City or Zipcode" name="search">
+                                                    </div>
+                                                    <div class="banner_text_price">
+                                                        <input type="number" placeholder="Price" name="price">
+                                                        <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                                    </div>
+                                                    <div class="banner_text_filter">
+                                                        <input type="text" placeholder="Filter">
+                                                        <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
+                                                    </div>
+                                                    <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                                </form>
                                             </div>
-                                            <div class="banner_text_price">
-                                                <input type="number" placeholder="Price" name="price">
-                                                <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                        </div>
+                                    @else
+                                        <div class="tab-pane fade show" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
+                                            <div class="banner_search_main">
+                                                <form action="{{ url('storage')}}/{{$row->slug}}" method="post">
+                                                    @csrf
+                                                    <div class="banner_text_location">
+                                                        <input type="text" placeholder="Enter Country, City or Zipcode">
+                                                    </div>
+                                                    <div class="banner_text_price">
+                                                        <input type="text" placeholder="Price">
+                                                        <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                                    </div>
+                                                    <div class="banner_text_filter">
+                                                        <input type="text" placeholder="Filter">
+                                                        <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
+                                                    </div>
+                                                    <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                                </form>
                                             </div>
-                                            <div class="banner_text_filter">
-                                                <input type="text" placeholder="Filter">
-                                                <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
-                                            </div>
-                                            <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="tab-pane fade show" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="banner_search_main">
-                                        <form action="{{ url('storage')}}/{{$row->slug}}" method="post">
-                                            @csrf
-                                            <div class="banner_text_location">
-                                                <input type="text" placeholder="Enter Country, City or Zipcode">
-                                            </div>
-                                            <div class="banner_text_price">
-                                                <input type="text" placeholder="Price">
-                                                <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                            </div>
-                                            <div class="banner_text_filter">
-                                                <input type="text" placeholder="Filter">
-                                                <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
-                                            </div>
-                                            <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            @endif
-                            <?php $j++ ?>
-                            @endforeach
+                                        </div>
+                                    @endif
+                                    <?php $j++ ?>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -146,32 +148,34 @@
                     <h4>Nearby Self storages</h4>
                 </div>
                 <div class="nearbyslider">
-                    @foreach($storages as $storage)
-                        <div class="nearby_slider_card">
-                            <a href="{{ url('/login')}}">
-                                <div class="nearby_slider_img">
-                                    @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
-                                    <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
-                                    @else
-                                    <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
-                                    @endif
-                                </div>
-                            </a>
-                            <a href="{{ url('/login')}}">
-                                <div class="nearby_slider_content">
-                                    <p>{{ $storage->storage_no }}, {{ $storage->city }}, {{ $storage->title }}</p>
-                                    @if(isset($storage->storage_aminites) && sizeof($storage->storage_aminites) > 0)
-                                        <ul>
-                                            @foreach($storage->storage_aminites as $key => $value)
-                                                <li>{{ @$value->aminites_detail->name }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                    <h4>${{ $storage->price }}/mo</h4>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+                    @if(isset($storages) && sizeof($storages) > 0)
+                        @foreach($storages as $key => $value)
+                            <div class="nearby_slider_card">
+                                <a href="{{ url('/login')}}">
+                                    <div class="nearby_slider_img">
+                                        @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
+                                            <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                        @else
+                                            <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                        @endif
+                                    </div>
+                                </a>
+                                <a href="{{ url('/login')}}">
+                                    <div class="nearby_slider_content">
+                                        <p>{{ $value->storage_no }}, {{ $value->city }}, {{ $value->title }}</p>
+                                        @if(isset($value->storage_aminites) && sizeof($value->storage_aminites) > 0)
+                                            <ul>
+                                                @foreach($value->storage_aminites as $key1 => $value1)
+                                                    <li>{{ @$value1->aminites_detail->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                        <h4>${{ $value->price }}/mo</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -201,48 +205,6 @@
 
                                                 <div class="testimonial_box-text">
                                                     <p>Quickly collected things and delivered for free to the nearestwarehouse.<br><br>
-
-                                                    A convenient reminder system that the storage period is coming to an end.<br><br>
-
-                                                    The items were intact, nothing was damaged.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="testimonial-slide">
-                                    <div class="testimonial_box">
-                                        <div class="testimonial_box-inner">
-                                            <div class="testimonial_box-top">
-                                                <div class="testimonial_box-img">
-                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
-                                                    <h4>Katerina Petrova</h4>
-                                                    <p>Odintsovo</p>
-                                                </div>
-
-                                                <div class="testimonial_box-text">
-                                                    <p>Quickly collected things and delivered for free to the nearest warehouse.<br><br>
-
-                                                    A convenient reminder system that the storage period is coming to an end.<br><br>
-
-                                                    The items were intact, nothing was damaged.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="testimonial-slide">
-                                    <div class="testimonial_box">
-                                        <div class="testimonial_box-inner">
-                                            <div class="testimonial_box-top">
-                                                <div class="testimonial_box-img">
-                                                    <img src="{{ config('global.front_base_url').'images/profile-img.png' }}" alt="profile">
-                                                    <h4>Katerina Petrova</h4>
-                                                    <p>Odintsovo</p>
-                                                </div>
-
-                                                <div class="testimonial_box-text">
-                                                    <p>Quickly collected things and delivered for free to the nearest warehouse.<br><br>
 
                                                     A convenient reminder system that the storage period is coming to an end.<br><br>
 

@@ -218,6 +218,10 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('/storage-detail/{slug}',[BuyersController::class,'storageDetail']);
     Route::post('/add-inquiry/{slug}',[BuyersController::class,'storageInquiry']);
     Route::post('/add-review/{slug}',[BuyersController::class,'storageReview']);
+
+    // Add Post to favorite
+    Route::get('/property-add-to-favorite/{storage_id}',[BuyersController::class,'addPropertyToFavourite'])->name('property.addtofavorite');
+    
     Route::get('/add-favorite/{slug}',[BuyersController::class,'storageFavoriteAdd']);
     Route::get('/remove-favorite/{slug}',[BuyersController::class,'storageFavoriteRemove']);
 
