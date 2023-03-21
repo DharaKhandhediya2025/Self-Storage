@@ -44,7 +44,7 @@
                                     <div class="banner_search_main">
                                         <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
                                             <div class="banner_text_location">
-                                                <input type="text" placeholder="Enter Country, City or Zipcode" name="city">
+                                                <input type="text" placeholder="Enter Country, City or Zipcode" name="search">
                                             </div>
                                             <div class="banner_text_price">
                                                 <input type="number" placeholder="Price" name="price" minlength="0" maxlength="10">
@@ -181,10 +181,13 @@
                         <a href="{{ url('/storage-detail')}}/{{$storage->slug}}">
                             <div class="nearby_slider_content">
                                 <p> {{$storage->title}} - {{$storage->storage_no}} , {{$storage->city}} </p>
-                                <ul>
-                                    <li>{{$storage->storage_type}}</li>
-                                    <li>{{$storage->category->name }}</li>
-                                </ul>
+                                 @if(isset($storage->storage_aminites) && sizeof($storage->storage_aminites) > 0)
+                                        <ul>
+                                            @foreach($storage->storage_aminites as $key => $value)
+                                                <li>{{ @$value->aminites_detail->name }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
                                 <h4>${{$storage->price}}/mo</h4>
                             </div>
                         </a>

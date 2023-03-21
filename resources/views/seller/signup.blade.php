@@ -68,11 +68,12 @@
 
                     <div class="form-group">
 						<label>Name</label>
-						<input type="text" name="name" id= "name" class="form-control login_input" placeholder="Type..." required="" maxlength="30">
+						<input type="text" name="name" id= "name" class="form-control login_input" placeholder="Type..." required="" maxlength="50">
 					</div>
 					<div class="form-group">
 						<label>E-mail</label>
-						<input type="email" name="email" id= "email" class="form-control login_input" placeholder="Type..." required="" maxlength="50">
+						<input type="email" name="email" id= "email_address" class="form-control login_input" placeholder="Type..." required="" maxlength="50">
+						<span class="emailalert" style="color:red;"></span>
 					</div>
 					<div class="form-group">
 						<label>Country Code</label>
@@ -92,8 +93,9 @@
 					</div>
 					<div class="form-group mb-4">
                         <label>Password</label>
-                        <input type="password" class="form-control login_input" name="password" minlength="8">
+                        <input type="password" class="form-control login_input" name="password" id="password">
                         <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                        <span class="passalert" style="color:red;"></span>
                     </div>
                     <button type="submit" class="btn btn-primary login_btn" id="submitbtn">Register
                     </button>
@@ -166,5 +168,28 @@
 	        		$("span.phonealert").html('');
 	            }
 	        });
+
+	        $('#password').keypress(function (e) {
+
+            	var length = jQuery(this).val().length;
+            	if((length == 0) && (e.which == 48)) {
+	                return false;
+	            }
+	            else if(length < 7) {
+	        		$("span.passalert").html("Your Password must be minimum 8 digits.");
+	            }
+	            else if(length > 6) {
+	        		$("span.passalert").html('');
+	            }
+	        });
+
+	        $('#email_address').on('keypress', function() {
+		    var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{2,4}/.test(this.value);
+		    if(!re){ 
+		        $("span.emailalert").html("Enter Valid Email.");
+		    } else {
+		        $("span.emailalert").html('');
+		    }
+		});
 		</script>
 @stop

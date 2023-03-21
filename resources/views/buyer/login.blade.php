@@ -42,7 +42,7 @@
                     <div class="other_login_box">
                         <a href="{{ url('buyer-google-login') }}"><img src="{{ config('global.front_base_url').'images/google.png' }}" alt="google-img"></a>
                         <a href="{{ url('buyer-facebook-login') }}"><img src="{{ config('global.front_base_url').'images/facebook.png' }}" alt="facebook-img"></a>
-                        <a href="#"><img src="{{ config('global.front_base_url').'images/apple-app.png' }}" alt="facebook-img"></a>
+                        
                     </div>
                     <p class="new_user_text">New user? <a href="{{ url('buyer-signup') }}">Create an account</a></p>
                     <p class="seller_text">You are a seller? <a href="{{ url('seller/login') }}">Seller login</a></p>

@@ -8,10 +8,11 @@
             <div class="my_account_tabing">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="myprofile-tab" data-toggle="pill" href="#myprofile" role="tab" aria-controls="v-pills-profile" aria-selected="false">My Profile</a>
+                    @if(isset($buyer))
+                    <a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab" aria-controls="v-pills-profile" aria-selected="false">Favorites</a>
+                    @endif
 
-                    <!-- <a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab" aria-controls="v-pills-profile" aria-selected="false">Favorites</a>
-
-                    <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a> -->
+                    <!-- <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a> -->
                     @if(isset($seller->google_id) || isset($buyer->google_id))
                         @elseif(isset($seller->facebook_id) || isset($buyer->facebook_id))
                         @else

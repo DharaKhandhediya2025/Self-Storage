@@ -33,7 +33,7 @@
                                     <div class="banner_search_main">
                                         <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
                                             <div class="banner_text_location">
-                                                <input type="text" placeholder="Enter Country, City or Zipcode" name="city">
+                                                <input type="text" placeholder="Enter Country, City or Zipcode" name="search">
                                             </div>
                                             <div class="banner_text_price">
                                                 <input type="number" placeholder="Price" name="price">

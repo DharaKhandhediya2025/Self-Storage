@@ -87,15 +87,13 @@ class WebController extends Controller
                 $seller_storages = $query->where('seller_id',$seller_id)->get();
 
                 $storages = Storage::with('category')->with('storage_image')->orderby('id','desc')->get();
-                $favorites = FavoriteStorage::where('buyer_id',$buyer->id)->get();
-
                 // Order List
                 $order_list = array();
                 $order_list['New'] = "New First";
                 $order_list['Old'] = "Old First";
                 $order_list['Alpha'] = "Alphabetical(A-Z)";
 
-                return view('seller.home',compact('categories','seller','seller_id','seller_storages','storages','category_id','order_list','order_name','banners','favorites'));
+                return view('seller.home',compact('categories','seller','seller_id','seller_storages','storages','category_id','order_list','order_name','banners'));
             }
             else if(auth()->guard('buyer')->user() != '') {
 
@@ -459,12 +457,36 @@ class WebController extends Controller
 
     public function storageList(Request $request ,$slug) {
 
-        $city = $request->city;
+        // Get Search Fields
+        $search = $request->search;
         $price = $request->price;
-        $storages = Storage::where('slug', $slug)->where('price',$request->price)->orwhere('city', 'LIKE', '%'.$request->city.'%')->orwhere('zipcode', 'LIKE', '%' .$request->city. '%')->get();
 
-        $image = Storage::with(['storage_image','category']);
+        $category = Category::where('slug',$slug)->first();
 
-        return view('buyer.storage-list',compact('storages','city','price','image','slug'));
+        $query = Storage::with(['storage_image','category']);
+
+        if($search != '') {
+
+            $query->leftjoin('country','country.id','=','storages.country');
+            
+            $query = $query->where(function($query) use ($search) {
+            
+                $query = $query->where('country.name','=',$search);
+                $query = $query->orwhere('storages.city','=',$search);
+                $query = $query->orwhere('storages.zipcode','=',$search);
+            });
+        }
+
+        $storage = $query->with(['storage_aminites' => function($sql) {
+            
+            $sql->with(['aminites_detail' => function($query) {
+                $query->select('id','name');
+            }]);
+
+        }])->where('cat_id', $category->id)->with(['category','storage_image'])->orderby('storages.id','desc')->get();
+
+        $storages_count = sizeof($storage);
+
+        return view('buyer.storage-list',compact('storage','search','price','slug','category','storages_count'));
     }
 }

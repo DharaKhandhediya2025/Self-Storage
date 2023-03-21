@@ -10,8 +10,7 @@
                         <div class="col-sm-12 col-md-3 col-lg-5 col-xl-6">
                             <div class="search_box_left">
                                 <div class="form-group">
-                                    <input type="text" class="form-control search_input"
-                                        placeholder="Enter City, State or Zip code" value="{{$city}}" name="city">
+                                    <input type="text" class="form-control search_input" placeholder="Enter Country, City or Zipcode" value="{{ $search }}" name="search">
                                 </div>
                             </div>
                         </div>
@@ -19,18 +18,13 @@
                         <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 d-flex">
                             <div class="search_box_right">
                                 <div class="dropdown_box">
-                                    <button class="btn btn-secondary dropdown-toggle search_dropdown" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Dropdown button
-                                    </button>
+                                    <button class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown button</button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#">Action</a>
                                         <a class="dropdown-item" href="#">Another action</a>
                                         <a class="dropdown-item" href="#">Something else here</a>
                                     </div>
                                 </div>
-
 
                                 <div class="price__box">
                                     <input type="text" class="form-control" id="exampleInputEmail1"
@@ -46,7 +40,6 @@
                                 <div>
                                     <button type="submit" class="btn find_storage_btn">Find Storage</a>
                                 </div>
-
                             </div>
                         </div>
                         <!-- Filter Modal -->
@@ -69,15 +62,13 @@
                                                         <input value="1" type="range" max="4" min="1" step="1"
                                                             list="ticks1">
                                                         <datalist id="ticks1">
-                                                            <option value="1" class="active"><span class="km_span">1
-                                                                    KM</span>
+                                                            <option value="1" class="active"><span class="km_span">1KM</span>
                                                             </option>
                                                             <option value="2"><span class="km_span">5 KM</span>
                                                             </option>
                                                             <option value="3"><span class="km_span">10 KM</span>
                                                             </option>
-                                                            <option value="4"><span class="km_span">10+
-                                                                    KM</span>
+                                                            <option value="4"><span class="km_span">10+KM</span>
                                                             </option>
                                                             <!-- <option value="5"><span class="km_span">5mm</span>
                                                             </option> -->
@@ -187,9 +178,11 @@
                 </form>
             </div>
             <div class="self_storage_center">
-                <div class="self_storage_content">
-                    <h4>Find Self Storage in <span>“Texas”</span></h4>
-                </div>
+                @if(isset($search) && $search != '')
+                    <div class="self_storage_content">
+                        <h4>Find Storages in <span>“{{$search}}”</span></h4>
+                    </div>
+                @endif
                 <div class="storage_grid">
                     <div class="storage_grid_tabing">
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -212,88 +205,92 @@
                     </div>
 
                     <div class="storage_grid_reault">
-                        <p>0 results found</p>
+                        <p>{{ $storages_count }} results found</p>
                     </div>
 
-                    <div class="storage_grid_shorting">
-                        <span class="sortbt_text">Sort by</span>
+                    {{-- @if(isset($storages_count) && $storages_count > 0) --}}
+                        <div class="storage_grid_shorting">
+                            <span class="sortbt_text">Sort by</span>
 
-                        <div class="dropdown_box">
-                            <button class="btn btn-secondary dropdown-toggle storage_btn" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                Highest rating
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Price low to high</a>
-                                <a class="dropdown-item" href="#">Price high to low</a>
-                                <a class="dropdown-item" href="#">Near me</a>
-                                <a class="dropdown-item" href="#">Highest rating</a>
-                                <a class="dropdown-item" href="#">Lowest rating</a>
+                            <div class="dropdown_box">
+                                <button class="btn btn-secondary dropdown-toggle storage_btn" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Highest rating
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Price low to high</a>
+                                    <a class="dropdown-item" href="#">Price high to low</a>
+                                    <a class="dropdown-item" href="#">Near me</a>
+                                    <a class="dropdown-item" href="#">Highest rating</a>
+                                    <a class="dropdown-item" href="#">Lowest rating</a>
+                                </div>
                             </div>
                         </div>
-
                     </div>
-
-                </div>
                 <div class="storage_tabing_main pb-0 pt-4">
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
                             <div class="list_tab_box">
                                 <div class="row">
-                                    @foreach($storages as $storage)
-                                    <div class="col-12 mt-3">
-                                        <div class="grid__main__box">
-                                            <div class="grid_left_box">
-                                                <div class="grid_left_subbox">
-                                                    <div class="list_img_box">
-                                                        @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
-                                                        <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="list-img-one"
-                                                            class="img-fluid" style="height: 200px;width: 200px;">
-                                                        <a href="{{url('login')}}" class="list_heart_box">
-                                                            <i class="fa fa-heart-o list_heart"></i>
-                                                        </a>
-                                                        @else
-                                                        <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
-                                                        @endif
-                                                        
+                                    @if(isset($storage) && sizeof($storage) > 0)
+                                        @foreach($storage as $key => $value)  
+                                        <div class="col-12 mt-3">
+                                            <div class="grid__main__box">
+                                                <div class="grid_left_box">
+                                                    <div class="grid_left_subbox">
+                                                        <div class="list_img_box">
+                                                            @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
+                                                            <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one"
+                                                                class="img-fluid" style="height: 200px;width: 200px;">
+                                                            <a href="{{url('login')}}" class="list_heart_box">
+                                                                <i class="fa fa-heart-o list_heart"></i>
+                                                            </a>
+                                                            @else
+                                                            <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                                            @endif
+                                                            
 
-                                                    </div>
+                                                        </div>
 
-                                                    <div class="list_content_box">
-                                                        <h6>{{$storage->title}} - {{$storage->storage_no}} , {{$storage->city}}</h6>
-                                                        <ul>
-                                                            <li>{{$storage->storage_type}}</li>
-                                                            <li>{{$storage->category->name }}</li>
-                                                        </ul>
-                                                        <div class="list_rating_box">
-                                                            <a href="#"><span>4.0</span></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
-                                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/empty-star.png') }}" alt="star"
-                                                                    class="img-fluid"></a>
+                                                        <div class="list_content_box">
+                                                            <h6>{{$value->title}} - {{$value->storage_no}} , {{$value->city}}</h6>
+                                                            @if(isset($value->storage_aminites) && sizeof($value->storage_aminites) > 0)
+                                                                <ul>
+                                                                    @foreach($value->storage_aminites as $key1 => $value1)
+                                                                        <li>{{ @$value1->aminites_detail->name }}</li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                            <!--<div class="list_rating_box">
+                                                                <a href="#"><span>4.0</span></a>
+                                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
+                                                                        class="img-fluid"></a>
+                                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
+                                                                        class="img-fluid"></a>
+                                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
+                                                                        class="img-fluid"></a>
+                                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
+                                                                        class="img-fluid"></a>
+                                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/empty-star.png') }}" alt="star"
+                                                                        class="img-fluid"></a>
+                                                            </div>-->
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                            </div>
-                                            <div class="grid_right_box">
-                                                <h6>${{$storage->price}}/mo</h6>
+                                                </div>
+                                                <div class="grid_right_box">
+                                                    <h6>${{$value->price}}/mo</h6>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    @endforeach
+                                        @endforeach
+                                    @endif
                                     
-                                    <div class="col-12 text-center mt-3">
+                                    <!--<div class="col-12 text-center mt-3">
                                         <a href="#" class="btn more_btn">257 More <i
                                                 class="fa fa-arrow-down pl-4"></i></a>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -301,45 +298,49 @@
                         <div class="tab-pane fade" id="grid" role="tabpanel" aria-labelledby="grid-tab">
                             <div class="grid_tab_box">
                                 <div class="row">
-                                     @foreach($storages as $storage)
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                                        <div class="grid_tab_card">
-                                            <a href="#">
-                                                <div class="grid_tab_img">
-                                                    @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
-                                                    <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="list-img-one"
-                                                            class="img-fluid" style="height: 200px;width: 320px;">
-                                                        <a href="#" class="list_heart_box">
-                                                            <i class="fa fa-heart-o list_heart"></i>
-                                                        </a>
-                                                        @else
-                                                        <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
-                                                        @endif
-                                                    
-                                                    <a href="#" class="list_heart_box">
-                                                        <i class="fa fa-heart-o list_heart"></i>
+                                    @if(isset($storage) && sizeof($storage) > 0)
+                                        @foreach($storage as $key => $value)
+                                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                                                <div class="grid_tab_card">
+                                                    <a href="#">
+                                                        <div class="grid_tab_img">
+                                                            @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
+                                                            <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one"
+                                                                    class="img-fluid" style="height: 200px;width: 320px;">
+                                                                <a href="#" class="list_heart_box">
+                                                                    <i class="fa fa-heart-o list_heart"></i>
+                                                                </a>
+                                                                @else
+                                                                <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                                                @endif
+                                                            
+                                                            <a href="#" class="list_heart_box">
+                                                                <i class="fa fa-heart-o list_heart"></i>
+                                                            </a>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#">
+                                                        <div class="grid_tab_content">
+                                                            <p>{{$value->title}} - {{$value->storage_no}} , {{$value->city}}</p>
+                                                            @if(isset($value->storage_aminites) && sizeof($value->storage_aminites) > 0)
+                                                                    <ul>
+                                                                        @foreach($value->storage_aminites as $key1 => $value1)
+                                                                            <li>{{ @$value1->aminites_detail->name }}</li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                            @endif
+                                                            <h4>${{$value->price}}/mo</h4>
+                                                        </div>
                                                     </a>
                                                 </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="grid_tab_content">
-                                                    <p>{{$storage->title}} - {{$storage->storage_no}} , {{$storage->city}}</p>
-                                                    <ul>
-                                                        <li>{{$storage->storage_type}}</li>
-                                                        <li>{{$storage->category->name }}</li>
-                                                    </ul>
-                                                    <h4>${{$storage->price}}/mo</h4>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
 
-                                    @endforeach
-
-                                    <div class="col-12 text-center mt-3">
+                                    <!--<div class="col-12 text-center mt-3">
                                         <a href="#" class="btn more_btn">257 More <i
                                                 class="fa fa-arrow-down pl-4"></i></a>
-                                    </div>
+                                    </div>-->
 
                                 </div>
                             </div>
@@ -352,43 +353,47 @@
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                         <div class="grid_tab_box">
                                             <div class="row">
-                                                @foreach($storages as $storage)
-                                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                                    <div class="grid_tab_card">
-                                                        <a href="#">
-                                                            <div class="grid_tab_img">
-                                                            @if(isset($storage->storage_image) && sizeof($storage->storage_image) > 0)
-                                                                 <img src="{{ config('global.image_base_url').'/'.$storage->storage_image[1]->image }}" alt="list-img-one"
-                                                                 class="img-fluid" style="height: 200px;width: 320px;">
-                                                                 <a href="#" class="list_heart_box">
-                                                                 <i class="fa fa-heart-o list_heart"></i>
+                                                @if(isset($storage) && sizeof($storage) > 0)
+                                                    @foreach($storage as $key => $value)
+                                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                                            <div class="grid_tab_card">
+                                                                <a href="#">
+                                                                    <div class="grid_tab_img">
+                                                                    @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
+                                                                         <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one"
+                                                                         class="img-fluid" style="height: 200px;width: 320px;">
+                                                                         <a href="#" class="list_heart_box">
+                                                                         <i class="fa fa-heart-o list_heart"></i>
+                                                                        </a>
+                                                                    @else
+                                                                        <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                                                    @endif
+                                                                        <a href="#" class="list_heart_box">
+                                                                            <i class="fa fa-heart-o list_heart"></i>
+                                                                        </a>
+                                                                    </div>
                                                                 </a>
-                                                            @else
-                                                                <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
-                                                            @endif
-                                                                <a href="#" class="list_heart_box">
-                                                                    <i class="fa fa-heart-o list_heart"></i>
+                                                                <a href="#">
+                                                                    <div class="grid_tab_content">
+                                                                        <p>{{$value->title}} - {{$value->storage_no}} , {{$value->city}}</p>
+                                                                        @if(isset($value->storage_aminites) && sizeof($value->storage_aminites) > 0)
+                                                                            <ul>
+                                                                                @foreach($value->storage_aminites as $key1 => $value1)
+                                                                                    <li>{{ @$value1->aminites_detail->name }}</li>
+                                                                                @endforeach
+                                                                            </ul>
+                                                                        @endif
+                                                                        <h4>${{$value->price}}/mo</h4>
+                                                                    </div>
                                                                 </a>
                                                             </div>
-                                                        </a>
-                                                        <a href="#">
-                                                            <div class="grid_tab_content">
-                                                                <p>{{$storage->title}} - {{$storage->storage_no}} , {{$storage->city}}</p>
-                                                                <ul>
-                                                                    <li>{{$storage->storage_type}}</li>
-                                                                    <li>{{$storage->category->name }}</li>
-                                                                </ul>
-                                                                <h4>${{$storage->price}}/mo</h4>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                @endforeach
-
-                                                <div class="col-12 mt-3">
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                                <!--<div class="col-12 mt-3">
                                                     <a href="#" class="btn more_btn">257 More <i
                                                             class="fa fa-arrow-down pl-4"></i></a>
-                                                </div>
+                                                </div>-->
 
                                             </div>
                                         </div>

@@ -306,8 +306,9 @@ class BuyersController extends Controller
 
         $buyer_id = Auth::guard('buyer')->user()->id;
         $buyer = Buyer::where('id',$buyer_id)->first();
+        $favorites = FavoriteStorage::where('buyer_id',$buyer_id)->get();
 
-        return view('buyer.manage-profile',compact('buyer'));
+        return view('buyer.manage-profile',compact('buyer','favorites'));
     }
 
     public function updateProfile(Request $request) {
