@@ -54,10 +54,10 @@
                                                 <form action="{{ url('storage')}}/{{$row->slug}}" method="post">
                                                     @csrf
                                                     <div class="banner_text_location">
-                                                        <input type="text" placeholder="Enter Country, City or Zipcode">
+                                                        <input type="text" placeholder="Enter Country, City or Zipcode" name="search">
                                                     </div>
                                                     <div class="banner_text_price">
-                                                        <input type="text" placeholder="Price">
+                                                        <input type="text" placeholder="Price" name="price">
                                                         <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
                                                     </div>
                                                     <div class="banner_text_filter">

@@ -221,34 +221,9 @@
                                                     <div class="grid_left_box">
                                                         <div class="grid_left_subbox">
                                                             <div class="list_img_box">
-
                                                                 @if(isset($value->storage_image) && sizeof($value->storage_image)>0)
                                                                     <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one"
                                                                     class="img-fluid" style="height: 200px;width: 200px;">
-                                                                      <?php
-                                                                        $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
-                                                                    ?>
-
-                                                                    @if(isset($existRecord) && $existRecord != '')
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
-                                                                    @else
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
-                                                                    @endif
-                                                                @else
-                                                                
-                                                                    <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
-                                                                     <?php
-                                                                        $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
-                                                                    ?>
-
-                                                                    @if(isset($existRecord) && $existRecord != '')
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
-                                                                    @else
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}"><i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}" title="Remove From Favourite"></i></a>
-                                                                    @endif
                                                                 @endif
                                                             </div>
 
@@ -301,32 +276,8 @@
                                                         <a href="#">
                                                             <div class="grid_tab_img">
                                                                 @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
-                                                                <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one" class="img-fluid" style="height: 200px;width: 320px;">
-                                                                    <?php
-                                                                        $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
-                                                                    ?>
-
-                                                                    @if(isset($existRecord) && $existRecord != '')
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
-                                                                    @else
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
-                                                                    @endif
-                                                                @else
-                                                                    <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
-                                                                    <?php
-                                                                        $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
-                                                                    ?>
-
-                                                                    @if(isset($existRecord) && $existRecord != '')
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
-                                                                    @else
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
-                                                                    @endif
-                                                                 @endif
+                                                                    <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one" class="img-fluid" style="height: 200px;width: 320px;">
+                                                                @endif
                                                             </div>
                                                         </a>
                                                         <a href="#">
@@ -365,39 +316,9 @@
                                                                 <div class="grid_tab_card">
                                                                     <a href="#">
                                                                         <div class="grid_tab_img">
-                                                                        @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
-                                                                            <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one" class="img-fluid" style="height: 200px;width: 320px;">
-                                                                          
-                                                                            <?php
-                                                                                $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
-                                                                            ?>
-
-                                                                            @if(isset($existRecord) && $existRecord != '')
-                                                                                <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
-                                                                            </a>
-                                                                    @else
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
-                                                                            </a>
-                                                                    @endif
-                                                                        @else
-                                                                            <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
-                                                                            <?php
-                                                                        $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
-                                                                    ?>
-
-                                                                    @if(isset($existRecord) && $existRecord != '')
-                                                                             <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
-                                                                            </a>
-                                                                    @else
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
-                                                                            </a>
-                                                                    @endif
-                                                                 @endif
-                                                                            
+                                                                            @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
+                                                                                <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one" class="img-fluid" style="height: 200px;width: 320px;">
+                                                                            @endif
                                                                         </div>
                                                                     </a>
                                                                     <a href="#">
@@ -418,8 +339,7 @@
                                                         @endforeach
                                                     @endif
                                                     <!--<div class="col-12 mt-3">
-                                                        <a href="#" class="btn more_btn">257 More <i
-                                                                class="fa fa-arrow-down pl-4"></i></a>
+                                                        <a href="#" class="btn more_btn">257 More <i class="fa fa-arrow-down pl-4"></i></a>
                                                     </div>-->
                                                 </div>
                                             </div>
@@ -455,45 +375,3 @@
     </section>
     <!--Find Self Storage Section End -->
 @endsection
-@section('customjs')
-    <script type="text/javascript">
-
-
-        function addToFavourite(storage_id) {
-
-            var app_url = "{!! env('APP_URL') !!}";
-
-            $.ajax({
-                type: 'GET',
-                url:app_url+'/property-add-to-favorite/'+storage_id,
-                dataType:'json',
-                success: function(data) {
-
-                    if (data.message == 'Success') {
-
-                        $(".new_i_cls_"+storage_id).remove();
-
-                        // Add new HTML
-                        var html = '';
-                        html += '<i class="fa fa-heart favorite_heart new_i_cls_'+storage_id+'" title="Remove From Favourite" style="color:red;">'
-                        $(".new_a_cls_"+storage_id).append(html);
-                       
-                        alert("Add To Favourite Success.");
-                    }
-                    else if (data.message == 'Delete') {
-
-                        $(".new_i_cls_"+storage_id).remove();
-
-                        // Add new HTML
-                        var html = '';
-                        html += '<i class="fa fa-heart-o heart_icon new_i_cls_'+storage_id+'" title="Add From Favourite"></i>';
-                        $(".new_a_cls_"+storage_id).append(html);
-                       
-
-                        alert("Remove From Favourite List.");
-                    }
-                }
-            });
-        }
-    </script>
-    @stop

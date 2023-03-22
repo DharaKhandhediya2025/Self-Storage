@@ -462,21 +462,24 @@ class WebController extends Controller
         $price = $request->price;
 
         $category = Category::where('slug',$slug)->first();
-        $query = Storage::with(['category']);
-               // print_r($query);exit;
+
+        $query = Storage::with(['category','storage_image']);
+
         $query = $query->with(['storage_aminites' => function($sql) {
             $sql->with(['aminites_detail' => function($query) {
                 $query->select('id','name');
             }]);
         }]);
+
         if($search != '') {
-             $query->leftjoin('country','country.id','=','storages.country');
+            
+            $query->Join('country','country.id','=','storages.country');
         
             $query = $query->where(function($query) use ($search) {
             
-                $query = $query->where('country.name','=',$search);
-                $query = $query->orwhere('storages.city','=',$search);
+                $query = $query->where('storages.city','=',$search);
                 $query = $query->orwhere('storages.zipcode','=',$search);
+                $query = $query->orwhere('country.name','=',$search);
             });
             
         }
@@ -484,18 +487,14 @@ class WebController extends Controller
 
         if($price != '') {  
             $query = $query->where(function($query) use ($price) {
-            $query = $query->where('storages.price','=',$price);        
+                $query = $query->where('storages.price','=',$price);        
             });
-            
         }
 
+        $storage = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->get();
 
-        $storage = $query->with('storage_image')->where('cat_id',$category->id)->orderBy('storages.id','desc')->get();
-       // dd($storage);
         $storages_count = sizeof($storage);
-         $buyer_id = Auth::guard('buyer')->user()->id;
-        $buyer = Buyer::where('id',$buyer_id)->first();
 
-        return view('buyer.storage-list',compact('storage','search','price','slug','category','storages_count','buyer_id'));
+        return view('storage-list',compact('storage','search','price','slug','category','storages_count'));
     }
 }
