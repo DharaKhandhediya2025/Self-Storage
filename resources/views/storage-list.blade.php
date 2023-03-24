@@ -92,27 +92,24 @@
                                                     <h2>Distance</h2>
                                                 </div>
                                             </div>
-                                            <div class="mutiple_circle_range mt-5">
+                                            <div class="mutiple_circle_range">
                                                 <div class="filter_content">
                                                     <div class="form-groups">
-                                                        <input type="text" class="js-range-slider" name="distance"
-                                                            value="" data-skin="round" data-type="double" data-min="0"
-                                                            data-max="50" data-grid="false" id="distance" />
+                                                        <input type="text" class="js-range-slider" name="distance" value="" data-skin="round" data-type="double" data-min="0" data-max="50" data-grid="false" id="distance"/>
+
                                                         <div class="row mt-4">
                                                             <div class="col-lg-4 from_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" class="from" id="from" 
-                                                                    placeholder="1 Km" name="from">
+                                                                <input type="number" maxlength="4" class="from" id="from_distance" placeholder="1 Km">
                                                             </div>
 
                                                             <div class="col-lg-4 center_slide" style="width: 33.33%;">
-                                                                <h6 class="center_slode_text">TO</h6>
+                                                                <h6 class="center_slode_text">TO
+                                                                </h6>
                                                             </div>
 
                                                             <div class="col-lg-4 to_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" value="" class="to" id="to" 
-                                                                    placeholder="50 Km" name="to">
+                                                                <input type="number" maxlength="4" value="" class="to" id="to_distance"placeholder="50 Km">
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -126,51 +123,48 @@
                                                                 <h2>Size</h2>
                                                             </div>
                                                         </div>
-                                                       
 
                                                         <div class="col-md-6 text-right">
                                                             <div>
                                                                 <div class="drop-down">
                                                                     <div class="selected position-relative">
-                                                                        <a href="#"><span>standard one </span><i
-                                                                                class="fa fa-angle-down drop_doown_icon"></i></a>
+                                                                        <a href="#">
+                                                                            <span>Standard one
+                                                                            </span>
+                                                                            <i class="fa fa-angle-down drop_doown_icon"></i>
+                                                                        </a>
                                                                     </div>
                                                                     <div class="options">
                                                                         <ul>
-                                                                            <li><a href="#" onclick="dsn()">Add Custom<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                            <li><a href="#" onclick="myFunction()">5x10<span class="value">5x10</span></a>
-                                                                            </li>
-                                                                            <li><a href="#" onclick="myFunction()">10x10<span
-                                                                                        class="value">2</span></a>
-                                                                            </li>
-                                                                            <li><a href="#" onclick="myFunction()">10x15<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                             <li><a href="#" onclick="myFunction()">10x20<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                             <li><a href="#" onclick="myFunction()">10x30<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                             <li><a href="#" onclick="myFunction()">10x40<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                        </ul>
+                                                                            <li><a href="#" onclick="dsn()">Add Custom<span class="value">3</span>
+                                                                            </a></li>
 
+                                                                            <li><a href="#" onclick="myFunction()">5x10<span class="value">5x10</span></a></li>
+
+                                                                            <li><a href="#" onclick="myFunction()">10x10<span class="value">2
+                                                                            </span></a></li>
+
+                                                                            <li><a href="#" onclick="myFunction()">10x15<span class="value">3
+                                                                            </span></a></li>
+
+                                                                            <li><a href="#" onclick="myFunction()">10x20<span class="value">3
+                                                                             </span></a></li>
+
+                                                                            <li><a href="#" onclick="myFunction()">10x30<span class="value">3
+                                                                            </span></a></li>
+
+                                                                            <li><a href="#" onclick="myFunction()">10x40<span class="value">3
+                                                                            </span></a></li>
+                                                                        </ul>
                                                                     </div><br>
-                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control search_input" id="myDIV" placeholder="Add Custom Size" name="size" style="">
+                                                <input type="text" class="form-control search_input" id="myDIV" placeholder="Add Custom Size" name="custom_size" style="">
                                             </div>
                                         @else
                                             <div class="mutiple_circle_range mt-5">
@@ -186,65 +180,53 @@
                                                             <div>
                                                                 <div class="drop-down">
                                                                     <div class="selected position-relative">
-                                                                        <a href="#"><span>standard one </span><i
-                                                                                class="fa fa-angle-down drop_doown_icon"></i></a>
+                                                                        <a href="#"><span>standard one </span><i class="fa fa-angle-down drop_doown_icon"></i></a>
                                                                     </div>
                                                                     <div class="options">
                                                                         <ul>
-                                                                            <li><a href="#">0-1000<span
-                                                                                        class="value">1</span></a>
+                                                                            <li><a href="#">0-1000<span class="value">1
+                                                                            </span></a></li>
+
+                                                                            <li><a href="#">1001-5000<span class="value">2</span></a></li>
+
+                                                                            <li><a href="#">5001-10000<span class="value">3</span></a></li>
+
+                                                                            <li><a href="#">10001-15000<span class="value">3</span></a></li>
+
+                                                                            <li><a href="#">15001-20000<span class="value">3</span></a></li>
+
+                                                                            <li><a href="#">20001-25000<span class="value">3</span></a></li>
+
+                                                                            <li><a href="#">25001-50000<span class="value">3</span></a></li>
+
+                                                                            <li><a href="#">50001-100000<span class="value">3</span></a>
                                                                             </li>
-                                                                            <li><a href="#">1001-5000<span
-                                                                                        class="value">2</span></a>
-                                                                            </li>
-                                                                            <li><a href="#">5001-10000<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                             <li><a href="#">10001-15000<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                             <li><a href="#">15001-20000<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                             <li><a href="#">20001-25000<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                            <li><a href="#">25001-50000<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                            <li><a href="#">50001-100000<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
-                                                                            <li><a href="#">101000+<span
-                                                                                        class="value">3</span></a>
-                                                                            </li>
+
+                                                                            <li><a href="#">101000+<span class="value">3
+                                                                            </span></a></li>
                                                                         </ul>
                                                                     </div><br>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                     
                                                     <div class="form-group">
-                                                        <input type="text" class="js-range-slider" name="my_range"
-                                                            value="" data-skin="round" data-type="double" data-min="0"
-                                                            data-max="101000" data-grid="false" id="size" />
+                                                        <input type="text" class="js-range-slider" name="size" value="" data-skin="round" data-type="double" data-min="0" data-max="101000" data-grid="false" id="size"/>
+
                                                         <div class="row mt-4">
                                                             <div class="col-lg-4 from_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" class="from"
-                                                                    placeholder="500 sq.ft">
+                                                                <input type="number" maxlength="4" class="from" id="from_size" placeholder="500 sq.ft">
                                                             </div>
 
                                                             <div class="col-lg-4 center_slide" style="width: 33.33%;">
-                                                                <h6 class="center_slode_text">TO</h6>
+                                                                <h6 class="center_slode_text">TO
+                                                                </h6>
                                                             </div>
 
                                                             <div class="col-lg-4 to_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" value="" class="to"
-                                                                    placeholder="1,700 sq.ft">
+                                                                <input type="number" maxlength="4" value="" class="to" id="to_size"placeholder="1,700 sq.ft">
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -256,34 +238,27 @@
                                                     <div class="form-group">
                                                         <div class="form-check active">
                                                             <input type="radio" class="form-check-input" id="5 Star">
-                                                            <label class="form-check-label" for="5 Star">5
-                                                                Star</label>
+                                                            <label class="form-check-label" for="5 Star">5 Star</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="4 Star">
-                                                            <label class="form-check-label" for="4 Star">4
-                                                                Star</label>
+                                                            <label class="form-check-label" for="4 Star">4 Star</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="3 Star">
-                                                            <label class="form-check-label" for="3 Star">3
-                                                                Star</label>
+                                                            <label class="form-check-label" for="3 Star">3 Star</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="2+ Star">
-                                                            <label class="form-check-label" for="2+ Star">2+
-                                                                Star</label>
+                                                            <label class="form-check-label" for="2+ Star">2+ Star</label>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer justify-content-start">
-                                            <button type="button " class="btn cancel_btn"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary model_save_btn">Save
-                                                changes</button>
+                                            <button type="button " class="btn cancel_btn" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary model_save_btn">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -293,6 +268,7 @@
                     </div>
                 </form>
             </div>
+
             <div class="self_storage_center">
                 @if(isset($search) && $search != '')
                     <div class="self_storage_content">
@@ -506,16 +482,18 @@
     <!--Find Self Storage Section End -->
 @endsection
 @section('customjs')
-<script>
-function myFunction() {
-  document.getElementById("myDIV").style.visibility = "hidden"; 
-}
 
-function dsn() {
-  var x = document.getElementById("myDIV");
-  if (x.style.visibility === "hidden") {
-    x.style.visibility = "visible";
-  } 
-}
-</script>
+    <script>
+        function myFunction() {
+            document.getElementById("myDIV").style.visibility = "hidden"; 
+        }
+
+        function dsn() {
+            
+            var x = document.getElementById("myDIV");
+            if (x.style.visibility === "hidden") {
+                x.style.visibility = "visible";
+            } 
+        }
+    </script>
 @stop
