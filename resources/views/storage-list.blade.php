@@ -5,7 +5,7 @@
     <section class="self_store_section">
         <div class="container-fluid">
             <div class="self_storage_top">
-                <form action="{{ url('storage')}}/{{$slug}}" method="post">@csrf
+                <form action="{{ url('storage')}}/{{$slug}}" method="get">
                     <div class="row">
                         <div class="col-sm-12 col-md-3 col-lg-5 col-xl-6">
                             <div class="search_box_left">
@@ -14,24 +14,55 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 d-flex">
                             <div class="search_box_right">
                                 <div class="dropdown_box">
-                                    <button class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown button</button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
+                                    <select class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="type"> 
+                                        @if($type == "Heated")
+                                            <option class="dropdown-item" value="">Select Type
+                                            </option>
+                                            <option class="dropdown-item" value="Heated" selected>Heated</option>
+                                            <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
+                                        @elseif($type == "Non-Heated")
+                                            <option class="dropdown-item" value="">Select Type
+                                            </option>
+                                            <option class="dropdown-item" value="Heated">Heated
+                                            </option>
+                                            <option class="dropdown-item" value="Non-Heated" selected>Non-Heated</option>
+                                        @else
+                                            <option class="dropdown-item" value="">Select Type
+                                            </option>
+                                            <option class="dropdown-item" value="Heated">Heated
+                                            </option>
+                                            <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
+                                        @endif
+                                    </select>
                                 </div>
 
-                                <div class="price__box">
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Price" name="price" value="{{$price}}">
-                                    <span class="price__span"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                <div class="dropdown_box">
+                                    <select class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="access">
+                                        @if($access == "Inside")
+                                            <option class="dropdown-item" value="">Select Access
+                                            </option>
+                                            <option class="dropdown-item" value="Inside" selected>Inside</option>
+                                            <option class="dropdown-item" value="Outside">Outside
+                                            </option>
+                                        @elseif($access == "Outside")
+                                            <option class="dropdown-item" value="">Select Access
+                                            </option>
+                                            <option class="dropdown-item" value="Inside">Inside
+                                            </option>
+                                            <option class="dropdown-item" value="Outside" selected>Outside</option>
+                                        @else
+                                            <option class="dropdown-item" value="">Select Access
+                                            </option>
+                                            <option class="dropdown-item" value="Inside">Inside
+                                            </option>
+                                            <option class="dropdown-item" value="Outside">Outside
+                                            </option>
+                                        @endif
+                                    </select>
                                 </div>
-
                                 <div class="filter__box">
                                     <a href="#" data-toggle="modal" data-target="#exampleModalCenter">Filter </a>
                                     <span class="filter__span"><i class="fa fa-filter"></i></span>
@@ -51,26 +82,97 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLongTitle">Filters</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;
-                                            </span></button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="multip__step_range">
-                                                <fieldset class="formSlider">
-                                                    <h4>Distance</h4>
-                                                    <div class="__range __range-step">
-                                                        <input value="1" type="range" max="4" min="1" step="1" list="ticks1">
-                                                        <datalist id="ticks1">
-                                                            <option value="1" class="active"><span class="km_span">1KM</span></option>
-                                                            <option value="2"><span class="km_span">5 KM</span></option>
-                                                            <option value="3"><span class="km_span">10 KM</span></option>
-                                                            <option value="4"><span class="km_span">10+KM</span></option>
-                                                            <!-- <option value="5"><span class="km_span">5mm</span>
-                                                            </option> -->
-                                                        </datalist>
-                                                    </div>
-                                                </fieldset>
+                                            <div class="col-md-6">
+                                                <div class="mutiple_circle_range">
+                                                    <h2>Distance</h2>
+                                                </div>
                                             </div>
+                                            <div class="mutiple_circle_range mt-5">
+                                                <div class="filter_content">
+                                                    <div class="form-groups">
+                                                        <input type="text" class="js-range-slider" name="distance"
+                                                            value="" data-skin="round" data-type="double" data-min="0"
+                                                            data-max="50" data-grid="false" id="distance" />
+                                                        <div class="row mt-4">
+                                                            <div class="col-lg-4 from_slide" style="width: 33.33%;">
+                                                                <input type="number" maxlength="4" class="from" id="from" 
+                                                                    placeholder="1 Km" name="from">
+                                                            </div>
+
+                                                            <div class="col-lg-4 center_slide" style="width: 33.33%;">
+                                                                <h6 class="center_slode_text">TO</h6>
+                                                            </div>
+
+                                                            <div class="col-lg-4 to_slide" style="width: 33.33%;">
+                                                                <input type="number" maxlength="4" value="" class="to" id="to" 
+                                                                    placeholder="50 Km" name="to">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @if($slug == "residential")
+                                            <div class="mutiple_circle_range mt-5">
+                                                <div class="filter_content">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mutiple_circle_range">
+                                                                <h2>Size</h2>
+                                                            </div>
+                                                        </div>
+                                                       
+
+                                                        <div class="col-md-6 text-right">
+                                                            <div>
+                                                                <div class="drop-down">
+                                                                    <div class="selected position-relative">
+                                                                        <a href="#"><span>standard one </span><i
+                                                                                class="fa fa-angle-down drop_doown_icon"></i></a>
+                                                                    </div>
+                                                                    <div class="options">
+                                                                        <ul>
+                                                                            <li><a href="#" onclick="dsn()">Add Custom<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                            <li><a href="#" onclick="myFunction()">5x10<span class="value">5x10</span></a>
+                                                                            </li>
+                                                                            <li><a href="#" onclick="myFunction()">10x10<span
+                                                                                        class="value">2</span></a>
+                                                                            </li>
+                                                                            <li><a href="#" onclick="myFunction()">10x15<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#" onclick="myFunction()">10x20<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#" onclick="myFunction()">10x30<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#" onclick="myFunction()">10x40<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                        </ul>
+
+                                                                    </div><br>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control search_input" id="myDIV" placeholder="Add Custom Size" name="size" style="">
+                                            </div>
+                                        @else
                                             <div class="mutiple_circle_range mt-5">
                                                 <div class="filter_content">
                                                     <div class="row">
@@ -84,75 +186,104 @@
                                                             <div>
                                                                 <div class="drop-down">
                                                                     <div class="selected position-relative">
-                                                                        <a href="#"><span>sq ft.</span><i class="fa fa-angle-down drop_doown_icon"></i></a>
+                                                                        <a href="#"><span>standard one </span><i
+                                                                                class="fa fa-angle-down drop_doown_icon"></i></a>
                                                                     </div>
                                                                     <div class="options">
                                                                         <ul>
-                                                                            <li>
-                                                                                <a href="#">250 sq ft<span class="value">1</span></a>
+                                                                            <li><a href="#">0-1000<span
+                                                                                        class="value">1</span></a>
                                                                             </li>
-                                                                            <li>
-                                                                                <a href="#">500 sq ft<span class="value">2</span></a>
+                                                                            <li><a href="#">1001-5000<span
+                                                                                        class="value">2</span></a>
                                                                             </li>
-                                                                            <li>
-                                                                                <a href="#">1000 sq ft<span class="value">3</span></a>
+                                                                            <li><a href="#">5001-10000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">10001-15000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">15001-20000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">20001-25000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">25001-50000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">50001-100000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">101000+<span
+                                                                                        class="value">3</span></a>
                                                                             </li>
                                                                         </ul>
-                                                                    </div>
+                                                                    </div><br>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                     </div>
+                                                    
                                                     <div class="form-group">
                                                         <input type="text" class="js-range-slider" name="my_range"
                                                             value="" data-skin="round" data-type="double" data-min="0"
-                                                            data-max="1000" data-grid="false" />
+                                                            data-max="101000" data-grid="false" id="size" />
                                                         <div class="row mt-4">
                                                             <div class="col-lg-4 from_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" class="from" placeholder="500 sq.ft">
+                                                                <input type="number" maxlength="4" class="from"
+                                                                    placeholder="500 sq.ft">
                                                             </div>
 
                                                             <div class="col-lg-4 center_slide" style="width: 33.33%;">
-                                                                <h6 class="center_slode_text">TO
-                                                                </h6>
+                                                                <h6 class="center_slode_text">TO</h6>
                                                             </div>
 
                                                             <div class="col-lg-4 to_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" value="" class="to" placeholder="1,700 sq.ft">
+                                                                <input type="number" maxlength="4" value="" class="to"
+                                                                    placeholder="1,700 sq.ft">
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
+                                        @endif
                                             <div class="rating__box">
                                                 <h2>Rating</h2>
                                                 <div class="rating_box_content">
                                                     <div class="form-group">
                                                         <div class="form-check active">
                                                             <input type="radio" class="form-check-input" id="5 Star">
-                                                            <label class="form-check-label" for="5 Star">5 Star</label>
+                                                            <label class="form-check-label" for="5 Star">5
+                                                                Star</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="4 Star">
-                                                            <label class="form-check-label" for="4 Star">4 Star</label>
+                                                            <label class="form-check-label" for="4 Star">4
+                                                                Star</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="3 Star">
-                                                            <label class="form-check-label" for="3 Star">3 Star</label>
+                                                            <label class="form-check-label" for="3 Star">3
+                                                                Star</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input type="radio" class="form-check-input" id="2+ Star">
-                                                            <label class="form-check-label" for="2+ Star">2+ Star</label>
+                                                            <label class="form-check-label" for="2+ Star">2+
+                                                                Star</label>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer justify-content-start">
-                                            <button type="button " class="btn cancel_btn" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary model_save_btn">Save changes</button>
+                                            <button type="button " class="btn cancel_btn"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary model_save_btn">Save
+                                                changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +293,6 @@
                     </div>
                 </form>
             </div>
-
             <div class="self_storage_center">
                 @if(isset($search) && $search != '')
                     <div class="self_storage_content">
@@ -375,3 +505,17 @@
     </section>
     <!--Find Self Storage Section End -->
 @endsection
+@section('customjs')
+<script>
+function myFunction() {
+  document.getElementById("myDIV").style.visibility = "hidden"; 
+}
+
+function dsn() {
+  var x = document.getElementById("myDIV");
+  if (x.style.visibility === "hidden") {
+    x.style.visibility = "visible";
+  } 
+}
+</script>
+@stop

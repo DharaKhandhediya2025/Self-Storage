@@ -173,6 +173,7 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     //Buyer Manage Profile
     Route::get('/manage-profile',[BuyersController::class,'manageProfile']);
     Route::post('/update-profile',[BuyersController::class,'updateProfile']);
+    Route::get('/favorite-list',[BuyersController::class,'getFavorite']);
 
     Route::get('/change-password',[BuyersController::class,'changePassword']);
     Route::post('/change-password',[BuyersController::class,'updatePassword']);
@@ -226,7 +227,8 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
     Route::get('/remove-favorite/{slug}',[BuyersController::class,'storageFavoriteRemove']);
 
     //storage list
-    Route::post('/storage/{slug}',[WebController::class,'storageList']);
+    Route::get('/storage/{slug}',[WebController::class,'storageList']);
+    Route::get('/storages/{slug}',[BuyersController::class,'storageList']); 
 
     //seller side create storage
     Route::get('/create-post',[SellersController::class,'createPost']);

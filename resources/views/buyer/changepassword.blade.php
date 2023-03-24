@@ -12,10 +12,11 @@
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link" id="myprofile-tab"  href="{{ url('/manage-profile') }}">My Profile</a>
 
-                    <!--<a class="nav-link" id="favorites-tab" data-toggle="pill" href="#favorites" role="tab"
-                        aria-controls="v-pills-profile" aria-selected="false">Favorites</a>
+                     @if(isset($buyer))
+                    <a class="nav-link" id="favorites-tab"  href="{{ url('/favorite-list') }}" >Favorites</a>
+                    @endif
 
-                    <a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"
+                    <!--<a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"
                         aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a>-->
 
                     <a class="nav-link active" id="password-tab" href="{{ url('/change-password') }}" >Change password</a>
@@ -47,8 +48,9 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="myaccount_label">Current Password</label>
-                                <input type="password" name="old_password" class="form-control myaccount_input" placeholder="Type . . ." required>
+                                <input type="password" name="old_password" id="password" class="form-control myaccount_input" placeholder="Type . . ." required>
                                 <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                                 <span class="passalert" style="color:red;"></span>
                             </div>
                             @error('old_password')
                                 <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
@@ -58,8 +60,9 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="myaccount_label">New Password</label>
-                                <input type="password" name="new_password" class="form-control myaccount_input" placeholder="Type . . ." required>
+                                <input type="password" name="new_password" id="Npassword" class="form-control myaccount_input" placeholder="Type . . ." required>
                                 <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                                 <span class="npassalert" style="color:red;"></span>
                             </div>
                             @error('new_password')
                                 <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
@@ -69,8 +72,9 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label class="myaccount_label">Confirm Password</label>
-                                <input type="password" name="confirm_password" class="form-control myaccount_input" placeholder="Type . . ." required>
+                                <input type="password" name="confirm_password" id="Cpassword" class="form-control myaccount_input" placeholder="Type . . ." required>
                                 <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                                 <span class="cpassalert" style="color:red;"></span>
                             </div>
                              @error('confirm_password')
                                 <span class="invalid-feedback" role='alert' style="color: red"><strong>{{$message}}</strong></span>
@@ -355,4 +359,54 @@
 
 
   @stop
+@section('customjs')
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ config('global.front_base_url').'js/select2.min.js' }}"></script>
+    <script type="text/javascript">
+$('#password').keypress(function (e) {
+
+                var length = jQuery(this).val().length;
+                if((length == 0) && (e.which == 48)) {
+                    return false;
+                }
+                else if(length < 7) {
+                    $("span.passalert").html("Your Password must be minimum 8 digits.");
+                }
+                else if(length > 6) {
+                    $("span.passalert").html('');
+                }
+            });
+
+$('#Npassword').keypress(function (e) {
+
+                var length = jQuery(this).val().length;
+                if((length == 0) && (e.which == 48)) {
+                    return false;
+                }
+                else if(length < 7) {
+                    $("span.npassalert").html("Your Password must be minimum 8 digits.");
+                }
+                else if(length > 6) {
+                    $("span.npassalert").html('');
+                }
+            });
+
+$('#Cpassword').keypress(function (e) {
+
+                var length = jQuery(this).val().length;
+                if((length == 0) && (e.which == 48)) {
+                    return false;
+                }
+                else if(length < 7) {
+                    $("span.cpassalert").html("Your Password must be minimum 8 digits.");
+                }
+                else if(length > 6) {
+                    $("span.cpassalert").html('');
+                }
+            });
+
+
+</script>
+
+@stop

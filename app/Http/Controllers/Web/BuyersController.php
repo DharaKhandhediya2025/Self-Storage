@@ -311,6 +311,16 @@ class BuyersController extends Controller
         return view('buyer.manage-profile',compact('buyer','favorites'));
     }
 
+    public function getFavorite(Request $request) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        $storages = Storage::with('category','storage_image','favorite_storage')->orderby('id','desc')->get();
+        $favorites = FavoriteStorage::where('buyer_id',$buyer_id)->get();
+
+        return view('buyer.favorite-list',compact('buyer','favorites','storages','buyer_id'));
+    }
+
     public function updateProfile(Request $request) {
 
         $buyer_id = Auth::guard('buyer')->user()->id;
@@ -508,5 +518,66 @@ class BuyersController extends Controller
         catch(\Exception $e) {
             session()->flash('error', $e->getMessage());
         }
+    }
+
+    
+   public function storageList(Request $request ,$slug) {
+
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+        // Get Search Fields
+        $search = $request->search;
+        $price = $request->price;
+        $type = $request->type;
+        $access = $request->access;
+       // echo $type;exit;
+
+        $category = Category::where('slug',$slug)->first();
+
+        $query = Storage::with(['category','storage_image']);
+
+        $query = $query->with(['storage_aminites' => function($sql) {
+            $sql->with(['aminites_detail' => function($query) {
+                $query->select('id','name');
+            }]);
+        }]);
+
+        if($search != '') {
+            
+            //$query->Join('country','country.id','=','storages.country');
+        
+            $query = $query->where(function($query) use ($search) {
+            
+                $query = $query->where('storages.city','=',$search);
+                $query = $query->orwhere('storages.zipcode','=',$search);
+                //$query = $query->orwhere('country.name','=',$search);
+            });
+            
+        }
+        // $storages = $query->where('cat_id',$category->id)->orderBy(->get();
+
+        if($price != '') {  
+            $query = $query->where(function($query) use ($price) {
+                $query = $query->where('storages.price','=',$price);        
+            });
+        }
+
+        if($type != '') {  
+            $query = $query->where(function($query) use ($type) {
+                $query = $query->where('storages.type','=',$type);        
+            });
+        }
+
+        if($access != '') {  
+            $query = $query->where(function($query) use ($access) {
+                $query = $query->where('storages.access','=',$access);        
+            });
+        }
+
+        $storage = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->get();
+
+        $storages_count = sizeof($storage);
+
+        return view('buyer.storage-list',compact('storage','buyer_id','search','buyer','price','type','access','slug','category','storages_count'));
     }
 }
