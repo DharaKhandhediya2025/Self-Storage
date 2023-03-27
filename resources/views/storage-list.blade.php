@@ -99,7 +99,7 @@
 
                                                         <div class="row mt-4">
                                                             <div class="col-lg-4 from_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" class="from" id="from_distance" placeholder="1 Km">
+                                                                <input type="number" maxlength="4" class="from" id="from_distance" placeholder="1 Km" name="from" value="{{$from}}">
                                                             </div>
 
                                                             <div class="col-lg-4 center_slide" style="width: 33.33%;">
@@ -108,7 +108,7 @@
                                                             </div>
 
                                                             <div class="col-lg-4 to_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" value="" class="to" id="to_distance"placeholder="50 Km">
+                                                                <input type="number" maxlength="4" class="to" id="to_distance"placeholder="50 Km" name="to" value="{{$to}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -129,34 +129,19 @@
                                                                 <div class="drop-down">
                                                                     <div class="selected position-relative">
                                                                         <a href="#">
-                                                                            <span>Standard one
-                                                                            </span>
-                                                                            <i class="fa fa-angle-down drop_doown_icon"></i>
+                                                                            <select name="size">
+                                                                                <a href="#" onclick="dsn()"><option value="">Add Custom</option></a>
+                                                                                <option onclick="myFunction()">5*10</option>
+                                                                                <option><a onclick="myFunction()">10*10</a></option>
+                                                                                <option><a href="#" onclick="myFunction()">10*15</a></option>
+                                                                                <option><a href="#" onclick="myFunction()">10*20</a></option>
+                                                                                <option><a href="#" onclick="myFunction()">10*30</a></option>
+                                                                                <option><a href="#" onclick="myFunction()">10*40</a></option>
+                                                                            </select>
+                                                                            
                                                                         </a>
                                                                     </div>
-                                                                    <div class="options">
-                                                                        <ul>
-                                                                            <li><a href="#" onclick="dsn()">Add Custom<span class="value">3</span>
-                                                                            </a></li>
-
-                                                                            <li><a href="#" onclick="myFunction()">5x10<span class="value">5x10</span></a></li>
-
-                                                                            <li><a href="#" onclick="myFunction()">10x10<span class="value">2
-                                                                            </span></a></li>
-
-                                                                            <li><a href="#" onclick="myFunction()">10x15<span class="value">3
-                                                                            </span></a></li>
-
-                                                                            <li><a href="#" onclick="myFunction()">10x20<span class="value">3
-                                                                             </span></a></li>
-
-                                                                            <li><a href="#" onclick="myFunction()">10x30<span class="value">3
-                                                                            </span></a></li>
-
-                                                                            <li><a href="#" onclick="myFunction()">10x40<span class="value">3
-                                                                            </span></a></li>
-                                                                        </ul>
-                                                                    </div><br>
+                                                                    <br>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -235,21 +220,21 @@
                                             <div class="rating__box">
                                                 <h2>Rating</h2>
                                                 <div class="rating_box_content">
-                                                    <div class="form-group">
+                                                    <div class="form-group">                                            
                                                         <div class="form-check active">
-                                                            <input type="radio" class="form-check-input" id="5 Star">
+                                                            <input type="radio" class="form-check-input" name="rate" value="5" id="5 Star">
                                                             <label class="form-check-label" for="5 Star">5 Star</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="4 Star">
+                                                            <input type="radio" class="form-check-input" name="rate" value="4" id="4 Star">
                                                             <label class="form-check-label" for="4 Star">4 Star</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="3 Star">
+                                                            <input type="radio" class="form-check-input" name="rate" value="3" id="3 Star">
                                                             <label class="form-check-label" for="3 Star">3 Star</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" id="2+ Star">
+                                                            <input type="radio" class="form-check-input" name="rate" value="2" id="2+ Star">
                                                             <label class="form-check-label" for="2+ Star">2+ Star</label>
                                                         </div>
                                                     </div>
@@ -258,7 +243,7 @@
                                         </div>
                                         <div class="modal-footer justify-content-start">
                                             <button type="button " class="btn cancel_btn" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary model_save_btn">Save changes</button>
+                                            <button type="submit" class="btn btn-primary model_save_btn">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
