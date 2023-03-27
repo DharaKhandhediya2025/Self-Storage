@@ -188,7 +188,6 @@ $to.on("input", function () {
     updateRange();
 });*/
 
-
 // Range Slider for Distance
 var $range = $("#distance"),
     $from = $("#from_distance"),
@@ -263,7 +262,7 @@ $sizerange.ionRangeSlider({
     onChange: function (data) {
         from = data.from;
         to = data.to;
-        updateValues();
+        updateSizeValues();
     }
 });
 
