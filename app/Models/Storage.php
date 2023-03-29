@@ -32,7 +32,7 @@ class Storage extends Model
     }
 
     public function storage_image() {
-        return $this->hasMany(StorageImages::class,'storage_id','id');
+        return $this->hasMany(StorageImages::class,'storage_id','id','image');
     }
 
     public function storage_aminites() {
@@ -61,5 +61,13 @@ class Storage extends Model
 
     public function storage_variants() {
         return $this->hasMany(StorageVariant::class,'storage_id','id');
+    }
+
+    public function storage_rating() {
+        return $this->hasMany(StorageRating::class,'storage_id','id');
+    }
+
+    public function review() {
+        return $this->hasMany(StorageRating::class,'storage_id','id');
     }
 }

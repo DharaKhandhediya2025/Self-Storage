@@ -19,21 +19,16 @@
                                 <div class="dropdown_box">
                                     <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="type" style="float: left;"> 
                                         @if($type == "Heated")
-                                            <option class="dropdown-item" value="">Select Type
-                                            </option>
+                                            <option class="dropdown-item" value="">Select Type</option>
                                             <option class="dropdown-item" value="Heated" selected>Heated</option>
                                             <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
                                         @elseif($type == "Non-Heated")
-                                            <option class="dropdown-item" value="">Select Type
-                                            </option>
-                                            <option class="dropdown-item" value="Heated">Heated
-                                            </option>
+                                            <option class="dropdown-item" value="">Select Type</option>
+                                            <option class="dropdown-item" value="Heated">Heated</option>
                                             <option class="dropdown-item" value="Non-Heated" selected>Non-Heated</option>
                                         @else
-                                            <option class="dropdown-item" value="" style="float: left;">Select Type
-                                            </option>
-                                            <option class="dropdown-item" value="Heated">Heated
-                                            </option>
+                                            <option class="dropdown-item" value="" style="float: left;">Select Type</option>
+                                            <option class="dropdown-item" value="Heated">Heated</option>
                                             <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
                                         @endif
                                     </select>
@@ -42,24 +37,17 @@
                                 <div class="dropdown_box">
                                     <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="access">
                                         @if($access == "Inside")
-                                            <option class="dropdown-item" value="">Select Access
-                                            </option>
+                                            <option class="dropdown-item" value="">Select Access</option>
                                             <option class="dropdown-item" value="Inside" selected>Inside</option>
-                                            <option class="dropdown-item" value="Outside">Outside
-                                            </option>
+                                            <option class="dropdown-item" value="Outside">Outside</option>
                                         @elseif($access == "Outside")
-                                            <option class="dropdown-item" value="">Select Access
-                                            </option>
-                                            <option class="dropdown-item" value="Inside">Inside
-                                            </option>
+                                            <option class="dropdown-item" value="">Select Access</option>
+                                            <option class="dropdown-item" value="Inside">Inside</option>
                                             <option class="dropdown-item" value="Outside" selected>Outside</option>
                                         @else
-                                            <option class="dropdown-item" value="">Select Access
-                                            </option>
-                                            <option class="dropdown-item" value="Inside">Inside
-                                            </option>
-                                            <option class="dropdown-item" value="Outside">Outside
-                                            </option>
+                                            <option class="dropdown-item" value="">Select Access</option>
+                                            <option class="dropdown-item" value="Inside">Inside</option>
+                                            <option class="dropdown-item" value="Outside">Outside</option>
                                         @endif
                                     </select>
                                 </div>
@@ -69,8 +57,7 @@
                                 </div>
 
                                 <div>
-                                    <button type="submit" class="btn find_storage_btn">Find Storage
-                                    </button>
+                                    <button type="submit" class="btn find_storage_btn">Find Storage</button>
                                 </div>
                             </div>
                         </div>
@@ -103,8 +90,7 @@
                                                             </div>
 
                                                             <div class="col-lg-4 center_slide" style="width: 33.33%;">
-                                                                <h6 class="center_slode_text">TO
-                                                                </h6>
+                                                                <h6 class="center_slode_text">TO</h6>
                                                             </div>
 
                                                             <div class="col-lg-4 to_slide" style="width: 33.33%;">
@@ -129,7 +115,7 @@
                                                                 <div class="drop-down">
                                                                     <div class="selected position-relative">
                                                                         <a href="#">
-                                                                            <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onclick="dsn(value);" style="margin-left: 20px;">
+                                                                            <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onclick="addtextbox(value);" style="margin-left: 20px;">
                                                                                 <option value="" selected>Select Size : </option>
                                                                                 <option>5*10</option>
                                                                                 <option>10*10</option>
@@ -165,17 +151,17 @@
                                                             <div>
                                                                 <div class="drop-down">
                                                                     <div class="options">
-                                                                       <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onclick="dsn(value);" style="margin-left: 20px;">
-                                                                            <option value="" selected>select size:</option>
-                                                                            <option>0-1000</option>
-                                                                            <option><span id="from">1001</span>-<span id="to">5000</span></option>
+                                                                       <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onchange="setSizeSlider();" style="margin-left: 20px;">
+                                                                            <option value="">Select Size:</option>
+                                                                            <option value="0-1000">0-1000</option>
+                                                                            <option value="1001-5000">1001-5000</option>
                                                                             <option value="5001">5001-10000</option>
                                                                             <option value="10001">10001-15000</option>
-                                                                            <option>15001-20000</option>
-                                                                            <option>20001-25000</option>
-                                                                            <option>25001-50000</option>
-                                                                            <option>50001-100000</option>
-                                                                            <option>101000</option>
+                                                                            <option value="15001">15001-20000</option>
+                                                                            <option value="20001">20001-25000</option>
+                                                                            <option value="25001">25001-50000</option>
+                                                                            <option value="50001">50001-100000</option>
+                                                                            <option value="101000">101000</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -184,11 +170,11 @@
                                                     </div>
                                                     
                                                     <div class="form-group">
-                                                        <input type="text" class="js-range-slider" name="size" value="" data-skin="round" data-type="double" data-min="0" data-max="101000" data-grid="false" id="size"/>
+                                                        <input type="text" class="js-range-slider" name="size" value="" data-skin="round" data-type="double" data-min="0" data-max="101000" data-grid="false" id="size"  data-result-min="#rangeSliderExample2MinResult"/>
 
                                                         <div class="row mt-4">
                                                             <div class="col-lg-4 from_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" class="from" id="from_size" placeholder="0">
+                                                                <input type="number" maxlength="4" class="from" id="from_size" placeholder="0" value="">
                                                             </div>
 
                                                             <div class="col-lg-4 center_slide" style="width: 33.33%;">
@@ -208,19 +194,19 @@
                                                 <h2>Rating</h2>
                                                 <div class="rating_box_content">
                                                     <div class="form-group">                                            
-                                                        <div class="form-check active">
+                                                        <div class="form-check active" onclick="Activestar5()" id="5">
                                                             <input type="radio" class="form-check-input" name="rate" value="5" id="5 Star" checked>
                                                             <label class="form-check-label" for="5 Star">5 Star</label>
                                                         </div>
-                                                        <div class="form-check">
+                                                        <div class="form-check" onclick="Activestar4()" id="4">
                                                             <input type="radio" class="form-check-input" name="rate" value="4" id="4 Star">
                                                             <label class="form-check-label" for="4 Star">4 Star</label>
                                                         </div>
-                                                        <div class="form-check">
+                                                        <div class="form-check" onclick="Activestar3()" id="3">
                                                             <input type="radio" class="form-check-input" name="rate" value="3" id="3 Star">
                                                             <label class="form-check-label" for="3 Star">3 Star</label>
                                                         </div>
-                                                        <div class="form-check">
+                                                        <div class="form-check" onclick="Activestar2()" id="2">
                                                             <input type="radio" class="form-check-input" name="rate" value="2" id="2+ Star">
                                                             <label class="form-check-label" for="2 Star">2 Star</label>
                                                         </div>
@@ -325,11 +311,14 @@
                             <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
                                 <div class="list_tab_box">
                                     <div class="row">
+                                        
                                         @if(isset($storage) && sizeof($storage) > 0)
                                             @foreach($storage as $key => $value)  
+
                                             <div class="col-12 mt-3">
                                                 <div class="grid__main__box">
                                                     <div class="grid_left_box">
+                                                        <a href="{{ url('/login')}}">
                                                         <div class="grid_left_subbox">
                                                             <div class="list_img_box">
                                                                 @if(isset($value->storage_image) && sizeof($value->storage_image)>0)
@@ -348,22 +337,27 @@
                                                                         @endforeach
                                                                     </ul>
                                                                 @endif
-                                                               
-                                                            <!-- <div class="list_rating_box">
-                                                                    <a href="#"><span>4.0</span></a>
-                                                                    <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                            class="img-fluid"></a>
-                                                                    <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                            class="img-fluid"></a>
-                                                                    <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                            class="img-fluid"></a>
-                                                                    <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
-                                                                            class="img-fluid"></a>
-                                                                    <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/empty-star.png') }}" alt="star"
-                                                                            class="img-fluid"></a>
-                                                                </div> -->
+
+                                                                <?php
+
+                                                                    $avg = 0;
+                                                                    $avg = round($value->storage_rating_avg_rate,1);
+                                                                ?>
+                                                                
+                                                                @if($avg > 0)
+                                                                    <div class="list_rating_box">
+                                                                        <a href="#"><span>{{ $avg }}.0
+                                                                        </span></a>
+                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"class="img-fluid"></a>
+                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star" class="img-fluid"></a>
+                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star" class="img-fluid"></a>
+                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star" class="img-fluid"></a>
+                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/empty-star.png') }}" alt="star"class="img-fluid"></a>
+                                                                    </div>
+                                                                @endif
                                                             </div>
                                                         </div>
+                                                    </a>
                                                     </div>
                                                     <div class="grid_right_box">
                                                         <h6>${{$value->price}}/mo</h6>
@@ -372,6 +366,7 @@
                                             </div>
                                             @endforeach
                                         @endif
+                                    
                                         <!--<div class="col-12 text-center mt-3">
                                             <a href="#" class="btn more_btn">257 More <i class="fa fa-arrow-down pl-4"></i></a>
                                         </div>-->
@@ -493,12 +488,16 @@
 
     <script>
 
-        function myFunction() {
-            document.getElementById("myDIV").style.visibility = "hidden"; 
+        function setSizeSlider() {
+            
+            var size = $("#dropdownMenuButton2").val();
+            var size_arr = size.split("-");
+            
+            /*$("#from_size").val(size_arr[0]);
+            $("#to_size").val(size_arr[1]);*/
         }
 
-
-        function dsn($value) {
+        function addtextbox($value) {
             if($value=="1"){
                 var x = document.getElementById("myDIV");
                 if (x.style.visibility === "hidden") {
@@ -509,7 +508,35 @@
                 document.getElementById("myDIV").style.visibility = "hidden";
             }
         }
-    </script>
-    
 
+        function Activestar2() {
+               $('#2').addClass('active');
+                $('#3').removeClass('active');
+                $('#4').removeClass('active');
+                $('#5').removeClass('active');
+            }
+
+            function Activestar3() {
+               $('#3').addClass('active');
+                $('#4').removeClass('active');
+                $('#2').removeClass('active');
+                $('#5').removeClass('active');
+            }
+
+            function Activestar4() {
+                $('#4').addClass('active');
+                $('#3').removeClass('active');
+                $('#2').removeClass('active');
+                $('#5').removeClass('active');
+            }
+
+            function Activestar5() {
+               $('#5').addClass('active');
+                $('#4').removeClass('active');
+                $('#2').removeClass('active');
+                $('#3').removeClass('active');
+
+            }
+
+    </script>
 @stop

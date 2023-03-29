@@ -457,7 +457,6 @@ class WebController extends Controller
 
     public function storageList(Request $request ,$slug) {
 
-        $rating = StorageRating::All();
         // Get Search Fields
         $search = $request->search;
         $price = $request->price;
@@ -468,11 +467,10 @@ class WebController extends Controller
         $size = $request->size;
         $rate = $request->rate;
         $sort = $request->sort;
-       //echo $rate;exit;
 
         $category = Category::where('slug',$slug)->first();
 
-        $query = Storage::with(['category','storage_image','storage_rates']);
+        $query = Storage::with(['category','storage_image']);
 
         $query = $query->with(['storage_aminites' => function($sql) {
             $sql->with(['aminites_detail' => function($query) {
@@ -480,26 +478,34 @@ class WebController extends Controller
             }]);
         }]);
 
+        $query->withAvg('storage_rating','rate')->withCount(['review' => function($query) {
+            $query->where('review','!=','');
+        }]);
+
         if($search != '') {
             
-            $query->Join('country','country.id','=','storages.country');
+            //$query->Join('country','country.id','=','storages.country');
         
             $query = $query->where(function($query) use ($search) {
             
                 $query = $query->where('storages.city','=',$search);
                 $query = $query->orwhere('storages.zipcode','=',$search);
-                $query = $query->orwhere('country.name','=',$search);
+                //$query = $query->orwhere('country.name','=',$search);
             });
-            
         }
+
+
         if(isset($_COOKIE["current_latitude"])) {
             $latitude = $_COOKIE["current_latitude"];
         }
+
         if(isset($_COOKIE["current_longitude"])) {
             $longitude = $_COOKIE["current_longitude"];
         }
 
-         if($to != '') {
+
+        if($to != '') {
+
             $query = $query->select('id','city'
             ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
@@ -509,6 +515,7 @@ class WebController extends Controller
         }
 
         if($from != '') {
+
             $query = $query->select('id','city'
             ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
@@ -516,7 +523,6 @@ class WebController extends Controller
             + sin(radians(" .$latitude. ")) 
             * sin(radians(storages.latitude))) AS distance"))->having('distance', '>=', $from);
         }
-        // $storages = $query->where('cat_id',$category->id)->orderBy(->get();
 
         if($price != '') {  
             $query = $query->where(function($query) use ($price) {
@@ -532,38 +538,23 @@ class WebController extends Controller
         }
         else if($sort == 'Near me') {  
 
-             $query = $query->select('id','city'
+            $query = $query->select('id','city'
             ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
             * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
             + sin(radians(" .$latitude. ")) 
             * sin(radians(storages.latitude))) AS distance"))->orderby('distance', 'asc');
         }
-        // else if($sort == 'Highest rating') {  
-        //         $query->Join('storage_rating','storage_rating.rate','=',$rate);
+        else if($sort == 'Highest rating') {
 
-        //         $query = $query->where(function($query) use ($rate) {
-        //         //$avg = avg('storage_rating.rate');      
-        //         $query = $query->where('storage_rating.rate','asc');  
-        // });
-        // }
-        // else{
-        //         $query = $query->where(function($query) use ($rate) {
-        //         //$avg = avg('storage_rating.rate');      
-        //         $query = $query->where('storage_rating.rate','desc');
-        //     });
-        // }
-
-
-
-        
-        // if($rate != '') {  
-        //     $query->Join('storage_rating','storage_rating.rate','=',$rate);
-        //     $query = $query->where(function($query) use ($rate) {
-        //         //$avg = $query->Avg('storage_rating.rate');      
-        //         $query = $query->Avg('storage_rating.rate','=',$rate);      
-        //     });
-        // }
+            $query = $query->orderBy('storage_rating_avg_rate','desc');
+        }
+        else if($sort == 'Lowest rating') {
+            $query = $query->orderBy('storage_rating_avg_rate','asc');
+        }
+        else {
+            $query = $query->orderBy('storages.id','desc');
+        }
 
         if($type != '') {  
             $query = $query->where(function($query) use ($type) {
@@ -582,12 +573,12 @@ class WebController extends Controller
                 $query = $query->where('storages.access','=',$access);        
             });
         }
-
+        
         $storage = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->get();
         $store = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->first();
 
         $storages_count = sizeof($storage);
 
-        return view('storage-list',compact('storage','search','price','type','access','slug','category','storages_count','from','to','rate','rating','store','sort'));
+        return view('storage-list',compact('storage','search','price','type','access','slug','category','storages_count','from','to','rate','store','sort'));
     }
 }
