@@ -155,13 +155,13 @@
                                                                             <option value="">Select Size:</option>
                                                                             <option value="0-1000">0-1000</option>
                                                                             <option value="1001-5000">1001-5000</option>
-                                                                            <option value="5001">5001-10000</option>
-                                                                            <option value="10001">10001-15000</option>
-                                                                            <option value="15001">15001-20000</option>
-                                                                            <option value="20001">20001-25000</option>
-                                                                            <option value="25001">25001-50000</option>
-                                                                            <option value="50001">50001-100000</option>
-                                                                            <option value="101000">101000</option>
+                                                                            <option value="5001-10000">5001-10000</option>
+                                                                            <option value="10001-15000">10001-15000</option>
+                                                                            <option value="15001-20000">15001-20000</option>
+                                                                            <option value="20001-25000">20001-25000</option>
+                                                                            <option value="25001-50000">25001-50000</option>
+                                                                            <option value="50001-100000">50001-100000</option>
+                                                                            <option value="101000-101000+">101000+</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -193,22 +193,18 @@
                                             <div class="rating__box">
                                                 <h2>Rating</h2>
                                                 <div class="rating_box_content">
-                                                    <div class="form-group">                                            
-                                                        <div class="form-check active" onclick="Activestar5()" id="5">
-                                                            <input type="radio" class="form-check-input" name="rate" value="5" id="5 Star" checked>
-                                                            <label class="form-check-label" for="5 Star">5 Star</label>
+                                                    <div class="form-group" >                                            
+                                                        <div class="form-check rating_cls active" id="ratingcls_5">
+                                                            <input type="radio" class="form-check-input" id="rating_5" name="rating" onclick="displayRatingStyle(5);" checked>5 Star
                                                         </div>
-                                                        <div class="form-check" onclick="Activestar4()" id="4">
-                                                            <input type="radio" class="form-check-input" name="rate" value="4" id="4 Star">
-                                                            <label class="form-check-label" for="4 Star">4 Star</label>
+                                                        <div class="form-check rating_cls" id="ratingcls_4">
+                                                            <input type="radio" class="form-check-input" id="rating_4" name="rating" onclick="displayRatingStyle(4);">4 Star
                                                         </div>
-                                                        <div class="form-check" onclick="Activestar3()" id="3">
-                                                            <input type="radio" class="form-check-input" name="rate" value="3" id="3 Star">
-                                                            <label class="form-check-label" for="3 Star">3 Star</label>
+                                                        <div class="form-check rating_cls" id="ratingcls_3">
+                                                            <input type="radio" class="form-check-input" id="rating_3" name="rating" onclick="displayRatingStyle(3);">3 Star
                                                         </div>
-                                                        <div class="form-check" onclick="Activestar2()" id="2">
-                                                            <input type="radio" class="form-check-input" name="rate" value="2" id="2+ Star">
-                                                            <label class="form-check-label" for="2 Star">2 Star</label>
+                                                        <div class="form-check rating_cls" id="ratingcls_2">
+                                                            <input type="radio" class="form-check-input" id="rating_2" name="rating" onclick="displayRatingStyle(2);">2 Star
                                                         </div>
                                                     </div>
                                                 </div>
@@ -380,14 +376,14 @@
                                             @foreach($storage as $key => $value)
                                                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
                                                     <div class="grid_tab_card">
-                                                        <a href="#">
+                                                        <a href="{{ url('/login')}}">
                                                             <div class="grid_tab_img">
                                                                 @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
                                                                     <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one" class="img-fluid" style="height: 200px;width: 320px;">
                                                                 @endif
                                                             </div>
                                                         </a>
-                                                        <a href="#">
+                                                        <a href="{{ url('/login')}}">
                                                             <div class="grid_tab_content">
                                                                 <p>{{$value->title}} - {{$value->storage_no}} , {{$value->city}}</p>
                                                                 @if(isset($value->storage_aminites) && sizeof($value->storage_aminites) > 0)
@@ -421,14 +417,14 @@
                                                         @foreach($storage as $key => $value)
                                                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                                                 <div class="grid_tab_card">
-                                                                    <a href="#">
+                                                                    <a href="{{ url('/login')}}">
                                                                         <div class="grid_tab_img">
                                                                             @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
                                                                                 <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one" class="img-fluid" style="height: 200px;width: 320px;">
                                                                             @endif
                                                                         </div>
                                                                     </a>
-                                                                    <a href="#">
+                                                                    <a href="{{ url('/login')}}">
                                                                         <div class="grid_tab_content">
                                                                             <p>{{$value->title}} - {{$value->storage_no}} , {{$value->city}}</p>
                                                                             @if(isset($value->storage_aminites) && sizeof($value->storage_aminites) > 0)
@@ -488,13 +484,19 @@
 
     <script>
 
+        function displayRatingStyle(rating) {
+
+            $('.rating_cls').removeClass('active');
+            $('#ratingcls_'+rating).addClass('active');
+        }
+
         function setSizeSlider() {
             
             var size = $("#dropdownMenuButton2").val();
             var size_arr = size.split("-");
-            
-            /*$("#from_size").val(size_arr[0]);
-            $("#to_size").val(size_arr[1]);*/
+
+            $("#from_size").val(size_arr[0]);
+            $("#to_size").val(size_arr[1]);
         }
 
         function addtextbox($value) {
