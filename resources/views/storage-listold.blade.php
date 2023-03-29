@@ -5,7 +5,7 @@
     <section class="self_store_section">
         <div class="container-fluid">
             <div class="self_storage_top">
-                <form action="{{ url('storage')}}/{{$slug}}" method="get">
+                <form action="{{ url('storage')}}/{{$slug}}" method="post">@csrf
                     <div class="row">
                         <div class="col-sm-12 col-md-3 col-lg-5 col-xl-6">
                             <div class="search_box_left">
@@ -14,55 +14,46 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 d-flex">
                             <div class="search_box_right">
                                 <div class="dropdown_box">
-                                    <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="type" style="float: left;"> 
+                                    <select class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="type"> 
                                         @if($type == "Heated")
-                                            <option class="dropdown-item" value="">Select Type
-                                            </option>
-                                            <option class="dropdown-item" value="Heated" selected>Heated</option>
-                                            <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
+                                        <option class="dropdown-item" value="">Select Type </option>
+                                        <option class="dropdown-item" value="Heated" selected>Heated</option>
+                                        <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
                                         @elseif($type == "Non-Heated")
-                                            <option class="dropdown-item" value="">Select Type
-                                            </option>
-                                            <option class="dropdown-item" value="Heated">Heated
-                                            </option>
-                                            <option class="dropdown-item" value="Non-Heated" selected>Non-Heated</option>
+                                        <option class="dropdown-item" value="">Select Type </option>
+                                        <option class="dropdown-item" value="Heated">Heated</option>
+                                        <option class="dropdown-item" value="Non-Heated" selected>Non-Heated</option>
                                         @else
-                                            <option class="dropdown-item" value="" style="float: left;">Select Type
-                                            </option>
-                                            <option class="dropdown-item" value="Heated">Heated
-                                            </option>
-                                            <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
+                                        <option class="dropdown-item" value="">Select Type </option>
+                                        <option class="dropdown-item" value="Heated">Heated</option>
+                                        <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
                                         @endif
                                     </select>
                                 </div>
 
                                 <div class="dropdown_box">
-                                    <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="access">
+                                    <select class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="access">
                                         @if($access == "Inside")
-                                            <option class="dropdown-item" value="">Select Access
-                                            </option>
-                                            <option class="dropdown-item" value="Inside" selected>Inside</option>
-                                            <option class="dropdown-item" value="Outside">Outside
-                                            </option>
+                                        <option class="dropdown-item" value="">Select Access  </option>
+                                        <option class="dropdown-item" value="Inside" selected>Inside</option>
+                                        <option class="dropdown-item" value="Outside">Outside</option>
                                         @elseif($access == "Outside")
-                                            <option class="dropdown-item" value="">Select Access
-                                            </option>
-                                            <option class="dropdown-item" value="Inside">Inside
-                                            </option>
-                                            <option class="dropdown-item" value="Outside" selected>Outside</option>
+                                        <option class="dropdown-item" value="">Select Access  </option>
+                                        <option class="dropdown-item" value="Inside">Inside</option>
+                                        <option class="dropdown-item" value="Outside" selected>Outside</option>
                                         @else
-                                            <option class="dropdown-item" value="">Select Access
-                                            </option>
-                                            <option class="dropdown-item" value="Inside">Inside
-                                            </option>
-                                            <option class="dropdown-item" value="Outside">Outside
-                                            </option>
+                                        <option class="dropdown-item" value="">Select Access  </option>
+                                        <option class="dropdown-item" value="Inside">Inside</option>
+                                        <option class="dropdown-item" value="Outside">Outside</option>
                                         @endif
+
                                     </select>
                                 </div>
+
                                 <div class="filter__box">
                                     <a href="#" data-toggle="modal" data-target="#exampleModalCenter">Filter </a>
                                     <span class="filter__span"><i class="fa fa-filter"></i></span>
@@ -87,32 +78,28 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="col-md-6">
-                                                <div class="mutiple_circle_range">
-                                                    <h2>Distance</h2>
-                                                </div>
-                                            </div>
-                                            <div class="mutiple_circle_range">
-                                                <div class="filter_content">
-                                                    <div class="form-groups">
-                                                        <input type="text" class="js-range-slider" name="distance" value="" data-skin="round" data-type="double" data-min="0" data-max="50" data-grid="false" id="distance"/>
-
-                                                        <div class="row mt-4">
-                                                            <div class="col-lg-4 from_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" class="from" id="from_distance" placeholder="1 Km" name="from" value="{{$from}}">
-                                                            </div>
-
-                                                            <div class="col-lg-4 center_slide" style="width: 33.33%;">
-                                                                <h6 class="center_slode_text">TO
-                                                                </h6>
-                                                            </div>
-
-                                                            <div class="col-lg-4 to_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" class="to" id="to_distance"placeholder="50 Km" name="to" value="{{$to}}">
-                                                            </div>
-                                                        </div>
+                                            <div class="multip__step_range">
+                                                <fieldset class="formSlider">
+                                                    <h4>Distance</h4>
+                                                    <div class="__range __range-step">
+                                                        <input value="1" type="range" max="4" min="1" step="1"
+                                                            list="ticks1">
+                                                        <datalist id="ticks1">
+                                                            <option value="1" class="active"><span class="km_span">1
+                                                                    KM</span>
+                                                            </option>
+                                                            <option value="2"><span class="km_span">20 KM</span>
+                                                            </option>
+                                                            <option value="3"><span class="km_span">35 KM</span>
+                                                            </option>
+                                                            <option value="4"><span class="km_span">50+
+                                                                    KM</span>
+                                                            </option>
+                                                            <!-- <option value="5"><span class="km_span">5mm</span>
+                                                            </option> -->
+                                                        </datalist>
                                                     </div>
-                                                </div>
+                                                </fieldset>
                                             </div>
                                         @if($slug == "residential")
                                             <div class="mutiple_circle_range mt-5">
@@ -128,28 +115,42 @@
                                                             <div>
                                                                 <div class="drop-down">
                                                                     <div class="selected position-relative">
-                                                                        <a href="#">
-                                                                            <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onclick="dsn(value);" style="margin-left: 20px;">
-                                                                                <option value="" selected>Select Size : </option>
-                                                                                <option>5*10</option>
-                                                                                <option>10*10</option>
-                                                                                <option>10*15</option>
-                                                                                <option>10*20</option>
-                                                                                <option>10*30</option>
-                                                                                <option>10*40</option>
-                                                                                <option value="1">Add Custom</option>
-                                                                            </select>
-                                                                        </a>
+                                                                        <a href="#"><span>standard one </span><i
+                                                                                class="fa fa-angle-down drop_doown_icon"></i></a>
                                                                     </div>
+                                                                    <div class="options">
+                                                                        <ul>
+                                                                            <li><a href="#">5x10<span
+                                                                                        class="value">1</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">10x10<span
+                                                                                        class="value">2</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">10x15<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">10x20<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">10x30<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">10x40<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">Add custom
+                                                                                <input type="text" class="value" name="size">
+                                                                            </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div><br>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <input type="text" class="form-control search_input" id="myDIV" placeholder="Add Custom Size" name="custom_size" style="visibility: hidden; width: 50%!important;">
+                                                    </div>
+                                                    
+                                                </div>
                                             </div>
                                         @else
                                             <div class="mutiple_circle_range mt-5">
@@ -164,41 +165,66 @@
                                                         <div class="col-md-6 text-right">
                                                             <div>
                                                                 <div class="drop-down">
-                                                                    <div class="options">
-                                                                       <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onclick="dsn(value);" style="margin-left: 20px;">
-                                                                            <option value="" selected>select size:</option>
-                                                                            <option>0-1000</option>
-                                                                            <option><span id="from">1001</span>-<span id="to">5000</span></option>
-                                                                            <option value="5001">5001-10000</option>
-                                                                            <option value="10001">10001-15000</option>
-                                                                            <option>15001-20000</option>
-                                                                            <option>20001-25000</option>
-                                                                            <option>25001-50000</option>
-                                                                            <option>50001-100000</option>
-                                                                            <option>101000</option>
-                                                                        </select>
+                                                                    <div class="selected position-relative">
+                                                                        <a href="#"><span>standard one </span><i
+                                                                                class="fa fa-angle-down drop_doown_icon"></i></a>
                                                                     </div>
+                                                                    <div class="options">
+                                                                        <ul>
+                                                                            <li><a href="#">0-1000<span
+                                                                                        class="value">1</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">1001-5000<span
+                                                                                        class="value">2</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">5001-10000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">10001-15000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">15001-20000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                             <li><a href="#">20001-25000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">25001-50000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">50001-100000<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                            <li><a href="#">101000+<span
+                                                                                        class="value">3</span></a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div><br>
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                     
                                                     <div class="form-group">
-                                                        <input type="text" class="js-range-slider" name="size" value="" data-skin="round" data-type="double" data-min="0" data-max="101000" data-grid="false" id="size"/>
-
+                                                        <input type="text" class="js-range-slider" name="my_range"
+                                                            value="" data-skin="round" data-type="double" data-min="0"
+                                                            data-max="1000" data-grid="false" />
                                                         <div class="row mt-4">
                                                             <div class="col-lg-4 from_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" class="from" id="from_size" placeholder="0">
+                                                                <input type="number" maxlength="4" class="from"
+                                                                    placeholder="500 sq.ft">
                                                             </div>
 
                                                             <div class="col-lg-4 center_slide" style="width: 33.33%;">
-                                                                <h6 class="center_slode_text">TO
-                                                                </h6>
+                                                                <h6 class="center_slode_text">TO</h6>
                                                             </div>
 
                                                             <div class="col-lg-4 to_slide" style="width: 33.33%;">
-                                                                <input type="number" maxlength="4" value="" class="to" id="to_size"placeholder="101000">
+                                                                <input type="number" maxlength="4" value="" class="to"
+                                                                    placeholder="1,700 sq.ft">
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -207,30 +233,37 @@
                                             <div class="rating__box">
                                                 <h2>Rating</h2>
                                                 <div class="rating_box_content">
-                                                    <div class="form-group">                                            
+                                                    <div class="form-group">
                                                         <div class="form-check active">
-                                                            <input type="radio" class="form-check-input" name="rate" value="5" id="5 Star" checked>
-                                                            <label class="form-check-label" for="5 Star">5 Star</label>
+                                                            <input type="radio" class="form-check-input" id="5 Star">
+                                                            <label class="form-check-label" for="5 Star">5
+                                                                Star</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" name="rate" value="4" id="4 Star">
-                                                            <label class="form-check-label" for="4 Star">4 Star</label>
+                                                            <input type="radio" class="form-check-input" id="4 Star">
+                                                            <label class="form-check-label" for="4 Star">4
+                                                                Star</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" name="rate" value="3" id="3 Star">
-                                                            <label class="form-check-label" for="3 Star">3 Star</label>
+                                                            <input type="radio" class="form-check-input" id="3 Star">
+                                                            <label class="form-check-label" for="3 Star">3
+                                                                Star</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input type="radio" class="form-check-input" name="rate" value="2" id="2+ Star">
-                                                            <label class="form-check-label" for="2 Star">2 Star</label>
+                                                            <input type="radio" class="form-check-input" id="2+ Star">
+                                                            <label class="form-check-label" for="2+ Star">2+
+                                                                Star</label>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer justify-content-start">
-                                            <button type="button " class="btn cancel_btn" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary model_save_btn">Save changes</button>
+                                            <button type="button " class="btn cancel_btn"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary model_save_btn">Save
+                                                changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -270,53 +303,20 @@
 
                         <div class="storage_grid_shorting">
                             <span class="sortbt_text">Sort by</span>
-                        <form action="{{ url('storage')}}/{{$slug}}" method="get">
+
                             <div class="dropdown_box">
-                                <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="sort" style="margin-left: 20px;" onchange="window.location.href = this.value">
-                                    @if($sort == "Price high to low")
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price low to high">Price low to high</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price high to low" selected>Price high to low</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Near me">Near me</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Highest rating">Highest rating</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Lowest rating">Lowest rating</option>
-                                    @elseif($sort == "Price low to high")
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price low to high" selected>Price low to high</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price high to low">Price high to low</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Near me">Near me</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Highest rating">Highest rating</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Lowest rating">Lowest rating</option>
-                                    @elseif($sort == "Near me")
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price low to high">Price low to high</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price high to low">Price high to low</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Near me" selected>Near me</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Highest rating">Highest rating</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Lowest rating">Lowest rating</option>
-                                    @elseif($sort == "Highest rating")
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price low to high">Price low to high</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price high to low">Price high to low</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Near me">Near me</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Highest rating" selected>Highest rating</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Lowest rating">Lowest rating</option>
-                                    @elseif($sort == "Lowest rating")
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price low to high">Price low to high</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price high to low">Price high to low</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Near me">Near me</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Highest rating">Highest rating</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Lowest rating" selected>Lowest rating</option>
-                                    @else
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price low to high">Price low to high</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Price high to low">Price high to low</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Near me">Near me</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Highest rating">Highest rating</option>
-                                    <option value="{{ url('storage')}}/{{$slug}}?sort=Lowest rating">Lowest rating</option>
-                                    @endif
-                                </select>
+                                <button class="btn btn-secondary dropdown-toggle storage_btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Highest rating</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Price low to high</a>
+                                    <a class="dropdown-item" href="#">Price high to low</a>
+                                    <a class="dropdown-item" href="#">Near me</a>
+                                    <a class="dropdown-item" href="#">Highest rating</a>
+                                    <a class="dropdown-item" href="#">Lowest rating</a>
+                                </div>
                             </div>
-                        </form>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
                 @if(isset($storages_count) && $storages_count > 0)
 
@@ -348,8 +348,7 @@
                                                                         @endforeach
                                                                     </ul>
                                                                 @endif
-                                                               
-                                                            <!-- <div class="list_rating_box">
+                                                                <!--<div class="list_rating_box">
                                                                     <a href="#"><span>4.0</span></a>
                                                                     <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"
                                                                             class="img-fluid"></a>
@@ -361,7 +360,7 @@
                                                                             class="img-fluid"></a>
                                                                     <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/empty-star.png') }}" alt="star"
                                                                             class="img-fluid"></a>
-                                                                </div> -->
+                                                                </div>-->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -460,9 +459,7 @@
                                         <div
                                             class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4 mt-md-4 mt-sm-4 mt-lg-0 mt-xl-0">
                                             <div class="map_right_box">
-                                            
-                                               <iframe width="100%" height="250" frameborder="0" style="border:0"src="https://www.google.com/maps/embed/v1/place?q={{ $store->city }}&amp;key={{ env('GOOGLE_MAP_KEY') }}&q={{ $store->latitude }},{{ $store->longitude }}"   allowfullscreen></iframe>
-                                            
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.297337633656!2d72.6680990149575!3d23.049558221103034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87960158f889%3A0x2bda7d524f9233f4!2sApp%20Ideas%20Infotech%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1677506155919!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                             </div>
                                         </div>
                                     </div>
@@ -489,27 +486,3 @@
     </section>
     <!--Find Self Storage Section End -->
 @endsection
-@section('customjs')
-
-    <script>
-
-        function myFunction() {
-            document.getElementById("myDIV").style.visibility = "hidden"; 
-        }
-
-
-        function dsn($value) {
-            if($value=="1"){
-                var x = document.getElementById("myDIV");
-                if (x.style.visibility === "hidden") {
-                    x.style.visibility = "visible";
-                } 
-            }
-            else{
-                document.getElementById("myDIV").style.visibility = "hidden";
-            }
-        }
-    </script>
-    
-
-@stop

@@ -5,7 +5,7 @@
     <section class="self_store_section">
         <div class="container-fluid">
             <div class="self_storage_top">
-                <form action="{{ url('storage')}}/{{$slug}}" method="post">@csrf
+                <form action="{{ url('storages')}}/{{$slug}}" method="get">
                     <div class="row">
                         <div class="col-sm-12 col-md-3 col-lg-5 col-xl-6">
                             <div class="search_box_left">
@@ -18,18 +18,51 @@
                         <div class="col-sm-12 col-md-9 col-lg-7 col-xl-6 d-flex">
                             <div class="search_box_right">
                                 <div class="dropdown_box">
-                                    <button class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown button</button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
+                                    <select class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="type"> 
+                                        @if($type == "Heated")
+                                            <option class="dropdown-item" value="">Select Type
+                                            </option>
+                                            <option class="dropdown-item" value="Heated" selected>Heated</option>
+                                            <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
+                                        @elseif($type == "Non-Heated")
+                                            <option class="dropdown-item" value="">Select Type
+                                            </option>
+                                            <option class="dropdown-item" value="Heated">Heated
+                                            </option>
+                                            <option class="dropdown-item" value="Non-Heated" selected>Non-Heated</option>
+                                        @else
+                                            <option class="dropdown-item" value="">Select Type
+                                            </option>
+                                            <option class="dropdown-item" value="Heated">Heated
+                                            </option>
+                                            <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
+                                        @endif
+                                    </select>
                                 </div>
 
-                                <div class="price__box">
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Price" name="price" value="{{$price}}">
-                                    <span class="price__span"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                <div class="dropdown_box">
+                                    <select class="btn btn-secondary dropdown-toggle search_dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="access">
+                                        @if($access == "Inside")
+                                            <option class="dropdown-item" value="">Select Access
+                                            </option>
+                                            <option class="dropdown-item" value="Inside" selected>Inside</option>
+                                            <option class="dropdown-item" value="Outside">Outside
+                                            </option>
+                                        @elseif($access == "Outside")
+                                            <option class="dropdown-item" value="">Select Access
+                                            </option>
+                                            <option class="dropdown-item" value="Inside">Inside
+                                            </option>
+                                            <option class="dropdown-item" value="Outside" selected>Outside</option>
+                                        @else
+                                            <option class="dropdown-item" value="">Select Access
+                                            </option>
+                                            <option class="dropdown-item" value="Inside">Inside
+                                            </option>
+                                            <option class="dropdown-item" value="Outside">Outside
+                                            </option>
+                                        @endif
+                                    </select>
                                 </div>
 
                                 <div class="filter__box">
@@ -114,8 +147,7 @@
                                                             </div>
 
                                                             <div class="col-lg-4 center_slide" style="width: 33.33%;">
-                                                                <h6 class="center_slode_text">TO
-                                                                </h6>
+                                                                <h6 class="center_slode_text">TO</h6>
                                                             </div>
 
                                                             <div class="col-lg-4 to_slide" style="width: 33.33%;">
@@ -228,26 +260,32 @@
                                                                       <?php
                                                                         $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
                                                                     ?>
+                                                                    
 
                                                                     @if(isset($existRecord) && $existRecord != '')
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
+                                                                             <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
+                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                            </a>
                                                                     @else
                                                                         <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
+                                                                             <i class="fa fa-heart-o heart_icon new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                            </a>
                                                                     @endif
                                                                 @else
                                                                 
-                                                                    <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
+                                                                     <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
                                                                      <?php
                                                                         $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
                                                                     ?>
 
                                                                     @if(isset($existRecord) && $existRecord != '')
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
+                                                                             <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
+                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                            </a>
                                                                     @else
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}"><i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}" title="Remove From Favourite"></i></a>
+                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
+                                                                             <i class="fa fa-heart-o heart_icon new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                            </a>
                                                                     @endif
                                                                 @endif
                                                             </div>
@@ -286,7 +324,8 @@
                                             @endforeach
                                         @endif
                                         <!--<div class="col-12 text-center mt-3">
-                                            <a href="#" class="btn more_btn">257 More <i class="fa fa-arrow-down pl-4"></i></a>
+                                            <a href="#" class="btn more_btn">257 More <i
+                                                    class="fa fa-arrow-down pl-4"></i></a>
                                         </div>-->
                                     </div>
                                 </div>
@@ -301,17 +340,20 @@
                                                         <a href="#">
                                                             <div class="grid_tab_img">
                                                                 @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
-                                                                <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one" class="img-fluid" style="height: 200px;width: 320px;">
+                                                                <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one"
+                                                                        class="img-fluid" style="height: 200px;width: 320px;">
                                                                     <?php
                                                                         $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
                                                                     ?>
 
                                                                     @if(isset($existRecord) && $existRecord != '')
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
+                                                                             <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
+                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                            </a>
                                                                     @else
                                                                         <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
+                                                                             <i class="fa fa-heart-o heart_icon new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                            </a>
                                                                     @endif
                                                                 @else
                                                                     <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 200px;">
@@ -320,24 +362,29 @@
                                                                     ?>
 
                                                                     @if(isset($existRecord) && $existRecord != '')
-                                                                        <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
+                                                                             <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
+                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                            </a>
                                                                     @else
                                                                         <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                        <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i></a>
+                                                                             <i class="fa fa-heart-o heart_icon new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                            </a>
                                                                     @endif
+
                                                                  @endif
+                                                                    
+                            
                                                             </div>
                                                         </a>
                                                         <a href="#">
                                                             <div class="grid_tab_content">
                                                                 <p>{{$value->title}} - {{$value->storage_no}} , {{$value->city}}</p>
                                                                 @if(isset($value->storage_aminites) && sizeof($value->storage_aminites) > 0)
-                                                                    <ul>
-                                                                        @foreach($value->storage_aminites as $key1 => $value1)
-                                                                            <li>{{ @$value1->aminites_detail->name }}</li>
-                                                                        @endforeach
-                                                                    </ul>
+                                                                        <ul>
+                                                                            @foreach($value->storage_aminites as $key1 => $value1)
+                                                                                <li>{{ @$value1->aminites_detail->name }}</li>
+                                                                            @endforeach
+                                                                        </ul>
                                                                 @endif
                                                                 <h4>${{$value->price}}/mo</h4>
                                                             </div>
@@ -347,7 +394,8 @@
                                             @endforeach
                                         @endif
                                         <!--<div class="col-12 text-center mt-3">
-                                            <a href="#" class="btn more_btn">257 More <i class="fa fa-arrow-down pl-4"></i></a>
+                                            <a href="#" class="btn more_btn">257 More <i
+                                                    class="fa fa-arrow-down pl-4"></i></a>
                                         </div>-->
                                     </div>
                                 </div>
@@ -366,19 +414,20 @@
                                                                     <a href="#">
                                                                         <div class="grid_tab_img">
                                                                         @if(isset($value->storage_image) && sizeof($value->storage_image) > 0)
-                                                                            <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one" class="img-fluid" style="height: 200px;width: 320px;">
+                                                                             <img src="{{ config('global.image_base_url').'/'.$value->storage_image[1]->image }}" alt="list-img-one"
+                                                                             class="img-fluid" style="height: 200px;width: 320px;">
                                                                           
                                                                             <?php
-                                                                                $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
-                                                                            ?>
+                                                                        $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$value->id)->first();
+                                                                    ?>
 
-                                                                            @if(isset($existRecord) && $existRecord != '')
-                                                                                <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
+                                                                    @if(isset($existRecord) && $existRecord != '')
+                                                                             <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
                                                                              <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
                                                                             </a>
                                                                     @else
                                                                         <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                             <i class="fa fa-heart-o heart_icon new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
                                                                             </a>
                                                                     @endif
                                                                         @else
@@ -393,7 +442,7 @@
                                                                             </a>
                                                                     @else
                                                                         <a href="javascript:addToFavourite({{ $value->id }})" class="list_heart_box favorites_card_link new_a_cls_{{ $value->id }}">
-                                                                             <i class="fa fa-heart favorite_heart new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
+                                                                             <i class="fa fa-heart-o heart_icon new_i_cls_{{ $value->id }}"  title="Remove From Favourite"></i>
                                                                             </a>
                                                                     @endif
                                                                  @endif

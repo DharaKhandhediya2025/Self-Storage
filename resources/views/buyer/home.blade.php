@@ -42,18 +42,30 @@
                                 @if($j == 0)
                                     <div class="tab-pane fade show active" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="banner_search_main">
-                                            <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
+                                            <form action="{{ url('storages')}}/{{$row->slug}}" method="get">
                                                 <div class="banner_text_location">
                                                     <input type="text" placeholder="Enter Country, City or Zipcode" name="search">
                                                 </div>
-                                                <div class="banner_text_price">
-                                                    <input type="number" placeholder="Price" name="price" minlength="0" maxlength="10">
-                                                    <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                                </div>
-                                                <div class="banner_text_filter">
-                                                    <input type="text" placeholder="Filter">
-                                                    <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
-                                                </div>
+                                                <div class="banner_text_price">                     
+                                                        <div class="form-group mb-0">
+                                                            <select class="form-control banner__Select__Dropdown" name="type">
+                                                                <option class="dropdown-item" value="">Select Type</option>
+                                                                <option class="dropdown-item" value="Heated">Heated</option>
+                                                                <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="banner_text_price">                     
+                                                        <div class="form-group mb-0">
+                                                            <select class="form-control banner__Select__Dropdown" name="access">
+                                                                <option class="dropdown-item" value="">Select Access</option>
+                                                                <option class="dropdown-item" value="Inside">Inside</option>
+                                                                <option class="dropdown-item" value="Outside">Outside</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="banner__empty__box"></div>
                                                 <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                                             </form>
                                         </div>
@@ -61,18 +73,30 @@
                                 @else
                                     <div class="tab-pane fade show" id="home_{{$row->id}}" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="banner_search_main">
-                                            <form action="{{ url('storage')}}/{{$row->slug}}" method="post">@csrf
+                                            <form action="{{ url('storages')}}/{{$row->slug}}" method="get">
                                                 <div class="banner_text_location">
                                                     <input type="text" placeholder="Country, City or Zipcode" name="search">
                                                 </div>
-                                                <div class="banner_text_price">
-                                                    <input type="text" placeholder="Price" name="price">
-                                                    <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                                </div>
-                                                <div class="banner_text_filter">
-                                                    <input type="text" placeholder="Filter">
-                                                    <span class="filter_text"><i class="fa fa-filter"aria-hidden="true"></i></span>
-                                                </div>
+                                               <div class="banner_text_price">                     
+                                                        <div class="form-group mb-0">
+                                                            <select class="form-control banner__Select__Dropdown" name="type">
+                                                                <option class="dropdown-item" value="">Select Type</option>
+                                                                <option class="dropdown-item" value="Heated">Heated</option>
+                                                                <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="banner_text_price">                     
+                                                        <div class="form-group mb-0">
+                                                            <select class="form-control banner__Select__Dropdown" name="access">
+                                                                <option class="dropdown-item" value="">Select Access</option>
+                                                                <option class="dropdown-item" value="Inside">Inside</option>
+                                                                <option class="dropdown-item" value="Outside">Outside</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="banner__empty__box"></div>
                                                 <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                                             </form>
                                         </div>

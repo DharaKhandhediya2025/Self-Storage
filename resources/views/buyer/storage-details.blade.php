@@ -184,11 +184,15 @@
 
 
                             </div>
-
+                           
                             @foreach($storage_rates as $row)
                             <div class="review_card mb-3">
                                 <div class="review_card_img">
+                                    @if(isset($row->buyer->profile_image))
                                     <img src="{{ asset('storage/app/public/'.$row->buyer->profile_image) }}" alt="review-img" class="img-fluid" style="height: 50px; width: 50px;">
+                                    @else
+                                    <img src="{{ config('global.front_base_url').'images/work-img-one.png' }}" alt="nearby-one" class="img-fluid" style="height: 50px; width: 50px;">
+                                    @endif
                                 </div>
                                 <div class="review_card_content">
                                     <h4>{{$row->buyer->name}}</h4>
@@ -205,6 +209,7 @@
                                 </div>
                             </div>
                             @endforeach
+                           
                         </div>
                     </div>
                 </div>

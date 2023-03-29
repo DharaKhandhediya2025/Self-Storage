@@ -27,13 +27,20 @@
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slicktheme.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/style.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/responsive.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/select2.min.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slick-carousel.css' }}">
         @else
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/bootstrap.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slick.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slicktheme.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/ion.rangeSlider.min.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/style.css' }}">
         <link rel="stylesheet" href="{{ config('global.front_base_url').'css/responsive.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/select2.min.css' }}">
+        <link rel="stylesheet" href="{{ config('global.front_base_url').'css/slick-carousel.css' }}">
         @endif
+        
+      
       
     </head>
 
@@ -182,7 +189,7 @@
         @yield('customjs')
 
         <!-- Script start -->
-         @if(isset($seller) && $seller != '')
+        @if(isset($seller) && $seller != '')
         <script src="{{ asset('public/Seller-HTML/assets/js/jQuery.js') }}"></script>
         <script src="{{ asset('public/Seller-HTML/assets/js/popper.js') }}"></script>
         <script src="{{ asset('public/Seller-HTML/assets/js/bootstrap.js') }}"></script>
@@ -197,6 +204,8 @@
         <script src="{{ config('global.front_base_url').'js/slick.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/ion.rangeSlider.min.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/custom.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/select2.min.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/slick-carousel.js' }}"></script>
         @else
         <script src="{{ config('global.front_base_url').'js/jQuery.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/popper.min.js' }}"></script>
@@ -204,7 +213,10 @@
         <script src="{{ config('global.front_base_url').'js/slick.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/ion.rangeSlider.min.js' }}"></script>
         <script src="{{ config('global.front_base_url').'js/custom.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/select2.min.js' }}"></script>
+        <script src="{{ config('global.front_base_url').'js/slick-carousel.js' }}"></script>
         @endif
+       
         <!-- Script End -->
 
         <script type="text/javascript">
