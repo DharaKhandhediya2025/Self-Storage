@@ -51,7 +51,7 @@
                         <textarea class="form-control contact_input" id="message" name="message" rows="5" placeholder="Message *" required></textarea>
                     </div>
                     <div class="text-right">
-                        <button type="submit" class="btn contact_submit_btn">Submit Messages</button>
+                        <button type="submit" class="btn contact_submit_btn">Submit Message</button>
                         <!-- <a href="#" class="btn contact_submit_btn">Submit Messages</a> -->
                     </div>
                 </form>
@@ -60,12 +60,3 @@
     </section>
     <!-- Contact Section End -->
 @endsection
-
-@section('customjs')
-    <script type="text/javascript">
-
-        function disabledButton() {
-            document.getElementById("submitbtn").disabled = true;
-        }
-    </script>
-@stop
