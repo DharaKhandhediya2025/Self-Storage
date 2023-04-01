@@ -116,14 +116,15 @@
                                                                     <div class="selected position-relative">
                                                                         <a href="#">
                                                                             <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onclick="addtextbox(value);" style="margin-left: 20px;">
-                                                                                <option value="" selected>Select Size : </option>
-                                                                                <option>5*10</option>
-                                                                                <option>10*10</option>
-                                                                                <option>10*15</option>
-                                                                                <option>10*20</option>
-                                                                                <option>10*30</option>
-                                                                                <option>10*40</option>
-                                                                                <option value="1">Add Custom</option>
+                                                                                <option value="">Select Size :
+                                                                                </option>
+                                                                                @foreach($residential_size as $key => $value)
+                                                                                    @if($size != '' && $value == $size)
+                                                                                        <option value="{{ $value }}" selected>{{ $value }}</option>
+                                                                                    @else
+                                                                                        <option value="{{ $value }}">{{ $value }}</option>
+                                                                                    @endif
+                                                                                @endforeach
                                                                             </select>
                                                                         </a>
                                                                     </div>
@@ -151,17 +152,15 @@
                                                             <div>
                                                                 <div class="drop-down">
                                                                     <div class="options">
-                                                                       <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onchange="setSizeSlider();" style="margin-left: 20px;">
-                                                                            <option value="">Select Size:</option>
-                                                                            <option value="0-1000">0-1000</option>
-                                                                            <option value="1001-5000">1001-5000</option>
-                                                                            <option value="5001-10000">5001-10000</option>
-                                                                            <option value="10001-15000">10001-15000</option>
-                                                                            <option value="15001-20000">15001-20000</option>
-                                                                            <option value="20001-25000">20001-25000</option>
-                                                                            <option value="25001-50000">25001-50000</option>
-                                                                            <option value="50001-100000">50001-100000</option>
-                                                                            <option value="101000-101000+">101000+</option>
+                                                                       <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="size" onchange="removeSizeSlider();" style="margin-left: 20px;">
+                                                                            <option value="">Select Size :</option>
+                                                                            @foreach($commercial_size as $key => $value)
+                                                                                @if($size != '' && $value == $size)
+                                                                                    <option value="{{ $value }}" selected>{{ $value }}</option>
+                                                                                @else
+                                                                                    <option value="{{ $value }}">{{ $value }}</option>
+                                                                                @endif
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -169,8 +168,8 @@
                                                         </div>
                                                     </div>
                                                     
-                                                    <div class="form-group">
-                                                        <input type="text" class="js-range-slider" name="size" value="" data-skin="round" data-type="double" data-min="0" data-max="101000" data-grid="false" id="size"  data-result-min="#rangeSliderExample2MinResult"/>
+                                                    <div class="form-group" id="size_slide">
+                                                        <input type="text" class="js-range-slider" name="rangesize" value="" data-skin="round" data-type="double" data-min="0" data-max="101000" data-grid="false" id="size"  data-result-min="#rangeSliderExample2MinResult"/>
 
                                                         <div class="row mt-4">
                                                             <div class="col-lg-4 from_slide" style="width: 33.33%;">
@@ -193,19 +192,23 @@
                                             <div class="rating__box">
                                                 <h2>Rating</h2>
                                                 <div class="rating_box_content">
-                                                    <div class="form-group" >                                            
-                                                        <div class="form-check rating_cls active" id="ratingcls_5">
-                                                            <input type="radio" class="form-check-input" id="rating_5" name="rating" onclick="displayRatingStyle(5);" checked>5 Star
+                                                    <div class="form-group" > 
+                                                <div class="form-check rating_cls active" id="ratingcls_5">
+                                                            <input type="radio" class="form-check-input" id="rating_4" name="rating" onclick="displayRatingStyle(5);" value="5" checked>5 Star
                                                         </div>
-                                                        <div class="form-check rating_cls" id="ratingcls_4">
-                                                            <input type="radio" class="form-check-input" id="rating_4" name="rating" onclick="displayRatingStyle(4);">4 Star
+                                                @for($i=4;$i>=2;$i--)
+                                                        @foreach($storage as $key => $value)  
+                                                        <?php
+                                                            $avg = 0;
+                                                            $avg = round($value->storage_rating_avg_rate,1);
+                                                        ?> 
+                                                        @endforeach                     
+                                                        <div class="form-check rating_cls" id="ratingcls_{{$i}}">
+                                                            <input type="radio" class="form-check-input" id="rating_{{$i}}" name="rating" onclick="displayRatingStyle({{$i}});" value="{{$i}}">{{$i}} Star
                                                         </div>
-                                                        <div class="form-check rating_cls" id="ratingcls_3">
-                                                            <input type="radio" class="form-check-input" id="rating_3" name="rating" onclick="displayRatingStyle(3);">3 Star
-                                                        </div>
-                                                        <div class="form-check rating_cls" id="ratingcls_2">
-                                                            <input type="radio" class="form-check-input" id="rating_2" name="rating" onclick="displayRatingStyle(2);">2 Star
-                                                        </div>
+                                                        
+                                                @endfor
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,6 +258,7 @@
                         <form action="{{ url('storage')}}/{{$slug}}" method="get">
                             <div class="dropdown_box">
                                 <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="sort" style="margin-left: 20px;" onchange="window.location.href = this.value">
+                                    <option value="">popularity</option>
                                     @if($sort == "Price high to low")
                                     <option value="{{ url('storage')}}/{{$slug}}?sort=Price low to high">Price low to high</option>
                                     <option value="{{ url('storage')}}/{{$slug}}?sort=Price high to low" selected>Price high to low</option>
@@ -344,11 +348,26 @@
                                                                     <div class="list_rating_box">
                                                                         <a href="#"><span>{{ $avg }}.0
                                                                         </span></a>
-                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"class="img-fluid"></a>
-                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star" class="img-fluid"></a>
-                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star" class="img-fluid"></a>
-                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star" class="img-fluid"></a>
-                                                                        <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/empty-star.png') }}" alt="star"class="img-fluid"></a>
+                                                                        <?php
+                                                                        $empty = 5 - $avg;
+                                                                        for ($i = 1; $i <= $avg; $i++) {
+                                                                             if($avg < $i ) {
+                                                                             }else {
+                                                                                ?>
+                                                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"class="img-fluid"></a>
+                                                                                <?
+                                                                             }
+                                                                        }
+                                                                        for ($i = 1; $i <= $empty; $i++) {
+                                                                             if($empty < $i ) {
+                                                                             }else {
+                                                                                ?>
+                                                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/empty-star.png') }}" alt="star"class="img-fluid"></a>
+                                                                                <?
+                                                                             }
+                                                                        }
+                                                                        ?>
+                                                                        
                                                                     </div>
                                                                 @endif
                                                             </div>
@@ -450,9 +469,9 @@
 
                                         <div
                                             class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4 mt-md-4 mt-sm-4 mt-lg-0 mt-xl-0">
-                                            <div class="map_right_box">
+                                            <div class="map_right_box" id="maps">
                                             
-                                               <iframe width="100%" height="250" frameborder="0" style="border:0"src="https://www.google.com/maps/embed/v1/place?q={{ $store->city }}&amp;key={{ env('GOOGLE_MAP_KEY') }}&q={{ $store->latitude }},{{ $store->longitude }}"   allowfullscreen></iframe>
+                                               <iframe width="100%" height="250" frameborder="0" style="border:0"src="https://www.google.com/maps/embed/v1/place?q=''&amp;key={{ env('GOOGLE_MAP_KEY') }}&q={{ $latitude }},{{ $longitude }}"   allowfullscreen></iframe>
                                             
                                             </div>
                                         </div>
@@ -490,13 +509,16 @@
             $('#ratingcls_'+rating).addClass('active');
         }
 
-        function setSizeSlider() {
+        function removeSizeSlider() {
             
             var size = $("#dropdownMenuButton2").val();
-            var size_arr = size.split("-");
 
-            $("#from_size").val(size_arr[0]);
-            $("#to_size").val(size_arr[1]);
+            if(size == '') {
+                $("#size_slide").show();
+            }
+            else {
+                $("#size_slide").hide();
+            }
         }
 
         function addtextbox($value) {
@@ -541,4 +563,24 @@
             }
 
     </script>
+     <script type="text/javascript">
+        function initMap() {
+          const myLatLng = { lat: {{$latitude}}, lng: {{$longitude}} };
+          const map = new google.maps.Map(document.getElementById("maps"), {
+            zoom: 5,
+            center: myLatLng,
+          });
+  
+          new google.maps.Marker({
+            position: myLatLng,
+            map,
+           
+          });
+        }
+  
+        window.initMap = initMap;
+    </script>
+  
+    <script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap" ></script>
 @stop

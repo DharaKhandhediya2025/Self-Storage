@@ -7,7 +7,7 @@
         <div class="container">
             <div class="banner__box">
                 <div class="banner_content_box text-center">
-                    <h2>Find your <span>Storage Unite</span></h2>
+                    <h2>Find your <span>Storage Unit</span></h2>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     @if(isset($categories) && sizeof($categories) > 0)
                         <div class="banner_tabing">

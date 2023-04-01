@@ -455,6 +455,37 @@ class WebController extends Controller
         }
     }
 
+    public static function getCommercialSizeList() {
+
+        $commercial_size = array();
+
+        $commercial_size['0-1000'] = "0-1000";
+        $commercial_size['1001-5000'] = "1001-5000";
+        $commercial_size['5001-10000'] = "5001-10000";
+        $commercial_size['10001-15000'] = "10001-15000";
+        $commercial_size['15001-20000'] = "15001-20000";
+        $commercial_size['20001-25000'] = "20001-25000";
+        $commercial_size['25001-50000'] = "25001-50000";
+        $commercial_size['50001-100000'] = "50001-100000";
+        $commercial_size['101000-101000+'] = "101000-101000+";
+
+        return $commercial_size;
+    }
+
+    public static function getResidentialSizeList() {
+
+        $residential_size = array();
+
+        $residential_size['5*10'] = "5*10";
+        $residential_size['10*10'] = "10*10";
+        $residential_size['10*15'] = "10*15";
+        $residential_size['10*20'] = "10*20";
+        $residential_size['10*30'] = "10*30";
+        $residential_size['10*40'] = "10*40";
+         
+        return $residential_size;
+    }
+
     public function storageList(Request $request ,$slug) {
 
         // Get Search Fields
@@ -465,8 +496,10 @@ class WebController extends Controller
         $from = $request->from;
         $to = $request->to;
         $size = $request->size;
-        $rate = $request->rate;
+        $rate = $request->rating;
         $sort = $request->sort;
+
+        //echo $size;exit;
 
         $category = Category::where('slug',$slug)->first();
 
@@ -484,13 +517,13 @@ class WebController extends Controller
 
         if($search != '') {
             
-            //$query->Join('country','country.id','=','storages.country');
+            $query->Join('country','country.id','=','storages.country');
         
             $query = $query->where(function($query) use ($search) {
             
                 $query = $query->where('storages.city','=',$search);
                 $query = $query->orwhere('storages.zipcode','=',$search);
-                //$query = $query->orwhere('country.name','=',$search);
+                $query = $query->orwhere('country.name','=',$search);
             });
         }
 
@@ -506,8 +539,7 @@ class WebController extends Controller
 
         if($to != '') {
 
-            $query = $query->select('id','city'
-            ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+            $query = $query->select(DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
             * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
             + sin(radians(" .$latitude. ")) 
@@ -516,8 +548,8 @@ class WebController extends Controller
 
         if($from != '') {
 
-            $query = $query->select('id','city'
-            ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+            $query = $query->select(
+            DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
             * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
             + sin(radians(" .$latitude. ")) 
@@ -538,8 +570,7 @@ class WebController extends Controller
         }
         else if($sort == 'Near me') {  
 
-            $query = $query->select('id','city'
-            ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+            $query = $query->select(DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
             * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
             + sin(radians(" .$latitude. ")) 
@@ -573,12 +604,19 @@ class WebController extends Controller
                 $query = $query->where('storages.access','=',$access);        
             });
         }
+
         
         $storage = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->get();
         $store = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->first();
 
         $storages_count = sizeof($storage);
 
-        return view('storage-list',compact('storage','search','price','type','access','slug','category','storages_count','from','to','rate','store','sort'));
+        // Get Commercial Size
+        $commercial_size = self::getCommercialSizeList();
+
+        // Get Residential Size
+        $residential_size = self::getResidentialSizeList();
+
+        return view('storage-list',compact('storage','search','price','type','access','slug','category','storages_count','from','to','rate','store','sort','latitude','longitude','commercial_size','residential_size','size'));
     }
 }
