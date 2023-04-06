@@ -1,7 +1,75 @@
-@extends('headerfooter')@section('title','Contact Us')
+@extends('headerfooter')@section('title','Storage - Trouve ton entrepot')
 
 @section('content')
-    <!-- Create Post Banner Section Start -->
+<style>
+    .image__upload_wrapper .imagePreview {
+    width: 100%;
+    height: 180px;
+    background-position: center center;
+    background: url('http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg');
+    background-color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    border: 2px dashed #CCCCCC;
+    border-radius: 12px;
+}
+
+.image__upload_wrapper .upload-img {
+    display: block;
+    position: absolute;
+    top: 50%;
+    background: transparent;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #CCCCCC;
+    width: 40px;
+    height: 40px;
+    line-height: 37px;
+    border-radius: 50%;
+    font-size: 20px;
+    padding: 2px 10px;
+    color: #cccccc;
+    font-weight: normal;
+}
+
+.image__upload_wrapper .imgUp {
+    margin-bottom: 15px;
+    position: relative;
+    height: 100%;
+}
+
+.image__upload_wrapper .del {
+    position: absolute;
+    top: 2px;
+    right: 17px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: #ffffffb5;
+    cursor: pointer;
+    border-top-right-radius: 12px;
+}
+
+.image__upload_wrapper .imgAdd {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #193b73;
+    color: #fff;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 32px;
+    margin-top: 0px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-left: 12px;
+}
+.ass_star_color{
+    background-color: red;
+}
+</style>
     <section class="create_post_banner">
         <h2>Create post</h2>
     </section>
@@ -10,8 +78,8 @@
     <section class="post_card_section">
         <div class="container">
             <div class="post_card">
-                <form action="{{ url('/create-post')}}" enctype="multipart/form-data" method="post" class="create_post_form">
-                @csrf
+                <form action="{{ url('create-storage')}}" enctype="multipart/form-data">
+                    @csrf
                 <div x-data="app()" x-cloak>
                     <div class="post_card_top">
                         <div x-show.transition="step === 'complete'">
@@ -45,60 +113,36 @@
                             <!-- /Top Navigation -->
 
                             <!-- Step Content -->
-                            
                             <div class="crea_post_main_wrapper  ">
                                 <div x-show.transition.in="step === 1">
                                     <div class="create_post_main">
                                         <div class="create_post_body">
-                                            
+                                            <form class="create_post_form">
                                                 <div class="form-group">
                                                     <label class="create_post_label">Title</label>
-                                                    @if(isset($storage))
-                                                    <input type="text" name="title" class="form-control create_post_input"
-                                                        placeholder="Type here..." required value="{{$storage->title}}">
-                                                    @else
-                                                    <input type="text" name="title" class="form-control create_post_input"
-                                                        placeholder="Type here..." required>
-                                                    @endif
+                                                    <input type="text" class="form-control create_post_input"
+                                                        placeholder="Type here..." id="email_address">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label class="create_post_label">Storage type</label>
-                                                    <select class="form-control create_post_input" name="category" required>
-                                                    <option value="">Select Category</option>
-
-                                                    @foreach ($category as $key => $value)
-                                                    @if(isset($storage))
-                                                        @if($value->id == $storage->cat_id)
-                                                            <option value="{{ $value->id }}" selected>
-                                                            {{ $value->name }}</option>
-                                                        @else
-                                                            <option value="{{ $value->id }}">
-                                                            {{ $value->name }}</option>
-                                                        @endif
-                                                    @endif
-                                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                                    @endforeach
+                                                    <select class="form-control create_post_input">
+                                                        <option>Select</option>
+                                                        <option>Storage 1</option>
+                                                        <option>Storage 2</option>
+                                                        <option>Storage 3</option>
+                                                        <option>Storage 4</option>
+                                                        <option>Storage 5</option>
                                                     </select>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label class="create_post_label">Discription</label>
-                                                    @if(isset($storage))
                                                     <textarea class="form-control create_post_input" rows="3"
-                                                        placeholder="Type here..." name="description" value="{{$storage->description}}" required>
-                                                        {{$storage->description}}
-                                                    </textarea>
-                                                    @else
-                                                    <textarea class="form-control create_post_input" rows="3"
-                                                        placeholder="Type here..." name="description" required></textarea>
-                                                        @endif
+                                                        placeholder="Type here..."></textarea>
                                                 </div>
-                                            <div class="w-1/2 text-right">
-                                    <!-- <button type="submit" 
-                                        class="btn creat_post_next">Next</button> -->
-                                    </div>
 
+                                            </form>
                                         </div>
                                     </div>
 
@@ -107,71 +151,61 @@
                                 <div x-show.transition.in="step === 2">
                                     <div class="create_post_main">
                                         <div class="create_post_body">
-                                            
+                                            <form class="create_post_form">
                                                 <h2>Where is it located and contact?</h2>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label class="create_post_label">Country</label>
-                                                        <select class="form-control create_post_input" name="country" id="country_code" required="" onchange="displayCity();">
-                                                        @foreach ($countrys as $key => $value)
-                                                            @if(isset($storage))
-                                                                @if($value->id == $storage->country)
-                                                                    <option value="{{ $value->id }}" selected>
-                                                                    {{ $value->name }}</option>
-                                                                @else
-                                                                    <option value="{{ $value->id }}">
-                                                                    {{ $value->name }}</option>
-                                                                @endif
-                                                            @endif
-                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                                        @endforeach
-                                                            
+                                                        <select class="form-control create_post_input">
+                                                            <option>Select</option>
+                                                            <option>India</option>
+                                                            <option>Dubai</option>
+
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label class="create_post_label">City</label>
-                                                        <select class="form-control create_post_input" name="city" id="city_code">
-                                                            <input type="hidden" name="s_ct" id="s_ct" value="{{ $seller->city }}">
-                                                            
+                                                        <select class="form-control create_post_input">
+                                                            <option>Select</option>
+                                                            <option>Jaipur</option>
+                                                            <option>Dubai</option>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label class="create_post_label">Address</label>
-                                                    <textarea class="form-control create_post_input" name="address" rows="2"
-                                                        placeholder="Type here..." required></textarea>
+                                                    <textarea class="form-control create_post_input" rows="2"
+                                                        placeholder="Type here..."></textarea>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label class="create_post_label">Storage no </label>
-                                                        <input type="number" class="form-control create_post_input"
-                                                            placeholder="ex. 124" name="storage_no">
+                                                        <input type="text" class="form-control create_post_input"
+                                                            placeholder="ex. 124">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label class="create_post_label">Zipcode</label>
-                                                        <input type="number" class="form-control create_post_input"
-                                                            placeholder="ex. 124578" name="zipcode" required>
+                                                        <input type="text" class="form-control create_post_input"
+                                                            placeholder="ex. 124578">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label class="create_post_label">Phone 1 </label>
-                                                        <input type="number" class="form-control create_post_input"
-                                                            placeholder="ex. +1 456789456" name="phone1" id="phone_one" required>
-                                                            <span class="alert" style="color:red;"></span>
+                                                        <input type="tel" class="form-control create_post_input"
+                                                            placeholder="ex. +1 456789456">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label class="create_post_label">Phone 2 </label>
-                                                        <input type="number" class="form-control create_post_input"
-                                                            placeholder="ex. +1 456789456" name="phone2" id="phone2">
-                                                            <span class="phonealert" style="color:red;"></span>
+                                                        <input type="tel" class="form-control create_post_input"
+                                                            placeholder="ex. +1 456789456">
                                                     </div>
                                                 </div>
-                                                
-                                           
+
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -179,13 +213,13 @@
 
                                     <div class="create_post_main">
                                         <div class="create_post_body">
-                                            
+                                            <form class="create_post_form">
                                                 <h2>About storage</h2>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
                                                         <label class="create_post_label">Number of floors</label>
                                                         <input type="text" class="form-control create_post_input"
-                                                            placeholder="0" name="no_of_floors" required>
+                                                            placeholder="0">
                                                     </div>
 
                                                 </div>
@@ -195,7 +229,11 @@
                                                         <label class="create_post_label">Size</label>
                                                         <div class="create_size_box">
                                                             <span>Sq. ft</span>
-                                                            <input type="text" name="size" class="form-control create_post_input" placeholder="0" required>
+                                                            <select class="form-control create_post_input">
+                                                                <option>800</option>
+                                                                <option>1000</option>
+                                                                <option>1200</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -205,15 +243,22 @@
                                                     <div class="form-group col-md-12">
                                                         <label class="create_post_label">Storage </label>
                                                         <div class="create_storage_box">
-                                                            
-                                                            <a class="btn btn-primary create_add_btn" onclick="AddFunction()" style="color: white;">Add</a>
+                                                            <input type="text" class="form-control create_post_input"
+                                                                placeholder="Dimension">
+                                                            <input type="text" class="form-control create_post_input"
+                                                                placeholder="Inventory">
+                                                            <input type="text" class="form-control create_post_input"
+                                                                placeholder="Price">
+                                                            <input type="text" class="form-control create_post_input"
+                                                                placeholder="Surface (pi2)">
+                                                            <button class="btn btn-primary create_add_btn" style="max-width: 90px;padding: 8px 30px;background: #000000;border-radius: 38px;width: 210px;border: none;font-weight: 600;border: none;">Add</button>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="table-responsive-sm">
 
-                                                    <table class="table" id="dynamicAddRemove">
+                                                    <table class="table">
                                                         <thead class="thead-light">
                                                             <tr>
                                                                 <th scope="col">Dimension</th>
@@ -225,35 +270,71 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td scope="row"><input type="text" class="form-control create_post_input"
-                                                                placeholder="Dimension" name="diamention[]" required></td>
-                                                                <td><input type="text" class="form-control create_post_input" name="inventory[]" placeholder="Inventory" required></td>
-                                                                <td><input type="text" class="form-control create_post_input" name="price[]" placeholder="Price" required></td>
-                                                                <td><input type="text" class="form-control create_post_input" name="surface[]" placeholder="Surface (pi2)" required></td>
-                                                                
+                                                                <td scope="row">5x10</td>
+                                                                <td>1</td>
+                                                                <td>50</td>
+                                                                <td>50</td>
+                                                                <td><a href="#" class="delete_text">Delete</a></td>
                                                             </tr>
-                                                            
+                                                            <tr>
+                                                                <td scope="row">5x10</td>
+                                                                <td>1</td>
+                                                                <td>50</td>
+                                                                <td>50</td>
+                                                                <td><a href="#" class="delete_text">Delete</a></td>
+                                                            </tr>
 
                                                         </tbody>
                                                     </table>
                                                 </div>
+
+
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label class="create_post_label">Aminites</label>
+                                                        <label class="create_post_label">Amenities </label>
                                                         <div class="create_amenities_box">
 
                                                             <div class="form-group">
-                                                                @foreach($aminites as $aminity)
                                                                 <div class="form-check form_check_active">
-                                                                    <input type="checkbox" class="form-check-input" name="aminites[]" value="{{$aminity->id}}">
-                                                                    <label class="form-check-label">{{$aminity->name}}</label>
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    <label class="form-check-label">Climate
+                                                                        Control</label>
                                                                 </div>
-                                                                @endforeach
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    <label class="form-check-label">Premium
+                                                                        Security</label>
+                                                                </div>
+                                                                <div class="form-check form_check_active">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    <label class="form-check-label">Vehicle
+                                                                        storage</label>
+                                                                </div>
+                                                                <div class="form-check form_check_active">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    <label class="form-check-label">Heated
+                                                                        storage</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    <label class="form-check-label">Cooled
+                                                                        storage</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input type="checkbox" class="form-check-input">
+                                                                    <label class="form-check-label">24x7</label>
+                                                                </div>
                                                             </div>
+
+
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                            
+
+
+
+                                            </form>
                                         </div>
                                     </div>
 
@@ -264,7 +345,7 @@
                                         <div class="create_post_body">
                                             <div class="create_post_form">
                                                 <h2 class="upload_title">Upload photos and videos</h2>
-                                                <div class="upload_img_row">
+                                                <!-- <div class="upload_img_row">
                                                     <div class="image_upload_main_wrapper">
                                                         <div class="image_upload_wrapper">
                                                             <div class="box">
@@ -272,7 +353,7 @@
                                                                 <div class="upload-options">
                                                                     <label>
                                                                         <input type="file" class="image-upload"
-                                                                            accept="image/*" name="img1" />
+                                                                            accept="image/*" />
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -286,7 +367,7 @@
                                                                 <div class="upload-options">
                                                                     <label>
                                                                         <input type="file" class="image-upload"
-                                                                            accept="image/*" name="img2" />
+                                                                            accept="image/*" />
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -300,7 +381,7 @@
                                                                 <div class="upload-options">
                                                                     <label>
                                                                         <input type="file" class="image-upload"
-                                                                            accept="image/*" name="img3"/>
+                                                                            accept="image/*" />
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -314,7 +395,7 @@
                                                                 <div class="upload-options">
                                                                     <label>
                                                                         <input type="file" class="image-upload"
-                                                                            accept="image/*" name="img4" />
+                                                                            accept="image/*" />
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -328,24 +409,35 @@
                                                                 <div class="upload-options">
                                                                     <label>
                                                                         <input type="file" class="image-upload"
-                                                                            accept="image/*" name="img5" />
+                                                                            accept="image/*" />
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                </div> -->
+                                                <!-- Upload img  -->
+                                                <div class="row image__upload_wrapper">
+                                                    <div class="col-sm-6 imgUp">
+                                                        <div class="imagePreview"></div>
+                                                        <label class="btn upload-img">
+                                                            <i class="fa fa-plus add_img_btn"></i> <input type="file"
+                                                                class="uploadFile img" value="Upload Photo"
+                                                                style="width: 0px;height: 0px;overflow: hidden;">
+                                                        </label>
+                                                    </div>
+                                                    <i class="fa fa-plus imgAdd"></i>
                                                 </div>
+                                                <!-- upload Img -->
                                                 <div class="upload_video_url_box my-3">
                                                     <h2 class="upload_title">Video url</h2>
 
                                                     <div class="form-group">
                                                         <input type="text" class="form-control create_post_input"
-                                                            placeholder="URL" name="url">
+                                                            placeholder="URL">
                                                     </div>
 
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -353,7 +445,6 @@
                                 </div>
 
                             </div>
-                       
                             <!-- / Step Content -->
                         </div>
                     </div>
@@ -364,15 +455,15 @@
                             <div class="flex justify-between">
                                 <div class="w-1/2">
                                     <button x-show="step > 1" @click="step--"
-                                        class="create_previous_btn">Previous</button>
+                                        class="btn create_previous_btn" style="background: rgb(255, 255, 255);border: 1px solid rgb(0, 0, 0);border-radius: 25px;font-family: Poppins;font-weight: 400;font-size: 16px;color: #000;padding: 10px 70px;">Previous</button>
                                 </div>
 
                                 <div class="w-1/2 text-right">
-                                    <button type="button" x-show="step < 4 " @click="step++"
-                                        class="btn creat_post_next">Next</button>
+                                    <button x-show="step < 4" @click="step++" type="button"
+                                        class="btn creat_post_next" style="    background: #000000;border-radius: 25px;font-family: 'Poppins';font-weight: 400;font-size: 16px;line-height: 24px;color: #FFFFFF;padding: 10px 80px;">Next</button>
 
-                                     <button @click="step = 'complete'" x-show="step === 4"
-                                        class="btn creat_post_next">Post</button>
+                                    <button type="submit" @click="step = 'complete'" x-show="step === 4"
+                                        class="btn creat_post_next" style="background: #000000;border-radius: 25px;font-family: 'Poppins';font-weight: 400;font-size: 16px;line-height: 24px;color: #FFFFFF;padding: 10px 80px;">Post</button>
                                 </div>
                             </div>
                         </div>
@@ -386,15 +477,17 @@
     <!-- Myads Section End -->
 
    @endsection
-  @section('customjs')
-  <script>
+   @section('customjs')
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>
+
         function app() {
             return {
                 step: 1,
                 passwordStrengthText: '',
                 togglePassword: false,
 
-                // image: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80',
+                 image: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80',
                 password: '',
                 gender: 'Male',
 
@@ -415,6 +508,7 @@
             }
         }
     </script>
+    <!-- Upload img js
     <script>
         function initImageUpload(box) {
             let uploadField = box.querySelector('.image-upload');
@@ -506,110 +600,34 @@
 
             }
         }
+    </script> -->
+    <script>
+        $(".imgAdd").click(function () {
+            $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-6 imgUp"><div class="imagePreview"></div><label class="btn upload-img"><i class="fa fa-plus"></i><input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
+        });
+        $(document).on("click", "i.del", function () {
+            //  to remove card
+            $(this).parent().remove();
+            // to clear image
+            // $(this).parent().find('.imagePreview').css("background-image","url('')");
+        });
+        $(function () {
+            $(document).on("change", ".uploadFile", function () {
+                var uploadFile = $(this);
+                var files = !!this.files ? this.files : [];
+                if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
 
-    </script>
+                if (/^image/.test(files[0].type)) { // only image file
+                    var reader = new FileReader(); // instance of the FileReader
+                    reader.readAsDataURL(files[0]); // read the local file
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="{{ config('global.front_base_seller_url').'js/select2.min.js' }}"></script>
-<script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
-
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-            var readURL = function (input) {
-
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('.profile-pic').attr('src', e.target.result);
+                    reader.onloadend = function () { // set image data as background of div
+                        //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                        uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
                     }
-                    reader.readAsDataURL(input.files[0]);
                 }
-            }
-
-            $(".file-upload").on('change', function () {
-                readURL(this);
-            });
-
-            displayCity();
-
-            /*$("#country_code").select2({"placeholder" : '---Select Country---'});
-            $("#city_code").select2({"placeholder" : '---Select City---'});*/
-
-            CKEDITOR.replace('address', { 
 
             });
         });
-
-
-        function displayCity() {
-
-            var country_code = $("#country_code").val();
-            var token = $("input[name=_token]").val();
-            var app_url = "{!! env('APP_URL'); !!}";
-            var s_ct = $("#s_ct").val();
-
-            $.ajax({
-                url: app_url + '/seller/city/',
-                type: "GET",
-                data: { 'country_code': country_code, '_token': token },
-                dataType: 'json',
-
-                success: function (data) {
-
-                    $('#city_code').empty();
-
-                    $.each(data.cities, function (index, display_city) {
-
-                        if (s_ct == display_city.id) {
-
-                            $('#city_code').append('<option value="' + display_city.id + '" selected>' + display_city.name + '</option>');
-                        }
-                        else {
-                            $('#city_code').append('<option value="' + display_city.id + '">' + display_city.name + '</option>');
-                        }
-                    });
-                }
-            });
-        }
-
-        $('#phone_one').keypress(function (e) {
-
-                var length = jQuery(this).val().length;
-
-                if(e.which != 8 && e.which != 0 && e.which != 16 && e.which != 43 && (e.which < 48 || e.which > 57)) {
-                    return false;
-                }
-                else if((length == 0) && (e.which == 48)) {
-                    return false;
-                }
-                else if(length < 3 || length > 15) {
-                    $("span.alert").html("Your number must be between 7 to 15 digits.");
-                }
-                else if(length > 7) {
-                    $("span.alert").html('');
-                }
-            });
-        $('#phone2').keypress(function (e) {
-
-                var length = jQuery(this).val().length;
-
-                if(e.which != 8 && e.which != 0 && e.which != 16 && e.which != 43 && (e.which < 48 || e.which > 57)) {
-                    return false;
-                }
-                else if((length == 0) && (e.which == 48)) {
-                    return false;
-                }
-                else if(length < 3 || length > 15) {
-                    $("span.phonealert").html("Your number must be between 7 to 15 digits.");
-                }
-                else if(length > 7) {
-                    $("span.phonealert").html('');
-                }
-            });
     </script>
-@stop
-  
+    @stop

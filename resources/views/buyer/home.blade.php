@@ -44,29 +44,190 @@
                                         <div class="banner_search_main">
                                             <form action="{{ url('storages')}}/{{$row->slug}}" method="get">
                                                 <div class="banner_text_location">
-                                                    <input type="text" placeholder="Enter Country, City or Zipcode" name="search">
+                                                    <input type="text" placeholder="Enter Country, City or Zipcode" name="search" class="search__accordin__input">
                                                 </div>
-                                                <div class="banner_text_price">                     
-                                                        <div class="form-group mb-0">
-                                                            <select class="form-control banner__Select__Dropdown" name="type">
-                                                                <option class="dropdown-item" value="">Select Type</option>
-                                                                <option class="dropdown-item" value="Heated">Heated</option>
-                                                                <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
 
-                                                    <div class="banner_text_price">                     
-                                                        <div class="form-group mb-0">
-                                                            <select class="form-control banner__Select__Dropdown" name="access">
-                                                                <option class="dropdown-item" value="">Select Access</option>
-                                                                <option class="dropdown-item" value="Inside">Inside</option>
-                                                                <option class="dropdown-item" value="Outside">Outside</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="banner__empty__box"></div>
+                                                <div class="banner_text_price" data-toggle="modal" data-target="#pricemodel">
+                                                    <input type="text" placeholder="Price">
+                                                    <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                                </div>
+
+                                                <div class="banner_text_filter">
+                                                    <input type="text" placeholder="Filter">
+                                                    <span class="filter_text"><i class="fa fa-filter"
+                                                                aria-hidden="true"></i></span>
+                                                </div>
+
+                                                
+                                                <div class="banner__empty__box"></div>
                                                 <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+                                                <div class="search__accordin">
+                                                        <div class="accordion-container">
+                                                            <!-- <h2>jQuery Accordion</h2> -->
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Access
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control banner__Select__Dropdown"
+                                                                            id="exampleFormControlSelect1">
+                                                                            <option>Select Access</option>
+                                                                            <option>Inside</option>
+                                                                            <option>Outside</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Types
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control banner__Select__Dropdown"
+                                                                            id="exampleFormControlSelect1">
+                                                                            <option>Select Type</option>
+                                                                            <option>Heated</option>
+                                                                            <option>Non-Heated</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Size
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control banner__Select__Dropdown"
+                                                                            id="exampleFormControlSelect1">
+                                                                            <option>Select Size</option>
+                                                                            <option value="5*10">5*10</option>
+                                                                            <option value="10*10">10*10</option>
+                                                                            <option value="10*15">10*15</option>
+                                                                            <option value="10*20">10*20</option>
+                                                                            <option value="10*30">10*30</option>
+                                                                            <option value="10*40">10*40</option>
+                                                                            <option value="1">Add Custom
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Features
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <form>
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-6">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        id="gridCheck">
+                                                                                    <label class="form-check-label search__accordin__label" for="gridCheck">
+                                                                                        Ourdoor/Drive Up
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-6">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        id="gridCheck1">
+                                                                                    <label class="form-check-label search__accordin__label"
+                                                                                        for="gridCheck1">
+                                                                                        24/7
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-6">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        id="gridCheck2">
+                                                                                    <label class="form-check-label search__accordin__label"
+                                                                                        for="gridCheck2">
+                                                                                        RV/Boat/Vehicle Storage
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-6">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox" 
+                                                                                        id="gridCheck3">
+                                                                                    <label class="form-check-label search__accordin__label"
+                                                                                        for="gridCheck3">
+                                                                                        Self-Checkin
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Rating
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <div class="rating_box_content">
+                                                                        <div class="form-group">
+                                                                            <div class="form-check active">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="5 Star">
+                                                                                <label class="form-check-label" for="5 Star">5
+                                                                                    Star</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="4 Star">
+                                                                                <label class="form-check-label" for="4 Star">4
+                                                                                    Star</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="3 Star">
+                                                                                <label class="form-check-label" for="3 Star">3
+                                                                                    Star</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="2+ Star">
+                                                                                <label class="form-check-label" for="2+ Star">2+
+                                                                                    Star</label>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <div class="row py-2 px-2">
+                                                                    <div class="col-12 col-sm-6 col-md-6">
+                                                                        <a href="#" class="btn accordion_reset_btn">Reset</a>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-6 col-md-6">
+                                                                        <a href="#" class="btn accordion_reset_btn">Close</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -75,29 +236,188 @@
                                         <div class="banner_search_main">
                                             <form action="{{ url('storages')}}/{{$row->slug}}" method="get">
                                                 <div class="banner_text_location">
-                                                    <input type="text" placeholder="Country, City or Zipcode" name="search">
+                                                    <input type="text" placeholder="Country, City or Zipcode" name="search" class="search__accordin__input">
                                                 </div>
-                                               <div class="banner_text_price">                     
-                                                        <div class="form-group mb-0">
-                                                            <select class="form-control banner__Select__Dropdown" name="type">
-                                                                <option class="dropdown-item" value="">Select Type</option>
-                                                                <option class="dropdown-item" value="Heated">Heated</option>
-                                                                <option class="dropdown-item" value="Non-Heated">Non-Heated</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                                <div class="banner_text_price" data-toggle="modal" data-target="#pricemodel">
+                                                    <input type="text" placeholder="Price">
+                                                    <span class="price_text"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                                </div>
 
-                                                    <div class="banner_text_price">                     
-                                                        <div class="form-group mb-0">
-                                                            <select class="form-control banner__Select__Dropdown" name="access">
-                                                                <option class="dropdown-item" value="">Select Access</option>
-                                                                <option class="dropdown-item" value="Inside">Inside</option>
-                                                                <option class="dropdown-item" value="Outside">Outside</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="banner__empty__box"></div>
+                                                <div class="banner_text_filter">
+                                                    <input type="text" placeholder="Filter">
+                                                    <span class="filter_text"><i class="fa fa-filter"
+                                                                aria-hidden="true"></i></span>
+                                                </div>
+                                                <div class="banner__empty__box"></div>
                                                 <button class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+
+                                                <div class="search__accordin">
+                                                        <div class="accordion-container">
+                                                            <!-- <h2>jQuery Accordion</h2> -->
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Access
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control banner__Select__Dropdown"
+                                                                            id="exampleFormControlSelect1">
+                                                                            <option>Select Access</option>
+                                                                            <option>Inside</option>
+                                                                            <option>Outside</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Types
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control banner__Select__Dropdown"
+                                                                            id="exampleFormControlSelect1">
+                                                                            <option>Select Type</option>
+                                                                            <option>Heated</option>
+                                                                            <option>Non-Heated</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Size
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control banner__Select__Dropdown"
+                                                                            id="exampleFormControlSelect1">
+                                                                            <option>Select Size</option>
+                                                                            <option value="5*10">5*10</option>
+                                                                            <option value="10*10">10*10</option>
+                                                                            <option value="10*15">10*15</option>
+                                                                            <option value="10*20">10*20</option>
+                                                                            <option value="10*30">10*30</option>
+                                                                            <option value="10*40">10*40</option>
+                                                                            <option value="1">Add Custom
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Features
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <form>
+                                                                        <div class="form-row">
+                                                                            <div class="form-group col-md-6">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        id="gridCheck">
+                                                                                    <label class="form-check-label search__accordin__label" for="gridCheck">
+                                                                                        Ourdoor/Drive Up
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-6">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        id="gridCheck1">
+                                                                                    <label class="form-check-label search__accordin__label"
+                                                                                        for="gridCheck1">
+                                                                                        24/7
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-6">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        id="gridCheck2">
+                                                                                    <label class="form-check-label search__accordin__label"
+                                                                                        for="gridCheck2">
+                                                                                        RV/Boat/Vehicle Storage
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-6">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox" 
+                                                                                        id="gridCheck3">
+                                                                                    <label class="form-check-label search__accordin__label"
+                                                                                        for="gridCheck3">
+                                                                                        Self-Checkin
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <a href="#">
+                                                                    Rating
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>
+                                                                <div class="content">
+                                                                    <div class="rating_box_content">
+                                                                        <div class="form-group">
+                                                                            <div class="form-check active">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="5 Star">
+                                                                                <label class="form-check-label" for="5 Star">5
+                                                                                    Star</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="4 Star">
+                                                                                <label class="form-check-label" for="4 Star">4
+                                                                                    Star</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="3 Star">
+                                                                                <label class="form-check-label" for="3 Star">3
+                                                                                    Star</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="2+ Star">
+                                                                                <label class="form-check-label" for="2+ Star">2+
+                                                                                    Star</label>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="set">
+                                                                <div class="row py-2 px-2">
+                                                                    <div class="col-12 col-sm-6 col-md-6">
+                                                                        <a href="#" class="btn accordion_reset_btn">Reset</a>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-6 col-md-6">
+                                                                        <a href="#" class="btn accordion_reset_btn">Close</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                </div>
+
                                             </form>
                                         </div>
                                     </div>
@@ -370,9 +690,101 @@
         </div>
     </section>
     <!-- Client Review Section End -->
+
+    <!-- Price Modal -->
+    <div class="Fiter_Model">
+        <div class="modal fade" id="pricemodel" tabindex="-1" role="dialog"
+            aria-labelledby="pricemodelCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Price</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                       
+                        <div class="col-md-6">
+                            <div class="mutiple_circle_range">
+                                <h2>Price</h2>
+                            </div>
+                        </div>
+                        <div class="mutiple_circle_range">
+                            <div class="filter_content">
+                                <div class="form-groups">
+                                    <input type="text" class="js-range-slider" name="price" value="" data-skin="round" data-type="double" data-min="0" data-max="20000000" data-grid="false" id="distance"/>
+
+                                    <div class="row mt-4">
+                                        <div class="col-lg-4 from_slide" style="width: 33.33%;">
+                                            <input type="number" maxlength="4" class="from" id="from_distance" placeholder="$100" name="price_from" value="">
+                                        </div>
+
+                                        <div class="col-lg-4 center_slide" style="width: 33.33%;">
+                                            <h6 class="center_slode_text">TO</h6>
+                                        </div>
+
+                                        <div class="col-lg-4 to_slide" style="width: 33.33%;">
+                                            <input type="number" maxlength="4" class="to" id="to_distance"placeholder="$20,000,000+" name="price_to" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer justify-content-start">
+                        <button type="button " class="btn cancel_btn"
+                            data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary model_save_btn">Save
+                            changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Price Modal -->
 @stop
 
 @section('customjs')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.search__accordin__input').click(function () {
+                $('.search__accordin').toggleClass('search__accordin__show');
+            });
+        });             
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".set > a").on("click", function () {
+                if ($(this).hasClass("active")) {
+                    $(this).removeClass("active");
+                    $(this)
+                        .siblings(".content")
+                        .slideUp(200);
+                    $(".set > a i")
+                        .removeClass("fa-minus-circle")
+                        .addClass("fa-plus-circle");
+                } else {
+                    $(".set > a i")
+                        .removeClass("fa-minus-circle")
+                        .addClass("fa-plus-circle");
+                    $(this)
+                        .find("i")
+                        .removeClass("fa-plus")
+                        .addClass("fa-minus-circle");
+                    $(".set > a").removeClass("active");
+                    $(this).addClass("active");
+                    $(".content").slideUp(200);
+                    $(this)
+                        .siblings(".content")
+                        .slideDown(200);
+                }
+            });
+        });
+    </script>
     <script type="text/javascript">
 
         getLocation();

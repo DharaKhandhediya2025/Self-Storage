@@ -125,6 +125,7 @@
                                                                                         <option value="{{ $value }}">{{ $value }}</option>
                                                                                     @endif
                                                                                 @endforeach
+                                                                                <option value="1">Add Custom</option>
                                                                             </select>
                                                                         </a>
                                                                     </div>
@@ -193,20 +194,27 @@
                                                 <h2>Rating</h2>
                                                 <div class="rating_box_content">
                                                     <div class="form-group" > 
-                                                <div class="form-check rating_cls active" id="ratingcls_5">
-                                                            <input type="radio" class="form-check-input" id="rating_4" name="rating" onclick="displayRatingStyle(5);" value="5" checked>5 Star
-                                                        </div>
-                                                @for($i=4;$i>=2;$i--)
+                                                
+                                                @for($i=5;$i>=2;$i--)
                                                         @foreach($storage as $key => $value)  
                                                         <?php
                                                             $avg = 0;
                                                             $avg = round($value->storage_rating_avg_rate,1);
                                                         ?> 
-                                                        @endforeach                     
+                                                        @endforeach 
+                                                        @if($rate == $i)                    
+                                                        <div class="form-check rating_cls active" id="ratingcls_{{$i}}">
+                                                            <input type="radio" class="form-check-input" id="rating_{{$i}}" name="rating" onclick="displayRatingStyle({{$i}});" value="{{$i}}" checked>{{$i}} Star
+                                                        </div>
+                                                        @elseif($i == 5 && $rate == '')
+                                                        <div class="form-check rating_cls active" id="ratingcls_{{$i}}">
+                                                            <input type="radio" class="form-check-input" id="rating_{{$i}}" name="rating" onclick="displayRatingStyle({{$i}});" value="{{$i}}" checked>{{$i}} Star
+                                                        </div>
+                                                        @else
                                                         <div class="form-check rating_cls" id="ratingcls_{{$i}}">
                                                             <input type="radio" class="form-check-input" id="rating_{{$i}}" name="rating" onclick="displayRatingStyle({{$i}});" value="{{$i}}">{{$i}} Star
                                                         </div>
-                                                        
+                                                        @endif
                                                 @endfor
                                                         
                                                     </div>
@@ -256,7 +264,7 @@
                         <div class="storage_grid_shorting">
                             <span class="sortbt_text">Sort by</span>
                         <form action="{{ url('storage')}}/{{$slug}}" method="get">
-                            <div class="dropdown_box">
+                            <div class="dropdown_box" style="margin-right: 20px;">
                                 <select class="form-control banner__Select__Dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="sort" style="margin-left: 20px;" onchange="window.location.href = this.value">
                                     <option value="">popularity</option>
                                     @if($sort == "Price high to low")
@@ -311,10 +319,8 @@
                             <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
                                 <div class="list_tab_box">
                                     <div class="row">
-                                        
                                         @if(isset($storage) && sizeof($storage) > 0)
                                             @foreach($storage as $key => $value)  
-
                                             <div class="col-12 mt-3">
                                                 <div class="grid__main__box">
                                                     <div class="grid_left_box">
@@ -346,12 +352,12 @@
                                                                 
                                                                 @if($avg > 0)
                                                                     <div class="list_rating_box">
-                                                                        <a href="#"><span>{{ $avg }}.0
+                                                                        <a href="#"><span>{{ round($avg) }}.0
                                                                         </span></a>
                                                                         <?php
-                                                                        $empty = 5 - $avg;
-                                                                        for ($i = 1; $i <= $avg; $i++) {
-                                                                             if($avg < $i ) {
+                                                                        $empty = 5 - round($avg);
+                                                                        for ($i = 1; $i <= round($avg); $i++) {
+                                                                             if(round($avg) < $i ) {
                                                                              }else {
                                                                                 ?>
                                                                                 <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"class="img-fluid"></a>
@@ -469,9 +475,9 @@
 
                                         <div
                                             class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-4 mt-md-4 mt-sm-4 mt-lg-0 mt-xl-0">
-                                            <div class="map_right_box" id="maps">
-                                            
-                                               <iframe width="100%" height="250" frameborder="0" style="border:0"src="https://www.google.com/maps/embed/v1/place?q=''&amp;key={{ env('GOOGLE_MAP_KEY') }}&q={{ $latitude }},{{ $longitude }}"   allowfullscreen></iframe>
+                                            <div class="map_right_box" id="maps" style="height: 800px!important;">
+                                         
+                                              
                                             
                                             </div>
                                         </div>
@@ -563,19 +569,34 @@
             }
 
     </script>
-     <script type="text/javascript">
+      <script type="text/javascript">
         function initMap() {
-          const myLatLng = { lat: {{$latitude}}, lng: {{$longitude}} };
-          const map = new google.maps.Map(document.getElementById("maps"), {
-            zoom: 5,
-            center: myLatLng,
-          });
+            const myLatLng = { lat: 22.2734719, lng: 70.7512559 };
+            const map = new google.maps.Map(document.getElementById("maps"), {
+                zoom: 5,
+                center: myLatLng,
+            });
   
-          new google.maps.Marker({
-            position: myLatLng,
-            map,
-           
-          });
+            var locations = {{ Js::from($locations) }};
+  
+            var infowindow = new google.maps.InfoWindow();
+  
+            var marker, i;
+              
+            for (i = 0; i < locations.length; i++) {  
+                  marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
+                  });
+                    
+                  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                      infowindow.setContent(locations[i][0]);
+                      infowindow.open(map, marker);
+                    }
+                  })(marker, i));
+  
+            }
         }
   
         window.initMap = initMap;

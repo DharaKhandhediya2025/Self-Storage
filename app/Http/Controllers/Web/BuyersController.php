@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Http\Request;
-use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,BuyerInquiry,Chat,StorageImages};
+use App\Models\{Buyer,Seller,Storage,FavoriteStorage,Country,Category,StorageRating,BuyerInquiry,Chat,StorageImages,StorageAminites,Aminites};
 use Illuminate\Support\Facades\{Auth,Hash};
-use DB,Session;
+use DB,Session,share;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
+
 
 class BuyersController extends Controller
 {
@@ -306,21 +307,54 @@ class BuyersController extends Controller
 
         $buyer_id = Auth::guard('buyer')->user()->id;
         $buyer = Buyer::where('id',$buyer_id)->first();
-        $favorites = FavoriteStorage::where('buyer_id',$buyer_id)->get();
 
-        return view('buyer.manage-profile',compact('buyer','favorites'));
+        return view('buyer.manage-profile',compact('buyer','buyer_id'));
     }
 
     public function getFavorite(Request $request) {
 
         $buyer_id = Auth::guard('buyer')->user()->id;
         $buyer = Buyer::where('id',$buyer_id)->first();
-        $storages = Storage::with('category','storage_image','favorite_storage')->orderby('id','desc')->get();
-        $favorites = FavoriteStorage::where('buyer_id',$buyer_id)->get();
 
-        return view('buyer.favorite-list',compact('buyer','favorites','storages','buyer_id'));
+        $get_list = FavoriteStorage::where('buyer_id',$buyer_id)->select('storage_id')->orderBy('created_at','desc')->get();
+
+        if($get_list->count() == 0) {
+            return view('buyer.favorite-list',compact('buyer','buyer_id'));
+        }
+
+        // Get all favourite storages
+        $query = Storage::with(['category','storage_image']);
+
+        $query = $query->with(['storage_aminites' => function($sql) {
+            $sql->with(['aminites_detail' => function($query) {
+                $query->select('id','name');
+            }]);
+        }]);
+        
+        $storages = $query->whereIN('id',$get_list)->get();
+
+        return view('buyer.favorite-list',compact('buyer','buyer_id','storages'));
     }
 
+    public function getContactedstorages(Request $request) {
+        $buyer_id = Auth::guard('buyer')->user()->id;
+        $buyer = Buyer::where('id',$buyer_id)->first();
+
+        $get_list = BuyerInquiry::where('buyer_id',$buyer_id)->select('storage_id')->orderBy('created_at','desc')->get();
+
+         $query = Storage::with(['category','storage_image']);
+
+        $query = $query->with(['storage_aminites' => function($sql) {
+            $sql->with(['aminites_detail' => function($query) {
+                $query->select('id','name');
+            }]);
+        }]);
+
+         $storages = $query->whereIN('id',$get_list)->get();
+
+         return view('buyer.contacted-storages',compact('buyer','buyer_id','storages'));
+
+    }
     public function updateProfile(Request $request) {
 
         $buyer_id = Auth::guard('buyer')->user()->id;
@@ -416,12 +450,18 @@ class BuyersController extends Controller
 
         $buyer_id = Auth::guard('buyer')->user()->id;
         $buyer = Buyer::where('id',$buyer_id)->first();
-        $storage = Storage::where('slug',$slug)->first();
+        $storage = Storage::withAvg('storage_rating','rate')->where('slug',$slug)->first();
         $storage_images = StorageImages::where('storage_id',$storage->id)->get();
+        $storage_aminites = StorageAminites::with('aminites_detail')->where('storage_id',$storage->id)->get();
         $storage_rates = StorageRating::with('buyer')->where('storage_id',$storage->id)->get();
         $count = sizeof($storage_rates);
+        // For Social Share
+            $current_url = url()->current();
+            $msg = 'Self Storage';
+            
+            //$socialShare = \Share::page($current_url,$msg)->facebook()->twitter()->linkedin()->whatsapp()->telegram();
 
-        return view('buyer.storage-details',compact('buyer','storage','storage_images','storage_rates','count'));
+        return view('buyer.storage-details',compact('buyer','buyer_id','storage','storage_images','storage_rates','count','storage_aminites'));
     }
 
     public function storageInquiry(Request $request , $slug) {
@@ -520,17 +560,54 @@ class BuyersController extends Controller
         }
     }
 
+    public static function getCommercialSizeList() {
+
+        $commercial_size = array();
+
+        $commercial_size['0-1000'] = "0-1000";
+        $commercial_size['1001-5000'] = "1001-5000";
+        $commercial_size['5001-10000'] = "5001-10000";
+        $commercial_size['10001-15000'] = "10001-15000";
+        $commercial_size['15001-20000'] = "15001-20000";
+        $commercial_size['20001-25000'] = "20001-25000";
+        $commercial_size['25001-50000'] = "25001-50000";
+        $commercial_size['50001-100000'] = "50001-100000";
+        $commercial_size['101000-101000+'] = "101000-101000+";
+
+        return $commercial_size;
+    }
+
+    public static function getResidentialSizeList() {
+
+        $residential_size = array();
+
+        $residential_size['5*10'] = "5*10";
+        $residential_size['10*10'] = "10*10";
+        $residential_size['10*15'] = "10*15";
+        $residential_size['10*20'] = "10*20";
+        $residential_size['10*30'] = "10*30";
+        $residential_size['10*40'] = "10*40";
+         
+        return $residential_size;
+    }
     
-   public function storageList(Request $request ,$slug) {
+    public function storageList(Request $request ,$slug) {
 
         $buyer_id = Auth::guard('buyer')->user()->id;
         $buyer = Buyer::where('id',$buyer_id)->first();
+
         // Get Search Fields
         $search = $request->search;
         $price = $request->price;
         $type = $request->type;
         $access = $request->access;
-       // echo $type;exit;
+        $from = $request->from;
+        $to = $request->to;
+        $size = $request->size;
+        $rate = $request->rating;
+        $sort = $request->sort;
+
+        //echo $size;exit;
 
         $category = Category::where('slug',$slug)->first();
 
@@ -542,19 +619,53 @@ class BuyersController extends Controller
             }]);
         }]);
 
+        $query->withAvg('storage_rating','rate')->withCount(['review' => function($query) {
+            $query->where('review','!=','');
+        }]);
+
         if($search != '') {
             
-            //$query->Join('country','country.id','=','storages.country');
+            $query->Join('country','country.id','=','storages.country');
         
             $query = $query->where(function($query) use ($search) {
             
                 $query = $query->where('storages.city','=',$search);
                 $query = $query->orwhere('storages.zipcode','=',$search);
-                //$query = $query->orwhere('country.name','=',$search);
+                $query = $query->orwhere('country.name','=',$search);
             });
-            
         }
-        // $storages = $query->where('cat_id',$category->id)->orderBy(->get();
+
+
+        if(isset($_COOKIE["current_latitude"])) {
+            $latitude = $_COOKIE["current_latitude"];
+        }
+
+        if(isset($_COOKIE["current_longitude"])) {
+            $longitude = $_COOKIE["current_longitude"];
+        }
+
+
+        if($to != '') {
+
+            $query = $query->select("storages.*"
+            ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+            * cos(radians(storages.latitude)) 
+            * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
+            + sin(radians(" .$latitude. ")) 
+            * sin(radians(storages.latitude))) AS distance"))->groupBy("storages.id")
+            ->having('distance', '<=', $to)->orderBy('distance','asc');
+        }
+
+        if($from != '') {
+
+            $query = $query->select("storages.*"
+            ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+            * cos(radians(storages.latitude)) 
+            * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
+            + sin(radians(" .$latitude. ")) 
+            * sin(radians(storages.latitude))) AS distance"))->groupBy("storages.id")
+            ->having('distance', '>=', $from)->orderBy('distance','asc');
+        }
 
         if($price != '') {  
             $query = $query->where(function($query) use ($price) {
@@ -562,9 +673,55 @@ class BuyersController extends Controller
             });
         }
 
-        if($type != '') {  
+        if($sort == 'Price low to high') {  
+            $query = $query->orderBy('storages.price','asc');
+        }
+        else if($sort == 'Price high to low') {  
+            $query = $query->orderBy('storages.price','desc');
+        }
+        else if($sort == 'Near me') { 
+
+            $query = $query->where(function($query) use ($sort) {
+                if(isset($_COOKIE["current_latitude"])) {
+                $latitude = $_COOKIE["current_latitude"];
+                }
+
+                if(isset($_COOKIE["current_longitude"])) {
+                $longitude = $_COOKIE["current_longitude"];
+                }
+                $query = $query->select(DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+                * cos(radians(storages.latitude)) 
+                * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
+                + sin(radians(" .$latitude. ")) 
+                * sin(radians(storages.latitude))) AS distance"))->orderby('distance', 'asc');
+            });
+        }
+        else if($sort == 'Highest rating') {
+
+            $query = $query->orderBy('storage_rating_avg_rate','desc');
+        }
+        else if($sort == 'Lowest rating') {
+            $query = $query->orderBy('storage_rating_avg_rate','asc');
+        }
+        else {
+            $query = $query->orderBy('storages.id','desc');
+        }
+
+        if($rate != '') {
+           $query->Join('storage_rating','storage_rating.storage_id','=','storages.id');
+            $query = $query->where('storage_rating.rate','=',$rate)->groupBy('storage_rating.rate');
+           // print_r($query); exit;
+        }
+
+        if($type != '') { 
             $query = $query->where(function($query) use ($type) {
                 $query = $query->where('storages.type','=',$type);        
+            });
+        }
+
+        if($size != '') {  
+            $query = $query->where(function($query) use ($size) {
+                $query = $query->where('storages.size','=',$size);        
             });
         }
 
@@ -574,10 +731,25 @@ class BuyersController extends Controller
             });
         }
 
+        
         $storage = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->get();
+        $store = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->first();
 
         $storages_count = sizeof($storage);
 
-        return view('buyer.storage-list',compact('storage','buyer_id','search','buyer','price','type','access','slug','category','storages_count'));
+        // Get Commercial Size
+        $commercial_size = self::getCommercialSizeList();
+
+        // Get Residential Size
+        $residential_size = self::getResidentialSizeList();
+
+        $locations = array();$i=0;
+        foreach ($storage as $key => $value) {
+            
+            $locations[$i] = [$value->address,$value->latitude,$value->longitude];
+            $i++;
+        }
+
+        return view('buyer.storage-list',compact('storage','buyer','buyer_id','search','price','type','access','slug','category','storages_count','from','to','rate','store','sort','latitude','longitude','commercial_size','residential_size','size','locations'));
     }
 }

@@ -55,8 +55,16 @@
                                 </div>
                             </div>
                             <div class="storage_name_box_right">
-                                <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-share" aria-hidden="true"></i></a>
+                                 <?php
+                                    $existRecord = App\Models\FavoriteStorage::where('buyer_id',$buyer_id)->where('storage_id',$storage->id)->first();
+                                ?>
+
+                                @if(isset($existRecord) && $existRecord != '')
+                                    <a href="javascript:addToFavourite({{ $storage->id }})" class="favorites_card_link new_a_cls_{{ $storage->id }}"><i class="fa fa-heart favorite_heart new_i_cls_{{ $storage->id }}" title="Remove From Favourite" style="margin-right: 190px;"></i></a>
+                                @else
+                                    <a href="javascript:addToFavourite({{ $storage->id }})" class="slider_crad_heart new_a_cls_{{ $storage->id }}"><i class="fa fa-heart-o heart_icon new_i_cls_{{ $storage->id }}" title="Add From Favourite"></i></a>
+                                @endif
+                                <a href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-share" aria-hidden="true"></i></a>
                                 <a href="#"><span>${{$storage->price}}/mo</span></a>
                             </div>
                         </div>
@@ -76,40 +84,53 @@
                         </div>
                         <div class="store_amenities_box">
                             <h4>Aminites</h4>
+                            @foreach($storage_aminites as $row)
                             <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/right_img.png') }}" alt="right_img" class="img-fluid"><span
-                                    class="store_amenities_span">Climate Control</span></a>
-                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/right_img.png') }}" alt="right_img" class="img-fluid"><span
-                                    class="store_amenities_span">Premium Security</span></a>
-                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/right_img.png') }}" alt="right_img" class="img-fluid"><span
-                                    class="store_amenities_span">Portable Container Storage</span></a>
-                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/right_img.png') }}" alt="right_img" class="img-fluid"><span
-                                    class="store_amenities_span">Vehicle Storage</span></a>
+                                    class="store_amenities_span">{{$row->aminites_detail->name}}</span></a>
+                            @endforeach
+                           
                         </div>
                         <div class="store_map_box">
                             <h4>Map</h4>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.297472214083!2d72.66809901483957!3d23.049553284939424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87960158f889%3A0x2bda7d524f9233f4!2sApp%20Ideas%20Infotech%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1677567040727!5m2!1sen!2sin"
-                                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe width="100%" height="250" frameborder="0" style="border:0"src="https://www.google.com/maps/embed/v1/place?q='{{$storage->address}}'&amp;key={{ env('GOOGLE_MAP_KEY') }}&q={{ $storage->latitude }},{{ $storage->longitude }}"   allowfullscreen></iframe>
                         </div>
                         <div class="storage_review_box">
                             <div class="storage_review_box_header">
                                 <div class="storage_review_box_header_lft">
                                     <div class="storage_header_lft_box">
-                                        <h2>4.0</h2>
+                                        <?php
+
+                                            $avg = 0;
+                                            $avg = round($storage->storage_rating_avg_rate,1);
+                                        ?>
+                                        <h2>{{ round($avg) }}.0</h2>
                                     </div>
                                     <div class="storage_header_lftrft_box">
+                                        
                                         <div>
-                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}" alt="star"
+                                            <?php
+                                        $empty = 5 - round($avg);
+                                        for ($i = 1; $i <= round($avg); $i++) {
+                                             if(round($avg) < $i ) {
+                                             }else {
+                                                ?>
+                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/star.png') }}" alt="star"class="img-fluid"></a>
+                                                <?
+                                             }
+                                        }
+                                        for ($i = 1; $i <= $empty; $i++) {
+                                             if($empty < $i ) {
+                                             }else {
+                                                ?>
+                                                <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star_empty.png') }}" alt="star"
                                                     class="img-fluid"></a>
-                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}" alt="star"
-                                                    class="img-fluid"></a>
-                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}" alt="star"
-                                                    class="img-fluid"></a>
-                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}" alt="star"
-                                                    class="img-fluid"></a>
-                                            <a href="#"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star_empty.png') }}" alt="star"
-                                                    class="img-fluid"></a>
+                                                <?
+                                             }
+                                        }
+                                        
+                                        ?>  
                                         </div>
+                                      
                                         <h6>({{$count}} Reviews)</h6>
                                     </div>
                                 </div>
@@ -145,20 +166,36 @@
                                                             @endif
                                                                
                                                             <h2>{{$buyer->name}}</h2>
-                                                            <div class="review_modal_star" id="img">
+                                                            <!-- <div class="review_modal_star" id="img">
                                                                 <span class="rating">
-                                                                <a type="radio" name="rate" value="1" id="rate1"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
+                                                                <a type="radio" name="rate" value="1"  id="rate1"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
                                                                         alt="review-star" class="img"></a>
                                                                 <a id="rate2" type="radio" name="rate" value="2"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
                                                                         alt="review-star" class="img"></a>
                                                                 <a id="rate3" type="radio" name="rate" value="3"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
                                                                         alt="review-star" class="img"></a>
-                                                                <aid="rate4" type="radio" name="rate" value="4"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
+                                                                <a id="rate4" type="radio" name="rate" value="4"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
+                                                                        alt="review-star" class="img"></a>
+                                                                <a id="rate5"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star_empty.png') }}"
+                                                                        alt="review-star" class="img"></a>
+                                                                </span>
+                                                            </div> -->
+
+                                                            <div class="review_modal_star" id="img">
+                                                                <span class="rating">
+                                                                <a type="radio" name="rate" value="1"  id="rate1"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
+                                                                        alt="review-star" class="img"></a>
+                                                                <a id="rate2" type="radio" name="rate" value="2"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
+                                                                        alt="review-star" class="img"></a>
+                                                                <a id="rate3" type="radio" name="rate" value="3"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
+                                                                        alt="review-star" class="img"></a>
+                                                                <a id="rate4" type="radio" name="rate" value="4"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}"
                                                                         alt="review-star" class="img"></a>
                                                                 <a id="rate5"><img src="{{ asset('public/Buyer-HTML/assets/img/review-star_empty.png') }}"
                                                                         alt="review-star" class="img"></a>
                                                                 </span>
                                                             </div>
+                                                            
                                                             <h6>How was your experience?</h6>
                                                             <p>Your feedback will help improve <br> your experience</p>
                                                             
@@ -198,12 +235,28 @@
                                     <h4>{{$row->buyer->name}}</h4>
                                     <h6>{{ $row->updated_at->diffForHumans() }}</h6>
                                     <ul class="d-flex">
-                                        <li><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}" alt="star" class="img-fluid"></li>
-                                        <li><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}" alt="star" class="img-fluid"></li>
-                                        <li><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}" alt="star" class="img-fluid"></li>
-                                        <li><img src="{{ asset('public/Buyer-HTML/assets/img/review-star_empty.png') }}" alt="star" class="img-fluid"></li>
-                                        <li><img src="{{ asset('public/Buyer-HTML/assets/img/review-star_empty.png') }}" alt="star" class="img-fluid">
-                                        </li>
+                                        <?php
+                                        $empty = 5 - $row->rate;
+                                        for ($i = 1; $i <= $row->rate; $i++) {
+                                             if($row->rate < $i ) {
+                                             }else {
+                                                ?>
+                                                <li><img src="{{ asset('public/Buyer-HTML/assets/img/review-star.png') }}" alt="star" class="img-fluid"></li>
+                                                <?
+                                             }
+                                        }
+                                        for ($i = 1; $i <= $empty; $i++) {
+                                             if($empty < $i ) {
+                                             }else {
+                                                ?>
+                                                <li><img src="{{ asset('public/Buyer-HTML/assets/img/review-star_empty.png') }}" alt="star" class="img-fluid"></li>
+                                                <?
+                                             }
+                                        }
+                                        
+                                        ?>
+                                        
+                                        
                                     </ul>
                                     <p>{!!$row->review!!}</p>
                                 </div>
@@ -438,6 +491,25 @@
     </div>
     <!-- chat Box End -->
 
+    <!-- Share Modal -->
+    <div class="modal fade Share__Model pr-0" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Share</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h6>Choose an Option to share</h6>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Share Modal -->
+
     @stop
   @section('customjs')
   <script>
@@ -452,5 +524,42 @@ $(document).ready(function() {
     $(this).nextAll().attr("src", "{{ asset('public/Buyer-HTML/assets/img/review-star_empty.png') }}");
   });
 });
+
+function addToFavourite(storage_id) {
+
+            var app_url = "{!! env('APP_URL') !!}";
+
+            $.ajax({
+                type: 'GET',
+                url:app_url+'/property-add-to-favorite/'+storage_id,
+                dataType:'json',
+                success: function(data) {
+
+                    if (data.message == 'Success') {
+
+                        $(".new_i_cls_"+storage_id).remove();
+
+                        // Add new HTML
+                        var html = '';
+                        html += '<i class="fa fa-heart favorite_heart new_i_cls_'+storage_id+'" title="Remove From Favourite" style="color: red;">'
+                        $(".new_a_cls_"+storage_id).append(html);
+                       
+                        alert("Add To Favourite Success.");
+                    }
+                    else if (data.message == 'Delete') {
+
+                        $(".new_i_cls_"+storage_id).remove();
+
+                        // Add new HTML
+                        var html = '';
+                        html += '<i class="fa fa-heart-o heart_icon new_i_cls_'+storage_id+'" title="Add From Favourite" ></i> ';
+                        $(".new_a_cls_"+storage_id).append(html);
+                       
+
+                        alert("Remove From Favourite List.");
+                    }
+                }
+            });
+        }
     </script>
     @stop

@@ -40,13 +40,30 @@ class WebController extends Controller
 
             if(auth()->guard('buyer')->user() == '' && auth()->guard('seller')->user() == '') {
 
-                $storages = Storage::with(['storage_aminites' => function($sql) {
-            
+                if(isset($_COOKIE["current_latitude"])) {
+                    $latitude = $_COOKIE["current_latitude"];
+                }
+
+                if(isset($_COOKIE["current_longitude"])) {
+                    $longitude = $_COOKIE["current_longitude"];
+                }
+
+                $query =  Storage::with(['category','storage_image'])->with(['storage_aminites' => function($sql) {
+
                     $sql->with(['aminites_detail' => function($query) {
                         $query->select('id','name');
                     }]);
+                }]);
 
-                }])->with(['category','storage_image'])->orderby('id','desc')->get();
+                $query = $query->select("storages.*"
+                ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+                * cos(radians(storages.latitude)) 
+                * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
+                + sin(radians(" .$latitude. ")) 
+                * sin(radians(storages.latitude))) AS distance"))->groupBy("storages.id")
+                ->having('distance', '<=', 50)->orderBy('distance','asc');
+                    
+                $storages = $query->get();
 
                 return view('index',compact('storages','categories'));
             }
@@ -536,24 +553,26 @@ class WebController extends Controller
             $longitude = $_COOKIE["current_longitude"];
         }
 
-
         if($to != '') {
 
-            $query = $query->select(DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+            $query = $query->select("storages.*"
+            ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
             * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
             + sin(radians(" .$latitude. ")) 
-            * sin(radians(storages.latitude))) AS distance"))->having('distance', '<=', $to);
+            * sin(radians(storages.latitude))) AS distance"))->groupBy("storages.id")
+            ->having('distance', '<=', $to)->orderBy('distance','asc');
         }
 
         if($from != '') {
 
-            $query = $query->select(
-            DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+            $query = $query->select("storages.*"
+            ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
             * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
             + sin(radians(" .$latitude. ")) 
-            * sin(radians(storages.latitude))) AS distance"))->having('distance', '>=', $from);
+            * sin(radians(storages.latitude))) AS distance"))->groupBy("storages.id")
+            ->having('distance', '>=', $from)->orderBy('distance','asc');
         }
 
         if($price != '') {  
@@ -568,13 +587,16 @@ class WebController extends Controller
         else if($sort == 'Price high to low') {  
             $query = $query->orderBy('storages.price','desc');
         }
-        else if($sort == 'Near me') {  
+        else if($sort == 'Near me') {
 
-            $query = $query->select(DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
+            $query = $query->select("storages.*"
+            ,DB::raw("6371 * acos(cos(radians(" . $latitude . ")) 
             * cos(radians(storages.latitude)) 
             * cos(radians(storages.longitude) - radians(" . $longitude . ")) 
             + sin(radians(" .$latitude. ")) 
-            * sin(radians(storages.latitude))) AS distance"))->orderby('distance', 'asc');
+            * sin(radians(storages.latitude))) AS distance"))->groupBy("storages.id")
+            ->having('distance', '<=', 50)->orderBy('distance','asc');
+
         }
         else if($sort == 'Highest rating') {
 
@@ -593,6 +615,12 @@ class WebController extends Controller
             });
         }
 
+        if($rate != '') {
+           $query->Join('storage_rating','storage_rating.storage_id','=','storages.id');
+            $query = $query->where('storage_rating.rate','=',$rate)->groupBy('storage_rating.rate');
+           // print_r($query); exit;
+        }
+
         if($size != '') {  
             $query = $query->where(function($query) use ($size) {
                 $query = $query->where('storages.size','=',$size);        
@@ -604,19 +632,26 @@ class WebController extends Controller
                 $query = $query->where('storages.access','=',$access);        
             });
         }
-
         
-        $storage = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->get();
-        $store = $query->where('cat_id',$category->id)->orderBy('storages.id','desc')->first();
+        $storage = $query->where('storages.cat_id',$category->id)->orderBy('storages.id','desc')->get();
+
+
+        $store = $query->where('storages.cat_id',$category->id)->orderBy('storages.id','desc')->first();
 
         $storages_count = sizeof($storage);
-
         // Get Commercial Size
         $commercial_size = self::getCommercialSizeList();
 
         // Get Residential Size
         $residential_size = self::getResidentialSizeList();
 
-        return view('storage-list',compact('storage','search','price','type','access','slug','category','storages_count','from','to','rate','store','sort','latitude','longitude','commercial_size','residential_size','size'));
+        $locations = array();$i=0;
+        foreach ($storage as $key => $value) {
+            
+            $locations[$i] = [$value->city,$value->latitude,$value->longitude];
+            $i++;
+        }
+
+        return view('storage-list',compact('storage','search','price','type','access','slug','category','storages_count','from','to','rate','store','sort','latitude','longitude','commercial_size','residential_size','size','locations'));
     }
 }

@@ -9,15 +9,15 @@
             <div class="my_account_tabing">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link" href="{{ url('/manage-profile') }}">My Profile</a>
-                    <a class="nav-link active" href="{{ url('/favorite-list') }}" >Favorites</a>
-                    <a class="nav-link" id="storages-tab" href="{{ url('/contacted-storages') }}">Contacted storages</a> 
+                    <a class="nav-link" href="{{ url('/favorite-list') }}" >Favorites</a>
+                    <a class="nav-link active" id="storages-tab" href="{{ url('/contacted-storages') }}">Contacted storages</a> 
                     <a class="nav-link" href="{{ url('/change-password') }}" >Change password</a>
                     <a href="{{ url('/web-logout') }}" class="nav-link log_out_text" onclick="return confirm('Are you sure you want to logout?')">Logout</a>
                 </div>
 
                 <div class="tab-content" id="v-pills-tabContent">
                     
-                        <h2>Favorites</h2>
+                        <h2>Contacted Storages</h2>
                         <div class="favorites_card_main">
                             @if(isset($storages) && sizeof($storages) > 0)
                                 @foreach($storages as $key => $value)
@@ -115,7 +115,7 @@
                         $(".new_a_cls_"+storage_id).append(html);
                        
 
-                        location.reload();
+                        alert("Remove From Favourite List.");
                     }
                 }
             });

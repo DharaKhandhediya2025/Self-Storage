@@ -16,8 +16,7 @@
                     <a class="nav-link" id="favorites-tab"  href="{{ url('/favorite-list') }}" >Favorites</a>
                     @endif
 
-                    <!--<a class="nav-link" id="storages-tab" data-toggle="pill" href="#storages" role="tab"
-                        aria-controls="v-pills-messages" aria-selected="false">Contacted storages</a>-->
+                    <a class="nav-link" id="storages-tab" href="{{ url('/contacted-storages') }}">Contacted storages</a> 
 
                     <a class="nav-link active" id="password-tab" href="{{ url('/change-password') }}" >Change password</a>
 
