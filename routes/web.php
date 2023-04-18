@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\FeaturedPlanController;
+use App\Http\Controllers\Admin\FeaturesController;
 use App\Http\Controllers\Admin\TermsConditionController;
 use App\Http\Controllers\Admin\PrivacyPolicyController;
 
@@ -362,6 +363,13 @@ Route::group(['middleware' => 'PreventBackHistory'], function () {
         Route::get('edit-featured-plan/{id}',[FeaturedPlanController::class,'addUpdateFeaturedPlan'])->name('admin.updatefeaturedplan');
         Route::get('delete-featured-plan/{id}',[FeaturedPlanController::class,'deleteFeaturedPlan'])->name('admin.deletefeaturedplan');
         Route::get('view-featured-plan/{id}',[FeaturedPlanController::class,'viewFeaturedPlan'])->name('admin.viewfeaturedplan');
+
+        // Features
+        Route::get('features',[FeaturesController::class,'index'])->name('admin.features');
+        Route::get('add-features',[FeaturesController::class,'addUpdateFeatures'])->name('admin.addfeatures');
+        Route::post('add-edit-features',[FeaturesController::class,'saveFeatures'])->name('admin.savefeatures');
+        Route::get('edit-features/{id}',[FeaturesController::class,'addUpdateFeatures'])->name('admin.updatefeatures');
+        Route::get('delete-features/{id}',[FeaturesController::class,'deleteFeatures'])->name('admin.deletefeatures');
 
         // CMS Pages
 

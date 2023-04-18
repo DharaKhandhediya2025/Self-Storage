@@ -49,6 +49,12 @@
         </li>
 
         <li class="bold">
+            <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'features') ? 'active' : '' }}" href="{{ url('/admin/features') }}" title="Features">
+                <i class="material-icons">view_list</i><span class="menu-title" data-i18n="Features">Features</span>
+            </a>
+        </li>
+
+        <li class="bold">
             <a class="waves-effect waves-cyan {{ str_contains(request()->url(),'admin/sellers') ? 'active' : '' }}" href="{{ url('/admin/sellers') }}" title="Sellers">
                 <i class="material-icons">person</i><span class="menu-title" data-i18n="Sellers">Sellers
                 </span>
